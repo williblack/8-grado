@@ -1,1 +1,237 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase Interactiva: Aplicaciones de Bases de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .tab-active {
+            border-bottom: 4px solid #38bdf8;
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 relative">
+
+    <div class="absolute top-4 right-4 md:top-6 md:right-8 z-50 flex flex-wrap justify-end gap-2 max-w-full">
+        <a href="#" class="bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 font-bold py-2 px-3 md:px-4 rounded-xl shadow-sm hover:shadow-md transition-all flex items-center text-xs md:text-sm">
+            <i class="fas fa-home mr-1 md:mr-2 text-sky-400"></i> Inicio de Grado
+        </a>
+        <a href="#" class="bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 font-bold py-2 px-3 md:px-4 rounded-xl shadow-sm hover:shadow-md transition-all flex items-center text-xs md:text-sm">
+            <i class="fas fa-list mr-1 md:mr-2 text-indigo-400"></i> Menú del Periodo
+        </a>
+        <button onclick="copiarEnlace()" id="btnCopiar" class="bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-bold py-2 px-3 md:px-4 rounded-xl shadow-sm hover:shadow-[0_0_15px_rgba(56,189,248,0.5)] hover:scale-105 transition-all flex items-center text-xs md:text-sm border-none">
+            <i class="fas fa-link mr-1 md:mr-2"></i> <span id="textoCopiar">Copiar Enlace</span>
+        </button>
+    </div>
+    <header class="gradient-bg text-white py-12 pt-24 md:pt-16 px-6 text-center shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-sky-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-40 h-40 bg-indigo-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <p class="text-sky-400 font-bold tracking-widest uppercase text-sm mb-2">Colegio Santa Mariana de Jesús</p>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">El Poder de las Bases de Datos 🗄️</h1>
+            <p class="text-xl text-slate-300 mb-8">Prof. William Fdo Bernal</p>
+            
+            <div class="bg-white/10 p-6 rounded-2xl inline-block backdrop-blur-md border border-white/20">
+                <h2 class="text-sky-300 font-bold mb-2 underline decoration-sky-500">Objetivo de Aprendizaje</h2>
+                <p class="text-lg italic">"Aprender cómo las bases de datos organizan nuestra vida escolar, las tiendas que visitamos y nuestra asistencia diaria."</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-12 px-6 space-y-20">
+
+        <section id="analogias" class="space-y-8 text-center">
+            <h2 class="text-3xl font-bold text-slate-800">1. ¿Dónde las vemos en la vida real?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all border-t-4 border-blue-500 group">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🎓</div>
+                    <h3 class="text-xl font-bold mb-3">Control Académico</h3>
+                    <p class="text-slate-600 text-sm">Es como el <b>cerebro del colegio</b>. Guarda tus notas y fallas para generar el boletín al final del periodo.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all border-t-4 border-emerald-500 group">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">📦</div>
+                    <h3 class="text-xl font-bold mb-3">Inventarios</h3>
+                    <p class="text-slate-600 text-sm">Es el <b>orden de la tienda</b>. Registra cuántos cuadernos quedan y avisa si hay que comprar más.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all border-t-4 border-amber-500 group">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">⏱️</div>
+                    <h3 class="text-xl font-bold mb-3">Asistencia</h3>
+                    <p class="text-slate-600 text-sm">Es la <b>huella del tiempo</b>. Registra quién vino, quién faltó y quién trajo excusa médica.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="datalab" class="bg-white p-8 rounded-3xl shadow-xl border border-slate-200">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1 space-y-4">
+                    <h2 class="text-3xl font-bold text-slate-800">2. Data Lab: Visualizando el Inventario</h2>
+                    <p class="text-slate-600">Imagina que esta es la base de datos de la papelería del colegio. ¡Modifica los valores para ver cómo cambia la base de datos!</p>
+                    <div class="space-y-4 bg-slate-50 p-6 rounded-xl">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700">Stock de Cuadernos</label>
+                            <input type="range" id="val-cuadernos" min="0" max="100" value="45" class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600" oninput="updateChart()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700">Stock de Lápices</label>
+                            <input type="range" id="val-lapices" min="0" max="100" value="80" class="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateChart()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700">Stock de Borradores</label>
+                            <input type="range" id="val-borradores" min="0" max="100" value="30" class="w-full h-2 bg-amber-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="updateChart()">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 w-full max-w-md h-64">
+                    <canvas id="inventoryChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="gradient-bg text-white p-10 rounded-3xl shadow-2xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-2">🚀 Micro-Desafío</h2>
+                <p class="text-slate-300 italic text-sm">¡Demuestra que eres un maestro de los datos!</p>
+            </div>
+
+            <div id="quiz-container" class="max-w-2xl mx-auto space-y-6">
+                <div class="bg-white/10 p-6 rounded-2xl border border-white/10">
+                    <p class="text-lg font-bold mb-4">1. ¿Qué tipo de base de datos usarías para saber cuántos refrescos quedan en el estante?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button onclick="checkAnswer(this, false)" class="quiz-opt p-3 rounded-xl bg-white/5 hover:bg-white/20 transition-all text-left">A) Control Académico</button>
+                        <button onclick="checkAnswer(this, true)" class="quiz-opt p-3 rounded-xl bg-white/5 hover:bg-white/20 transition-all text-left">B) Control de Inventario</button>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 p-6 rounded-2xl border border-white/10">
+                    <p class="text-lg font-bold mb-4">2. Si un profesor anota que llegaste tarde, ¿en qué base de datos lo registra?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button onclick="checkAnswer(this, true)" class="quiz-opt p-3 rounded-xl bg-white/5 hover:bg-white/20 transition-all text-left">A) Control de Asistencia</button>
+                        <button onclick="checkAnswer(this, false)" class="quiz-opt p-3 rounded-xl bg-white/5 hover:bg-white/20 transition-all text-left">B) Control de Ventas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 p-6 bg-sky-500/20 border-2 border-dashed border-sky-400 rounded-2xl text-center">
+                <h3 class="text-xl font-bold text-sky-300 mb-2">Reto para el Cuaderno:</h3>
+                <p>Dibuja una tabla de Base de Datos para tu colección favorita (videojuegos, zapatos o libros) con al menos 3 columnas.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-8 text-center text-slate-500 text-sm border-t border-slate-200">
+        <p>© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
+    </footer>
+
+    <script>
+        // Inicialización de Chart.js
+        let ctx = document.getElementById('inventoryChart').getContext('2d');
+        let inventoryChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Cuadernos', 'Lápices', 'Borradores'],
+                datasets: [{
+                    label: 'Cantidad en Stock',
+                    data: [45, 80, 30],
+                    backgroundColor: [
+                        'rgba(56, 189, 248, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(245, 158, 11, 0.7)'
+                    ],
+                    borderColor: [
+                        '#0284c7',
+                        '#059669',
+                        '#d97706'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        function updateChart() {
+            const v1 = document.getElementById('val-cuadernos').value;
+            const v2 = document.getElementById('val-lapices').value;
+            const v3 = document.getElementById('val-borradores').value;
+            
+            inventoryChart.data.datasets[0].data = [v1, v2, v3];
+            inventoryChart.update();
+        }
+
+        function checkAnswer(btn, isCorrect) {
+            // Reset de hermanos
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.classList.remove('bg-emerald-500', 'bg-rose-500', 'text-white');
+                b.classList.add('bg-white/5');
+            });
+
+            if(isCorrect) {
+                btn.classList.remove('bg-white/5');
+                btn.classList.add('bg-emerald-500', 'text-white');
+            } else {
+                btn.classList.remove('bg-white/5');
+                btn.classList.add('bg-rose-500', 'text-white');
+            }
+        }
+
+        // -- Lógica para Copiar Enlace AÑADIDA --
+        function copiarEnlace() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const spanTexto = document.getElementById('textoCopiar');
+                const textoOriginal = spanTexto.innerText;
+                const boton = document.getElementById('btnCopiar');
+                
+                // Efecto visual de copiado
+                spanTexto.innerText = '¡Copiado!';
+                boton.classList.remove('from-sky-500', 'to-indigo-500');
+                boton.classList.add('from-emerald-500', 'to-teal-500');
+                
+                setTimeout(() => {
+                    spanTexto.innerText = textoOriginal;
+                    boton.classList.remove('from-emerald-500', 'to-teal-500');
+                    boton.classList.add('from-sky-500', 'to-indigo-500');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                alert("Hubo un error al copiar el enlace.");
+            });
+        }
+    </script>
+</body>
+</html>
