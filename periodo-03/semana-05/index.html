@@ -3,167 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtros en Excel - Grado 8</title>
+    <title>Semana 5 - Filtros en Excel | Prof. William Bernal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Flip Card CSS */
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; transition: transform 0.6s; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-        .group:hover .flip-inner { transform: rotateY(180deg); }
+        /* Motor de Estilos Personalizado y Animaciones */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #1e1e2f; }
-        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Flip Card CSS para Analogías */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .flip-card-front {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+        .flip-card-back {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* Animaciones para el Quiz */
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white font-sans overflow-x-hidden">
+<body class="p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto flex justify-end gap-3 p-4">
-        <a href="../../../index.html" class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10">
-            ⬅ Inicio (Grado)
+    <div class="max-w-5xl mx-auto flex flex-wrap justify-end gap-3 mb-8">
+        <a href="../../../index.html"
+           class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10">
+           ⬅ Inicio (Grado)
         </a>
-        <a href="../../index.html" class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 shadow-purple-500/30">
-            ⬅ Menú del Periodo
+        <a href="../../index.html"
+           class="bg-purple-600/90 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 border border-purple-400/30">
+           ⬅ Menú del Periodo
         </a>
-        <button type="button" onclick="copiarEnlace()" class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 shadow-emerald-500/30">
-            🔗 Copiar enlace
+        <button type="button" onclick="copiarEnlace()"
+           class="bg-emerald-600/90 text-white px-4 py-2 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 border border-emerald-400/30">
+           🔗 Copiar enlace
         </button>
     </div>
 
-    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/80 text-emerald-400 px-6 py-3 rounded-xl shadow-2xl backdrop-blur border border-emerald-500/30 z-50 transition-all">
-        Enlace copiado correctamente ✅
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/80 text-white px-6 py-3 rounded-xl shadow-2xl backdrop-blur border border-white/20 z-50 transition-opacity">
+        Enlace copiado ✅
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 pb-12">
-        
-        <header class="text-center mb-12 animate-fade-in-down">
-            <h2 class="text-emerald-400 font-bold tracking-widest uppercase text-sm mb-2">Colegio Santa Mariana de Jesús | Grado 8°</h2>
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500 drop-shadow-lg">
-                El Poder de los Filtros en Excel
-            </h1>
-            <p class="text-xl text-slate-300 mb-6">Semana 5 - Prof. William Fdo Bernal</p>
-            
-            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl max-w-3xl mx-auto shadow-2xl hover:bg-white/15 transition-all duration-300">
-                <h3 class="text-2xl font-bold text-teal-300 mb-2">🎯 Objetivo de Aprendizaje</h3>
-                <p class="text-lg text-slate-200">
-                    Comprender qué es un filtro, cómo activarlo y cómo utilizar filtros de Texto, Número y Fecha para dominar grandes cantidades de información de forma rápida y sencilla.
-                </p>
+    <div class="max-w-5xl mx-auto space-y-12">
+
+        <header class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10">
+                <p class="text-emerald-400 font-semibold tracking-wider mb-2">COLEGIO SANTA MARIANA DE JESÚS | GRADO 8°</p>
+                <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200 drop-shadow-lg">
+                    Semana 5: Magia con Filtros
+                </h1>
+                <p class="text-xl text-blue-200 mb-6">Prof. William Fdo Bernal</p>
+                
+                <div class="inline-block glass-card rounded-2xl p-6 mt-4 border-l-4 border-emerald-400">
+                    <h3 class="text-2xl font-bold mb-2 text-white">🎯 Objetivo de Aprendizaje</h3>
+                    <p class="text-slate-300">Aprender a utilizar los filtros en Excel para encontrar y organizar información rápidamente, comprendiendo los filtros de texto, número y fecha.</p>
+                </div>
             </div>
         </header>
 
-        <section class="mb-16">
-            <h3 class="text-3xl font-bold mb-8 text-center border-b border-white/10 pb-4">🧠 Conceptos Clave (Pasa el ratón)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <div class="group perspective-1000 h-64 cursor-pointer">
-                    <div class="flip-inner relative w-full h-full transform-style-3d shadow-xl rounded-2xl">
-                        <div class="absolute w-full h-full backface-hidden bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex flex-col items-center justify-center p-6 border border-white/10">
-                            <span class="text-5xl mb-4">🔤</span>
-                            <h4 class="text-2xl font-bold text-center">Filtro de Texto</h4>
+        <section>
+            <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">🧠</span> Conceptos Clave (Pasa el ratón)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="flip-card">
+                    <div class="flip-card-inner shadow-xl">
+                        <div class="flip-card-front">
+                            <span class="text-5xl mb-3">🍝</span>
+                            <h3 class="font-bold text-xl">¿Qué es un Filtro?</h3>
                         </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-slate-800 rounded-2xl p-6 border border-blue-500/50 flex items-center justify-center text-center">
-                            <p class="text-lg">¡Como la lista de invitados a una fiesta! Le dices a Excel: <strong>"Muéstrame solo a los que se llamen 'María'"</strong> o <strong>"Solo los de 'Octavo'"</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group perspective-1000 h-64 cursor-pointer">
-                    <div class="flip-inner relative w-full h-full transform-style-3d shadow-xl rounded-2xl">
-                        <div class="absolute w-full h-full backface-hidden bg-gradient-to-br from-emerald-600 to-emerald-800 rounded-2xl flex flex-col items-center justify-center p-6 border border-white/10">
-                            <span class="text-5xl mb-4">🔢</span>
-                            <h4 class="text-2xl font-bold text-center">Filtro de Número</h4>
-                        </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-slate-800 rounded-2xl p-6 border border-emerald-500/50 flex items-center justify-center text-center">
-                            <p class="text-lg">Sirve para matemáticas. Le pides: <strong>"Muéstrame notas mayores a 3.0"</strong> o <strong>"Edades entre 12 y 14 años"</strong>.</p>
+                        <div class="flip-card-back">
+                            <p class="font-semibold text-lg text-center">Es como un colador de cocina.</p>
+                            <p class="text-sm mt-2 text-center">Deja pasar la información que necesitas y oculta temporalmente el resto.</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="group perspective-1000 h-64 cursor-pointer">
-                    <div class="flip-inner relative w-full h-full transform-style-3d shadow-xl rounded-2xl">
-                        <div class="absolute w-full h-full backface-hidden bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl flex flex-col items-center justify-center p-6 border border-white/10">
-                            <span class="text-5xl mb-4">📅</span>
-                            <h4 class="text-2xl font-bold text-center">Filtro de Fecha</h4>
+                <div class="flip-card">
+                    <div class="flip-card-inner shadow-xl">
+                        <div class="flip-card-front bg-gradient-to-br from-pink-500 to-rose-500">
+                            <span class="text-5xl mb-3">🔤</span>
+                            <h3 class="font-bold text-xl">Filtro de Texto</h3>
                         </div>
-                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-slate-800 rounded-2xl p-6 border border-purple-500/50 flex items-center justify-center text-center">
-                            <p class="text-lg">La máquina del tiempo. Pides: <strong>"Nacidos el año pasado"</strong> o <strong>"Los que cumplen en Febrero"</strong>.</p>
+                        <div class="flip-card-back bg-gradient-to-br from-rose-600 to-red-700">
+                            <p class="font-semibold text-lg text-center">Busca palabras.</p>
+                            <p class="text-sm mt-2 text-center">Ej: Mostrar solo a los alumnos llamados "Carlos" o que están en "Octavo".</p>
                         </div>
                     </div>
                 </div>
-
+                <div class="flip-card">
+                    <div class="flip-card-inner shadow-xl">
+                        <div class="flip-card-front bg-gradient-to-br from-orange-400 to-amber-500">
+                            <span class="text-5xl mb-3">🔢</span>
+                            <h3 class="font-bold text-xl">Filtro de Número</h3>
+                        </div>
+                        <div class="flip-card-back bg-gradient-to-br from-amber-600 to-orange-700">
+                            <p class="font-semibold text-lg text-center">Busca cantidades.</p>
+                            <p class="text-sm mt-2 text-center">Ej: Mostrar solo a los estudiantes con edad "Mayor a 13 años".</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner shadow-xl">
+                        <div class="flip-card-front bg-gradient-to-br from-cyan-500 to-blue-500">
+                            <span class="text-5xl mb-3">📅</span>
+                            <h3 class="font-bold text-xl">Filtro de Fecha</h3>
+                        </div>
+                        <div class="flip-card-back bg-gradient-to-br from-blue-600 to-cyan-700">
+                            <p class="font-semibold text-lg text-center">Busca en el tiempo.</p>
+                            <p class="text-sm mt-2 text-center">Ej: Mostrar solo los cumpleaños del mes de "Febrero".</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="mb-16 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
-            <h3 class="text-3xl font-bold mb-6 text-center">⚙️ Data Lab: Simulador de Filtros</h3>
-            <p class="text-center text-slate-300 mb-8">Haz clic en los botones para aplicar filtros a la tabla y observa cómo se actualiza la gráfica en tiempo real.</p>
+        <section class="glass-card rounded-3xl p-8 shadow-2xl border border-white/10">
+            <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">🕹️</span> Simulador de Filtros</h2>
+            <p class="text-slate-300 mb-6">Juega con los botones para ver cómo actúan los filtros en una tabla de datos real.</p>
             
-            <div class="flex flex-wrap justify-center gap-3 mb-8">
-                <button onclick="applyFilter('todos')" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:scale-105">🔄 Mostrar Todos</button>
-                <button onclick="applyFilter('texto')" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg shadow-blue-500/30 hover:scale-105">🔤 Texto: Solo 'Octavo'</button>
-                <button onclick="applyFilter('numero')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg shadow-emerald-500/30 hover:scale-105">🔢 Número: Notas > 4.0</button>
-                <button onclick="applyFilter('fecha')" class="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg shadow-purple-500/30 hover:scale-105">📅 Fecha: Cumple en Febrero</button>
+            <div class="flex flex-wrap gap-4 mb-6">
+                <button onclick="filtrarTabla('todos')" class="bg-slate-600 hover:bg-slate-500 text-white px-5 py-2 rounded-lg transition-colors shadow-md">Mostrar Todos</button>
+                <button onclick="filtrarTabla('texto')" class="bg-pink-600 hover:bg-pink-500 text-white px-5 py-2 rounded-lg transition-colors shadow-md">🔤 Filtro Texto: Solo 'Sistemas'</button>
+                <button onclick="filtrarTabla('numero')" class="bg-orange-600 hover:bg-orange-500 text-white px-5 py-2 rounded-lg transition-colors shadow-md">🔢 Filtro Número: Notas > 80</button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-700 shadow-inner">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-800 text-teal-300 border-b border-slate-700">
-                                <th class="p-3">Nombre ▼</th>
-                                <th class="p-3">Grado ▼</th>
-                                <th class="p-3">Nota ▼</th>
-                                <th class="p-3">Mes Cumple ▼</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody" class="text-sm">
-                            </tbody>
-                    </table>
-                </div>
+            <div class="overflow-x-auto rounded-xl border border-white/20 mb-8">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-white/10 text-emerald-300">
+                            <th class="p-4 border-b border-white/10">Estudiante 🔽</th>
+                            <th class="p-4 border-b border-white/10">Materia 🔽</th>
+                            <th class="p-4 border-b border-white/10">Nota Final 🔽</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaSimulador" class="text-slate-200">
+                        <tr class="fila-dato border-b border-white/5 bg-white/5" data-materia="Sistemas" data-nota="95">
+                            <td class="p-4">Ana Gómez</td><td class="p-4">Sistemas</td><td class="p-4">95</td>
+                        </tr>
+                        <tr class="fila-dato border-b border-white/5 hover:bg-white/5" data-materia="Matemáticas" data-nota="75">
+                            <td class="p-4">Carlos Ruiz</td><td class="p-4">Matemáticas</td><td class="p-4">75</td>
+                        </tr>
+                        <tr class="fila-dato border-b border-white/5 bg-white/5" data-materia="Sistemas" data-nota="88">
+                            <td class="p-4">Laura Pérez</td><td class="p-4">Sistemas</td><td class="p-4">88</td>
+                        </tr>
+                        <tr class="fila-dato border-b border-white/5 hover:bg-white/5" data-materia="Arte" data-nota="92">
+                            <td class="p-4">Juan Díaz</td><td class="p-4">Arte</td><td class="p-4">92</td>
+                        </tr>
+                        <tr class="fila-dato border-b border-white/5 bg-white/5" data-materia="Ciencias" data-nota="65">
+                            <td class="p-4">Sofía Castro</td><td class="p-4">Ciencias</td><td class="p-4">65</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <div class="bg-slate-900 rounded-xl p-4 border border-slate-700 flex flex-col items-center justify-center">
-                    <h4 class="text-center text-slate-400 mb-2 text-sm">Distribución de Notas (Alumnos Visibles)</h4>
-                    <canvas id="filterChart" width="400" height="250"></canvas>
+            <div class="bg-blue-900/40 border border-blue-400/30 rounded-2xl p-6">
+                <h3 class="text-xl font-bold text-blue-300 mb-3 flex items-center gap-2">🤖 ¿No tienes la base de datos de la clase?</h3>
+                <p class="text-sm text-slate-300 mb-4">Si estás practicando en casa y necesitas datos, copia este texto (Prompt) y pégalo en una Inteligencia Artificial (como ChatGPT o Gemini) para que te genere una tabla al instante:</p>
+                <div class="relative">
+                    <textarea id="promptIA" readonly class="w-full h-32 bg-black/50 text-emerald-400 p-4 rounded-xl border border-white/10 text-sm font-mono resize-none focus:outline-none focus:border-emerald-500 transition-colors">Actúa como un profesor de tecnología. Créame una tabla de datos de 30 registros y 5 columnas (Nombre, Edad, Grado, Materia Favorita, Fecha de Nacimiento) con datos ficticios de estudiantes. Entrega el resultado estrictamente en un formato de tabla que pueda copiar y pegar fácilmente directamente en Microsoft Excel.</textarea>
+                    <button onclick="copiarPrompt()" class="absolute bottom-4 right-4 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm transition-colors shadow-lg">📋 Copiar Prompt</button>
                 </div>
             </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
-            <div class="bg-gradient-to-br from-indigo-900 to-blue-900 rounded-3xl p-8 border border-white/10 shadow-2xl">
-                <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">🕹️ Micro-Quiz de Comprobación</h3>
-                <div id="quiz-container">
-                    <p class="text-lg mb-4" id="question-text">1. ¿Qué pestaña de Excel debemos abrir para activar el botón de Filtro?</p>
-                    <div class="flex flex-col gap-3" id="options-container">
-                        <button onclick="checkAnswer(this, false)" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl text-left transition-all">A) Pestaña Insertar</button>
-                        <button onclick="checkAnswer(this, true)" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl text-left transition-all">B) Pestaña Datos</button>
-                        <button onclick="checkAnswer(this, false)" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl text-left transition-all">C) Pestaña Fórmulas</button>
+            <div class="glass-card rounded-3xl p-8">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2"><span class="text-3xl">🎮</span> Reto Rápido</h2>
+                <div id="quiz-container" class="space-y-6">
+                    <div class="pregunta-card bg-white/5 p-5 rounded-xl border border-white/10">
+                        <p class="font-semibold mb-3">1. Al aplicar un filtro, la información que no cumple la condición se...</p>
+                        <div class="grid grid-cols-1 gap-2">
+                            <button onclick="verificarRespuesta(this, false)" class="text-left px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">A) Borra para siempre.</button>
+                            <button onclick="verificarRespuesta(this, true)" class="text-left px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">B) Oculta temporalmente.</button>
+                        </div>
+                    </div>
+                    <div class="pregunta-card bg-white/5 p-5 rounded-xl border border-white/10">
+                        <p class="font-semibold mb-3">2. ¿En qué pestaña de Excel encontramos el botón del embudo (Filtro)?</p>
+                        <div class="grid grid-cols-1 gap-2">
+                            <button onclick="verificarRespuesta(this, true)" class="text-left px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">A) Pestaña Datos.</button>
+                            <button onclick="verificarRespuesta(this, false)" class="text-left px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors">B) Pestaña Inicio.</button>
+                        </div>
                     </div>
                 </div>
-                <div id="quiz-feedback" class="mt-4 hidden font-bold text-center p-3 rounded-xl"></div>
             </div>
 
-            <div class="bg-gradient-to-br from-orange-900/80 to-red-900/80 rounded-3xl p-8 border border-white/10 shadow-2xl flex flex-col justify-center">
-                <h3 class="text-2xl font-bold mb-4 text-orange-300 flex items-center gap-2">📝 Reto de Consulta y Aplicación</h3>
-                <p class="text-lg text-slate-200 mb-4">
-                    Para consolidar lo que vimos hoy, vas a realizar una pequeña investigación fuera del computador.
-                </p>
-                <div class="bg-black/30 p-5 rounded-xl border border-orange-500/30">
-                    <ul class="list-disc list-inside space-y-2 text-orange-100">
-                        <li>Investiga y escribe <strong>3 ejemplos reales</strong> de cómo una empresa (como un supermercado o un hospital) usaría los filtros de Excel en su día a día.</li>
-                        <li><strong>Instrucción de entrega:</strong> Este trabajo debe ser escrito a mano, con buena letra y ortografía, en una <strong class="text-white text-xl underline decoration-orange-500">hoja en blanco</strong> (hoja de bloc sin rayas) para ser entregada al profesor en la próxima clase.</li>
-                    </ul>
+            <div class="glass-card bg-gradient-to-br from-amber-900/40 to-orange-900/40 rounded-3xl p-8 border border-amber-500/30 flex flex-col justify-center">
+                <div class="text-center mb-6">
+                    <span class="text-6xl">📝</span>
+                </div>
+                <h2 class="text-2xl font-bold text-amber-400 mb-4 text-center">Misión de Investigación (Entregable)</h2>
+                <p class="text-slate-200 mb-4 text-center">Para profundizar nuestro aprendizaje, realiza la siguiente tarea:</p>
+                <div class="bg-black/30 p-5 rounded-xl border border-amber-500/20 text-center">
+                    <p class="font-semibold text-lg text-white">Investiga: ¿Cuál es la diferencia entre un <span class="text-amber-400">Filtro Normal</span> y un <span class="text-amber-400">Filtro Avanzado</span> en Excel?</p>
+                    <p class="text-sm mt-3 text-slate-300">Escribe tu respuesta y da un ejemplo de uso para cada uno.</p>
+                </div>
+                <div class="mt-6 flex justify-center">
+                    <span class="bg-amber-600/80 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                        ⚠️ Entregar en hoja en blanco la próxima clase
+                    </span>
                 </div>
             </div>
 
         </section>
 
-        <footer class="text-center bg-black/50 py-6 rounded-2xl border border-white/5 mt-12 backdrop-blur-sm">
+        <footer class="mt-16 py-8 text-center border-t border-white/10">
             <p class="text-slate-400 font-medium">© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
             <p class="text-sm text-slate-500 mt-1">Colegio Santa Mariana de Jesús</p>
         </footer>
@@ -171,7 +274,7 @@
     </div>
 
     <script>
-        // Función copiar enlace obligatoria
+        // 1. FUNCIÓN OBLIGATORIA: Copiar Enlace
         function copiarEnlace(){
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
@@ -187,141 +290,59 @@
             });
         }
 
-        // Datos del Simulador
-        const students = [
-            { nombre: "Ana G.", grado: "Octavo", nota: 4.5, mes: "Enero" },
-            { nombre: "Luis P.", grado: "Séptimo", nota: 3.2, mes: "Febrero" },
-            { nombre: "María C.", grado: "Octavo", nota: 4.8, mes: "Febrero" },
-            { nombre: "Carlos R.", grado: "Noveno", nota: 3.9, mes: "Marzo" },
-            { nombre: "Sofía M.", grado: "Octavo", nota: 2.8, mes: "Abril" },
-            { nombre: "Juan T.", grado: "Séptimo", nota: 4.1, mes: "Febrero" }
-        ];
-
-        let currentData = [...students];
-        let chartInstance = null;
-
-        // Renderizar Tabla
-        function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-            data.forEach((student, index) => {
-                // Animación de entrada escalonada
-                const delay = index * 100;
-                tbody.innerHTML += `
-                    <tr class="border-b border-slate-700/50 hover:bg-slate-700 transition-colors animate-fade-in" style="animation-delay: ${delay}ms; opacity: 0; animation-fill-mode: forwards;">
-                        <td class="p-3">${student.nombre}</td>
-                        <td class="p-3">
-                            <span class="px-2 py-1 rounded text-xs ${student.grado === 'Octavo' ? 'bg-blue-500/20 text-blue-300' : 'bg-slate-600'}">${student.grado}</span>
-                        </td>
-                        <td class="p-3 font-bold ${student.nota >= 4.0 ? 'text-emerald-400' : 'text-slate-300'}">${student.nota}</td>
-                        <td class="p-3">${student.mes}</td>
-                    </tr>
-                `;
+        // 2. FUNCIÓN: Copiar Prompt de IA
+        function copiarPrompt(){
+            const text = document.getElementById('promptIA');
+            text.select();
+            text.setSelectionRange(0, 99999); // Para móviles
+            navigator.clipboard.writeText(text.value).then(() => {
+                alert("¡Prompt copiado! Ahora pégalo en tu IA favorita.");
             });
-            updateChart(data);
         }
 
-        // Animación CSS inyectada para las filas
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-            .animate-fade-in { animation: fadeIn 0.4s ease-out; }
-        `;
-        document.head.appendChild(style);
-
-        // Lógica de Filtros
-        function applyFilter(type) {
-            if (type === 'todos') { currentData = [...students]; }
-            if (type === 'texto') { currentData = students.filter(s => s.grado === 'Octavo'); }
-            if (type === 'numero') { currentData = students.filter(s => s.nota > 4.0); }
-            if (type === 'fecha') { currentData = students.filter(s => s.mes === 'Febrero'); }
-            renderTable(currentData);
-        }
-
-        // Gráfica con Chart.js
-        function updateChart(data) {
-            const ctx = document.getElementById('filterChart').getContext('2d');
+        // 3. LÓGICA DEL SIMULADOR DE FILTROS
+        function filtrarTabla(tipo) {
+            const filas = document.querySelectorAll('.fila-dato');
             
-            // Contar notas
-            const altas = data.filter(s => s.nota >= 4.0).length;
-            const medias = data.filter(s => s.nota >= 3.0 && s.nota < 4.0).length;
-            const bajas = data.filter(s => s.nota < 3.0).length;
-
-            if (chartInstance) { chartInstance.destroy(); }
-
-            chartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Alto (>=4.0)', 'Medio (3.0-3.9)', 'Bajo (<3.0)'],
-                    datasets: [{
-                        data: [altas, medias, bajas],
-                        backgroundColor: ['#10b981', '#3b82f6', '#f43f5e'],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: '#cbd5e1' } }
-                    },
-                    animation: { animateScale: true, animateRotate: true }
+            filas.forEach(fila => {
+                fila.style.display = 'table-row'; // Mostrar todas por defecto
+                
+                if (tipo === 'texto') {
+                    if (fila.getAttribute('data-materia') !== 'Sistemas') {
+                        fila.style.display = 'none';
+                    }
+                } else if (tipo === 'numero') {
+                    if (parseInt(fila.getAttribute('data-nota')) <= 80) {
+                        fila.style.display = 'none';
+                    }
                 }
             });
         }
 
-        // Lógica Micro-Quiz
-        let currentQuestion = 0;
-        const questions = [
-            { q: "1. ¿Qué pestaña de Excel debemos abrir para activar el botón de Filtro?", options: ["A) Pestaña Insertar", "B) Pestaña Datos", "C) Pestaña Fórmulas"], correct: 1 },
-            { q: "2. Si quiero ver solo a los alumnos mayores de 13 años, uso un filtro de...", options: ["A) Texto", "B) Fecha", "C) Número"], correct: 2 },
-            { q: "3. ¿Filtrar borra la información de la tabla para siempre?", options: ["A) Sí, la elimina.", "B) Solo borra las fórmulas.", "C) No, solo la oculta temporalmente."], correct: 2 }
-        ];
-
-        function renderQuestion() {
-            document.getElementById('question-text').innerText = questions[currentQuestion].q;
-            const btnsContainer = document.getElementById('options-container');
-            btnsContainer.innerHTML = '';
-            
-            questions[currentQuestion].options.forEach((opt, index) => {
-                const isCorrect = index === questions[currentQuestion].correct;
-                btnsContainer.innerHTML += `<button onclick="checkAnswer(this, ${isCorrect})" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl text-left transition-all duration-300 w-full">${opt}</button>`;
+        // 4. LÓGICA DEL QUIZ (Gamificación)
+        function verificarRespuesta(btn, esCorrecta) {
+            // Deshabilitar hermanos
+            const parent = btn.parentElement;
+            const botones = parent.querySelectorAll('button');
+            botones.forEach(b => {
+                b.disabled = true;
+                b.classList.remove('bg-slate-800', 'hover:bg-slate-700');
             });
-            document.getElementById('quiz-feedback').classList.add('hidden');
-        }
 
-        function checkAnswer(btn, isCorrect) {
-            const feedback = document.getElementById('quiz-feedback');
-            feedback.classList.remove('hidden');
-            
-            if (isCorrect) {
-                btn.classList.add('bg-emerald-500/50', 'border', 'border-emerald-400');
-                feedback.innerText = "¡Excelente! Respuesta correcta ✅";
-                feedback.className = "mt-4 font-bold text-center p-3 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/50";
-                
-                setTimeout(() => {
-                    currentQuestion++;
-                    if (currentQuestion < questions.length) { renderQuestion(); } 
-                    else {
-                        document.getElementById('quiz-container').innerHTML = `<div class="text-center p-6"><span class="text-6xl block mb-4">🏆</span><h4 class="text-2xl font-bold text-emerald-400">¡Reto Completado!</h4><p>Entendiste a la perfección los filtros.</p></div>`;
-                        feedback.classList.add('hidden');
-                    }
-                }, 1500);
+            if(esCorrecta) {
+                btn.classList.add('bg-emerald-500', 'text-white', 'shadow-[0_0_15px_rgba(16,185,129,0.5)]');
+                btn.innerHTML += " ✅ ¡Correcto!";
             } else {
-                btn.classList.add('bg-red-500/50', 'border', 'border-red-400', 'animate-pulse');
-                feedback.innerText = "Mmm... piénsalo de nuevo ❌";
-                feedback.className = "mt-4 font-bold text-center p-3 rounded-xl bg-red-500/20 text-red-300 border border-red-500/50";
-                setTimeout(() => {
-                    btn.classList.remove('bg-red-500/50', 'border', 'border-red-400', 'animate-pulse');
-                }, 1000);
+                btn.classList.add('bg-red-500', 'text-white', 'shake');
+                btn.innerHTML += " ❌ Incorrecto";
+                // Resaltar la correcta
+                botones.forEach(b => {
+                    if(b.getAttribute('onclick').includes('true')) {
+                        b.classList.add('bg-emerald-500/50', 'text-white');
+                    }
+                });
             }
         }
-
-        // Inicializar
-        window.onload = () => {
-            renderTable(currentData);
-            renderQuestion();
-        };
     </script>
 </body>
 </html>
