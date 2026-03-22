@@ -3,197 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diseño Visual de Formularios - Prof. William Fdo Bernal</title>
+    <title>Clase 6: Diseño Visual de Formularios - Prof. William Fdo Bernal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
-        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        .bg-mesh {
-            background-color: #f8fafc;
-            background-image: radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.1) 0, transparent 50%), 
-                              radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0, transparent 50%);
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            scroll-behavior: smooth;
         }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border-color: #8b5cf6;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
     </style>
 </head>
-<body class="bg-mesh min-h-screen pb-20">
+<body class="p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto flex justify-end gap-3 p-6">
+    <div class="max-w-6xl mx-auto flex justify-end gap-3 mb-6">
         <a href="../../../index.html" 
-           class="bg-slate-800/70 text-white px-5 py-2.5 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur text-sm font-semibold">
-            ⬅ Inicio (Grado)
+           class="bg-slate-800/70 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10 flex items-center gap-2">
+           <span>🏠</span> Inicio (Grado)
         </a>
+
         <a href="../../index.html" 
-           class="bg-purple-600 text-white px-5 py-2.5 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 text-sm font-semibold">
-            ⬅ Menú del Periodo
+           class="bg-purple-600 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+           <span>📅</span> Menú del Periodo
         </a>
+
         <button type="button" onclick="copiarEnlace()" 
-                class="bg-emerald-600 text-white px-5 py-2.5 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 text-sm font-semibold">
-            🔗 Copiar enlace
+           class="bg-emerald-600 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+           <span>🔗</span> Copiar enlace
         </button>
     </div>
 
-    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/80 text-white px-6 py-3 rounded-2xl shadow-2xl backdrop-blur z-50 animate-bounce">
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-emerald-500 text-white px-6 py-4 rounded-2xl shadow-2xl backdrop-blur z-50 animate-bounce">
         Enlace copiado al portapapeles ✅
     </div>
 
-    <header class="max-w-5xl mx-auto px-6 pt-10 pb-16 text-center">
-        <h2 class="text-purple-600 font-bold tracking-widest uppercase text-sm mb-4">Colegio Santa Mariana de Jesús</h2>
-        <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
-            Diseño Visual de <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-emerald-500">Formularios</span>
-        </h1>
-        <div class="glass p-6 rounded-3xl shadow-xl max-w-2xl mx-auto">
-            <p class="text-slate-600 font-medium">
-                <span class="block text-xs uppercase tracking-widest text-slate-400 mb-2 font-bold">Objetivo de Aprendizaje</span>
-                Dominar el uso de autoformas, cuadros de texto y estilos visuales para transformar datos crudos en interfaces profesionales y legibles.
+    <main class="max-w-6xl mx-auto space-y-12">
+        
+        <header class="relative overflow-hidden rounded-3xl p-8 md:p-16 text-center glass border border-white/10 shadow-2xl">
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-600/20 to-blue-600/20 -z-10"></div>
+            <p class="text-purple-400 font-bold tracking-widest uppercase mb-2">Colegio Santa Mariana de Jesús</p>
+            <h1 class="text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 mb-4 leading-tight">
+                DISEÑO VISUAL DE FORMULARIOS
+            </h1>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto mb-8">
+                Transformando datos aburridos en interfaces profesionales y amigables.
             </p>
-        </div>
-        <p class="mt-6 text-slate-500 font-semibold italic">Prof. William Fdo Bernal</p>
-    </header>
-
-    <main class="max-w-5xl mx-auto px-6 space-y-12">
-
-        <section class="glass p-8 rounded-3xl shadow-lg border-l-8 border-blue-500">
-            <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase">📝 Copiar al Cuaderno</span>
-            <h2 class="text-2xl font-bold text-slate-800 mt-4 mb-4 underline decoration-blue-200">De la Estructura a la Estética</h2>
-            <p class="text-slate-700 leading-relaxed mb-4">
-                Tras aprender sobre <strong>Formatos de Consulta</strong>, hoy daremos el siguiente paso: la <strong>Jerarquía Visual</strong>. No basta con que los datos estén ahí; deben verse profesionales.
-            </p>
-            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-600">
-                <li class="bg-white/50 p-4 rounded-xl"><strong>1. Autoformas:</strong> Elementos gráficos (rectángulos, líneas) que agrupan información relacionada para reducir la fatiga visual.</li>
-                <li class="bg-white/50 p-4 rounded-xl"><strong>2. Cuadros de Texto:</strong> Permiten independencia total de la celda, ideales para títulos flotantes o anotaciones.</li>
-                <li class="bg-white/50 p-4 rounded-xl"><strong>3. Ajuste de Texto:</strong> Técnica para que el contenido se adapte al diseño y no al revés.</li>
-            </ul>
-        </section>
-
-        <section class="bg-slate-900 p-8 rounded-3xl shadow-2xl text-white overflow-hidden relative">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full"></div>
-            <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">💻 Interactuar en el PC</span>
-            <h2 class="text-2xl font-bold mt-4 mb-6">Simulador de Estilo Visual v4.0</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-4">
-                    <p class="text-slate-400 text-sm">Prueba cómo cambian los elementos visuales antes de ir a Excel:</p>
-                    <div class="flex flex-wrap gap-2">
-                        <button onclick="updatePreview('bg-white', 'text-slate-900', 'rounded-none')" class="bg-slate-700 px-4 py-2 rounded-lg hover:bg-slate-600 text-xs transition-all">Estilo Clásico</button>
-                        <button onclick="updatePreview('bg-blue-600', 'text-white', 'rounded-full')" class="bg-blue-500 px-4 py-2 rounded-lg hover:bg-blue-400 text-xs transition-all">Moderno Blue</button>
-                        <button onclick="updatePreview('bg-emerald-500', 'text-white', 'rounded-2xl')" class="bg-emerald-600 px-4 py-2 rounded-lg hover:bg-emerald-400 text-xs transition-all">Eco Design</button>
-                        <button onclick="updatePreview('bg-rose-500', 'text-white', 'rounded-md')" class="bg-rose-600 px-4 py-2 rounded-lg hover:bg-rose-400 text-xs transition-all">Alert Style</button>
-                    </div>
-                    <div class="pt-4">
-                        <label class="text-xs text-slate-400 block mb-2">Grosor de Borde (Simulación Autoforma):</label>
-                        <input type="range" min="0" max="10" value="2" class="w-full accent-purple-500" oninput="updateBorder(this.value)">
-                    </div>
-                </div>
-
-                <div class="flex justify-center">
-                    <div id="previewCard" class="bg-white text-slate-900 p-8 rounded-none transition-all duration-500 shadow-2xl w-full max-w-xs border-slate-300" style="border-width: 2px;">
-                        <div class="w-12 h-1 bg-purple-500 mb-4 rounded"></div>
-                        <h3 class="font-bold text-lg mb-2">Ficha de Usuario</h3>
-                        <p class="text-xs opacity-70 mb-4">Este es un ejemplo de cómo las formas y colores cambian la percepción.</p>
-                        <div class="h-8 w-full bg-slate-100 rounded flex items-center px-3 text-[10px] text-slate-400">
-                            Escribe aquí...
-                        </div>
-                    </div>
-                </div>
+            <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10">
+                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center font-bold">WB</div>
+                <span class="text-sm font-medium">Prof. William Fdo Bernal</span>
             </div>
-        </section>
+        </header>
 
-        <section class="glass p-8 rounded-3xl shadow-lg border-l-8 border-emerald-500">
-            <span class="bg-emerald-100 text-emerald-600 text-xs font-bold px-3 py-1 rounded-full uppercase">🖥️ Trabajo en la Sala</span>
-            <h2 class="text-2xl font-bold text-slate-800 mt-4 mb-4">Laboratorio: Arquitecto de Excel</h2>
-            <div class="space-y-4">
-                <div class="flex items-start gap-4 p-4 bg-white/60 rounded-2xl">
-                    <div class="bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">1</div>
-                    <div>
-                        <p class="font-bold text-slate-800">El Prompt de IA:</p>
-                        <p class="text-sm text-slate-600 italic mt-1 bg-slate-50 p-3 rounded-lg border">"Genera una tabla de 5 columnas y 10 filas sobre 'Inventario de Componentes de PC' con datos realistas para practicar diseño en Excel."</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4 p-4 bg-white/60 rounded-2xl">
-                    <div class="bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">2</div>
-                    <div>
-                        <p class="font-bold text-slate-800">Maquetación:</p>
-                        <p class="text-sm text-slate-600">Pega los datos en Excel. Aplica "Ajuste de Texto" en los encabezados y usa una <strong>Autoforma</strong> (Rectángulo redondeado) como fondo del título principal.</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4 p-4 bg-white/60 rounded-2xl">
-                    <div class="bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold">3</div>
-                    <div>
-                        <p class="font-bold text-slate-800">Personalización:</p>
-                        <p class="text-sm text-slate-600">Cambia la fuente a 'Montserrat' o 'Roboto'. Usa colores de relleno que tengan contraste (Fondo oscuro, letra clara o viceversa).</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-gradient-to-br from-purple-600 to-indigo-700 p-8 rounded-3xl shadow-xl text-white">
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-                🚀 Desafío de Diseño Rápido
+        <section class="glass rounded-2xl p-6 border-l-4 border-purple-500">
+            <h2 class="text-lg font-bold flex items-center gap-2 text-purple-300 mb-2">
+                🎯 Objetivo de Aprendizaje
             </h2>
-            <div id="quiz-container" class="space-y-6">
-                <div class="quiz-step" id="step1">
-                    <p class="text-lg mb-4">1. ¿Qué herramienta usarías para poner un título que no dependa de las celdas de Excel?</p>
-                    <div class="grid grid-cols-1 gap-3">
-                        <button onclick="checkAnswer(this, false, 'step1', 'step2')" class="bg-white/10 hover:bg-white/20 p-4 rounded-xl text-left transition-all">A) Combinar y Centrar</button>
-                        <button onclick="checkAnswer(this, true, 'step1', 'step2')" class="bg-white/10 hover:bg-white/20 p-4 rounded-xl text-left transition-all">B) Cuadro de Texto</button>
-                    </div>
-                </div>
-                <div class="quiz-step hidden" id="step2">
-                    <p class="text-lg mb-4">2. ¿Para qué sirven las Autoformas en un formulario?</p>
-                    <div class="grid grid-cols-1 gap-3">
-                        <button onclick="checkAnswer(this, true, 'step2', 'finish')" class="bg-white/10 hover:bg-white/20 p-4 rounded-xl text-left transition-all">A) Agrupar información y mejorar el orden visual</button>
-                        <button onclick="checkAnswer(this, false, 'step2', 'finish')" class="bg-white/10 hover:bg-white/20 p-4 rounded-xl text-left transition-all">B) Hacer que el archivo pese menos</button>
-                    </div>
-                </div>
-                <div id="quiz-result" class="hidden text-center py-6">
-                    <h3 class="text-3xl font-bold mb-2">¡Excelente! 🎯</h3>
-                    <p class="text-purple-100">Estás listo para diseñar como un profesional.</p>
-                </div>
-            </div>
+            <p class="text-slate-300">
+                Aprender a jerarquizar información mediante el uso de tipografía, colores y estructuras visuales profesionales en hojas de cálculo y formatos digitales.
+            </p>
         </section>
 
-        <section class="glass p-8 rounded-3xl shadow-lg border-l-8 border-purple-500">
-            <span class="bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 rounded-full uppercase">🔍 Investigación</span>
-            <div class="mt-4">
-                <p class="text-slate-700 font-bold text-lg">Misión de búsqueda:</p>
-                <p class="text-slate-600 mt-2 italic">"Investiga qué es la 'Psicología del Color' en el diseño de interfaces. ¿Por qué el color rojo se asocia con errores o alertas en un formulario?"</p>
-            </div>
-        </section>
-
-        <section class="glass p-8 rounded-3xl shadow-lg border-l-8 border-orange-500">
-            <span class="bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full uppercase">📄 Tarea en Hoja Suelta</span>
-            <h2 class="text-2xl font-bold text-slate-800 mt-4 mb-4 text-center">Wireframe: Mi App Ideal</h2>
-            <p class="text-slate-600 text-center mb-6 text-sm">Dibuja el boceto de una pantalla de registro para una aplicación de videojuegos.</p>
+        <div class="grid md:grid-cols-2 gap-8">
             
-            <div class="max-w-xs mx-auto border-2 border-dashed border-slate-300 rounded-3xl p-6 bg-white relative">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">EJEMPLO VISUAL</div>
-                <div class="h-10 w-3/4 bg-slate-100 rounded-lg mx-auto mb-4"></div>
-                <div class="h-20 w-full border border-slate-200 rounded-lg mb-4 flex items-center justify-center text-[10px] text-slate-400">Espacio para Autoforma</div>
-                <div class="space-y-2">
-                    <div class="h-4 w-1/2 bg-slate-100 rounded"></div>
-                    <div class="h-8 w-full border border-slate-100 rounded"></div>
-                </div>
-                <div class="mt-8 pt-4 border-t border-slate-100 text-[8px] text-slate-400 text-center">
-                    Tu Nombre - 2026
+            <div class="glass rounded-3xl p-8 card-hover transition-all duration-300 border border-white/5">
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-bold rounded-full border border-blue-500/30 uppercase tracking-tighter">
+                    📝 COPIAR AL CUADERNO
+                </span>
+                <h3 class="text-2xl font-bold mt-4 mb-4 text-white">Fundamentos del Diseño UI</h3>
+                <div class="space-y-4 text-slate-300 leading-relaxed">
+                    <p>En la clase anterior vimos cómo estructurar los datos. Hoy aprenderemos que <strong>"cómo se ve"</strong> es tan importante como <strong>"qué dice"</strong>.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-500">✔</span>
+                            <span><strong>Jerarquía Visual:</strong> Destacar lo más importante (Títulos) usando fuentes más grandes o negritas.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-500">✔</span>
+                            <span><strong>Ajuste de Texto:</strong> Evitar que los datos se corten o se vean desordenados en las celdas.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-500">✔</span>
+                            <span><strong>Paleta de Colores:</strong> Usar colores contrastantes para que la lectura sea descansada.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <ul class="mt-6 text-xs text-slate-500 space-y-2 text-center">
-                <li>✅ Usa regla obligatoriamente.</li>
-                <li>✅ Identifica dónde usarías un cuadro de texto.</li>
-                <li>✅ Incluye tu nombre y el año 2026 en el pie de página.</li>
-            </ul>
+
+            <div class="glass rounded-3xl p-8 card-hover transition-all duration-300 border border-white/5 bg-gradient-to-b from-slate-800/50 to-transparent">
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full border border-emerald-500/30 uppercase tracking-tighter">
+                    💻 INTERACTUAR EN EL PC
+                </span>
+                <h3 class="text-2xl font-bold mt-4 mb-6 text-white">Lab de Estilos Pro</h3>
+                
+                <div id="formPreview" class="p-6 rounded-2xl bg-white text-slate-900 transition-all duration-500 shadow-inner">
+                    <h4 id="previewTitle" class="font-bold text-lg mb-4">Formulario de Registro</h4>
+                    <div class="space-y-3">
+                        <div class="h-8 bg-slate-200 rounded flex items-center px-3 text-xs text-slate-500">Nombre del Estudiante...</div>
+                        <div class="h-8 bg-slate-200 rounded flex items-center px-3 text-xs text-slate-500">Grado y Sección...</div>
+                    </div>
+                </div>
+
+                <div class="mt-8 grid grid-cols-2 gap-3">
+                    <button onclick="changeStyle('modern')" class="bg-purple-600 hover:bg-purple-700 p-3 rounded-xl text-xs font-bold transition-all">Modo Moderno</button>
+                    <button onclick="changeStyle('retro')" class="bg-amber-600 hover:bg-amber-700 p-3 rounded-xl text-xs font-bold transition-all">Modo Alerta</button>
+                    <button onclick="changeStyle('eco')" class="bg-emerald-600 hover:bg-emerald-700 p-3 rounded-xl text-xs font-bold transition-all">Modo Eco</button>
+                    <button onclick="changeStyle('default')" class="bg-slate-600 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold transition-all">Restablecer</button>
+                </div>
+                <p class="mt-4 text-center text-xs text-slate-400">¡Haz clic para ver cómo cambian los colores y el impacto visual!</p>
+            </div>
+
+        </div>
+
+        <section class="glass rounded-3xl p-8 border border-white/10 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full"></div>
+            
+            <span class="px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-bold rounded-full border border-orange-500/30 uppercase tracking-tighter">
+                🖥️ TRABAJO EN LA SALA
+            </span>
+            <h3 class="text-3xl font-extrabold mt-4 mb-8">El Reto: De IA a Excel</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xl italic">01</div>
+                    <h4 class="font-bold text-white">El Prompt Maestro</h4>
+                    <p class="text-sm text-slate-400">Pega esto en la IA de tu preferencia: <br><br>
+                        <code class="block p-3 bg-black/40 rounded-lg text-emerald-400 text-xs border border-white/10">
+                        "Genera una tabla en formato de código para Excel con 10 filas de estudiantes, incluyendo: ID, Nombre Completo, Materia Favorita y Calificación Promedio."
+                        </code>
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl italic">02</div>
+                    <h4 class="font-bold text-white">Traslado y Limpieza</h4>
+                    <p class="text-sm text-slate-400">Copia la tabla generada y pégala en <strong>Microsoft Excel</strong>. Asegúrate de que cada dato esté en su propia celda.</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xl italic">03</div>
+                    <h4 class="font-bold text-white">Maquillaje Pro</h4>
+                    <p class="text-sm text-slate-400">Aplica los cambios visuales: 
+                        <span class="block mt-2 text-white">• Cambia Tipografía a 'Montserrat' o 'Segoe UI'</span>
+                        <span class="block text-white">• Aplica 'Ajustar Texto' en encabezados</span>
+                        <span class="block text-white">• Usa colores sobrios para las filas</span>
+                    </p>
+                </div>
+            </div>
         </section>
+
+        <section class="glass rounded-3xl p-8 border border-white/10">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                🕹️ Reto de Rapidez Visual
+            </h3>
+            <div id="quizContainer" class="space-y-6">
+                <div class="quiz-step">
+                    <p class="text-lg text-slate-200 mb-4">1. ¿Qué herramienta de Excel evita que el texto se esconda cuando la celda es pequeña?</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <button onclick="checkAnswer(this, false)" class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left">A. Fusionar celdas</button>
+                        <button onclick="checkAnswer(this, true)" class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left">B. Ajustar texto</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-8 rounded-3xl bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-white/10">
+            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-bold rounded-full border border-yellow-500/30 uppercase tracking-tighter">
+                🔍 INVESTIGACIÓN
+            </span>
+            <h3 class="text-2xl font-bold mt-4 text-white">Misión para la casa</h3>
+            <p class="mt-4 text-slate-300">
+                Investiga en Google: <strong>"¿Qué es el contraste de accesibilidad WCAG y por qué no debemos poner texto amarillo sobre fondo blanco?"</strong> Escribe tu respuesta en el cuaderno.
+            </p>
+        </section>
+
+        <footer class="py-12 text-center glass rounded-t-3xl border-t border-white/10">
+            <p class="text-slate-400 font-medium">
+                © 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática
+            </p>
+            <p class="text-xs text-slate-500 mt-2 tracking-widest uppercase">
+                Colegio Santa Mariana de Jesús - Buga
+            </p>
+        </footer>
 
     </main>
 
-    <footer class="mt-20 py-10 bg-slate-900 text-white text-center">
-        <p class="text-sm font-light opacity-60">© 2026 | Prof. William Fdo Bernal</p>
-        <p class="text-xs font-bold tracking-widest text-purple-400 mt-2 uppercase">Área de Tecnología e Informática</p>
-    </footer>
-
     <script>
+        // LÓGICA DE LA BARRA DE BOTONES
         function copiarEnlace(){
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
@@ -201,47 +212,45 @@
                 t.classList.remove('hidden');
                 setTimeout(()=> t.classList.add('hidden'), 2000);
             }).catch(() => {
-                alert("Enlace copiado ✅");
+                alert("No se pudo copiar automáticamente. Copia el enlace manualmente.");
             });
         }
 
-        function updatePreview(bg, text, round) {
-            const card = document.getElementById('previewCard');
-            card.className = `${bg} ${text} ${round} p-8 transition-all duration-500 shadow-2xl w-full max-w-xs border-slate-300`;
-        }
-
-        function updateBorder(val) {
-            const card = document.getElementById('previewCard');
-            card.style.borderWidth = val + 'px';
-        }
-
-        function checkAnswer(btn, isCorrect, current, next) {
-            if(isCorrect) {
-                btn.classList.remove('bg-white/10');
-                btn.classList.add('bg-emerald-500');
-                setTimeout(() => {
-                    document.getElementById(current).classList.add('hidden');
-                    if(next === 'finish') {
-                        document.getElementById('quiz-result').classList.remove('hidden');
-                    } else {
-                        document.getElementById(next).classList.remove('hidden');
-                    }
-                }, 600);
+        // SIMULADOR VISUAL
+        function changeStyle(mode) {
+            const form = document.getElementById('formPreview');
+            const title = document.getElementById('previewTitle');
+            
+            form.className = "p-6 rounded-2xl transition-all duration-500 shadow-inner ";
+            
+            if(mode === 'modern') {
+                form.classList.add('bg-slate-900', 'text-white', 'border-2', 'border-purple-500');
+                title.style.color = "#a855f7";
+            } else if(mode === 'retro') {
+                form.classList.add('bg-red-50', 'text-red-900', 'border-2', 'border-red-600');
+                title.style.color = "#dc2626";
+            } else if(mode === 'eco') {
+                form.classList.add('bg-emerald-50', 'text-emerald-900', 'border-2', 'border-emerald-600');
+                title.style.color = "#059669";
             } else {
-                btn.classList.add('animate-shake', 'bg-rose-500');
-                setTimeout(() => btn.classList.remove('bg-rose-500'), 500);
+                form.classList.add('bg-white', 'text-slate-900');
+                title.style.color = "#0f172a";
+            }
+        }
+
+        // LÓGICA DE QUIZ
+        function checkAnswer(btn, isCorrect) {
+            if(isCorrect) {
+                btn.classList.remove('bg-white/5', 'border-white/10');
+                btn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400');
+                btn.innerHTML += " ✨ Correcto!";
+            } else {
+                btn.classList.remove('bg-white/5', 'border-white/10');
+                btn.classList.add('bg-red-500/20', 'border-red-500', 'text-red-400');
+                btn.innerHTML += " ❌ Inténtalo de nuevo";
+                btn.disabled = true;
             }
         }
     </script>
-
-    <style>
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        .animate-shake { animation: shake 0.2s ease-in-out 0s 2; }
-    </style>
-
 </body>
 </html>
