@@ -3,340 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8° - Periodo 4 - Semana 1: Bases de Datos y Excel</title>
+    <title>Bases de Datos a Excel - Grado 8°</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Outfit', sans-serif; background: #0f172a; color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); border-color: #7c3aed; }
-        .flip-card { perspective: 1000px; height: 200px; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 1rem; padding: 1rem; }
-        .flip-card-back { transform: rotateY(180deg); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="min-h-screen pb-12">
 
-    <div class="max-w-6xl mx-auto flex flex-wrap justify-end gap-3 mb-6">
-        <a href="../../../index.html" 
-           class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-slate-700">
-            ⬅ Inicio (Grado)
-        </a>
-        <a href="../../index.html" 
-           class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
-            ⬅ Menú del Periodo
-        </a>
-        <button type="button" onclick="copiarEnlace()" 
-                class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
-            🔗 Copiar enlace
-        </button>
+    <div class="max-w-6xl mx-auto px-4 pt-6">
+        <div class="flex flex-wrap justify-end gap-3 mb-6">
+            <a href="../../../index.html" class="bg-slate-800/70 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10 flex items-center gap-2">
+                <span>⬅</span> Inicio (Grado)
+            </a>
+            <a href="../../index.html" class="bg-purple-600 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <span>📋</span> Menú del Periodo
+            </a>
+            <button type="button" onclick="copiarEnlace()" class="bg-emerald-600 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <span>🔗</span> Copiar enlace
+            </button>
+        </div>
     </div>
 
-    <div id="toastCopiado" class="fixed top-6 right-6 z-50 hidden bg-emerald-500 text-white px-6 py-3 rounded-2xl shadow-2xl animate-bounce">
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-emerald-500 text-white px-6 py-3 rounded-2xl shadow-2xl backdrop-blur z-50 animate-bounce">
         Enlace copiado al portapapeles ✅
     </div>
 
-    <header class="max-w-6xl mx-auto mb-12 text-center relative overflow-hidden rounded-3xl p-12 bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-900 shadow-2xl">
-        <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
-            <canvas id="heroCanvas"></canvas>
-        </div>
-        <div class="relative z-10">
-            <span class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase mb-4 inline-block border border-indigo-500/30">
-                Grado 8° | Periodo 4 | Semana 1
-            </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                Bases de Datos & Excel
-            </h1>
-            <p class="text-xl text-slate-300 mb-6">Colegio Santa Mariana de Jesús | Prof. William Fdo Bernal</p>
-            <div class="max-w-2xl mx-auto glass p-6 rounded-2xl shadow-inner">
-                <p class="text-lg italic text-indigo-100">
-                    "Hoy conectamos el orden de la información con el poder de las hojas de cálculo. Prepárate para dominar el mundo de los datos."
-                </p>
+    <header class="max-w-6xl mx-auto px-4 mb-10">
+        <div class="glass rounded-[2rem] p-8 md:p-12 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 via-purple-500 to-emerald-400"></div>
+            <h2 class="text-sm font-bold uppercase tracking-widest text-sky-400 mb-2">Colegio Santa Mariana de Jesús</h2>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Recordando las <span class="gradient-text">Bases de Datos</span></h1>
+            <p class="text-xl text-slate-400 mb-6">Misión: El gran salto de la teoría a Microsoft Excel</p>
+            <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
+                <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-medium">Prof. William Fdo Bernal | Año 2026</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto space-y-12">
+    <main class="max-w-6xl mx-auto px-4 space-y-10">
 
-        <section class="space-y-6">
-            <div class="flex items-center gap-2">
-                <span class="bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase italic">[📝 COPIAR AL CUADERNO]</span>
-                <h2 class="text-3xl font-bold">Resumen de Conceptos Clave</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass p-8 rounded-3xl space-y-4 border-l-4 border-amber-500">
-                    <h3 class="text-xl font-bold text-amber-400 flex items-center gap-2">
-                        🔄 ¿Qué aprendimos el periodo pasado?
-                    </h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        Una <strong>Base de Datos</strong> es un sistema organizado para guardar información. Para que sea eficiente, debe tener una estructura clara. No es solo "guardar", es saber "dónde" está cada cosa.
-                    </p>
-                    <ul class="space-y-2 text-slate-400">
-                        <li class="flex items-center gap-2">✔️ <strong>Tabla:</strong> El contenedor del tema.</li>
-                        <li class="flex items-center gap-2">✔️ <strong>Campo:</strong> El título de la columna (Atributo).</li>
-                        <li class="flex items-center gap-2">✔️ <strong>Registro:</strong> La fila completa con los datos de alguien.</li>
+        <section class="glass rounded-3xl p-8 relative overflow-hidden">
+            <span class="absolute top-4 right-6 bg-amber-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">📝 COPIAR AL CUADERNO</span>
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <span class="text-3xl">📓</span> Resumen de Conexión
+            </h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4 text-slate-300 leading-relaxed">
+                    <p>En el periodo pasado aprendimos que una <strong>Base de Datos</strong> es un sistema para organizar información. Ahora, usaremos <strong>Excel</strong> para darle vida a esos datos.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-400 font-bold">1.</span>
+                            <span><strong>Campo (Columna):</strong> Define el tipo de dato (Nombre, Edad, Precio). En Excel se identifican con letras (A, B, C).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-400 font-bold">2.</span>
+                            <span><strong>Registro (Fila):</strong> Es el conjunto de datos de un objeto o persona. En Excel se identifican con números (1, 2, 3).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-400 font-bold">3.</span>
+                            <span><strong>Dato (Celda):</strong> El valor específico en la intersección de una fila y columna.</span>
+                        </li>
                     </ul>
                 </div>
-
-                <div class="glass p-8 rounded-3xl space-y-4 border-l-4 border-emerald-500">
-                    <h3 class="text-xl font-bold text-emerald-400 flex items-center gap-2">
-                        🚀 Rumbo a Microsoft Excel
-                    </h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        Excel es la herramienta perfecta para manejar bases de datos sencillas. Pero ojo, debemos hablar su idioma técnico para no confundirnos:
-                    </p>
-                    <div class="overflow-hidden rounded-xl border border-white/10 bg-black/20">
-                        <table class="w-full text-left text-sm">
-                            <thead class="bg-white/10 text-white">
-                                <tr>
-                                    <th class="p-3">Concepto DB</th>
-                                    <th class="p-3">En Excel es...</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-slate-300">
-                                <tr class="border-t border-white/5">
-                                    <td class="p-3">Campo</td>
-                                    <td class="p-3">Columna (A, B, C...)</td>
-                                </tr>
-                                <tr class="border-t border-white/5">
-                                    <td class="p-3">Registro</td>
-                                    <td class="p-3">Fila (1, 2, 3...)</td>
-                                </tr>
-                                <tr class="border-t border-white/5">
-                                    <td class="p-3">Dato</td>
-                                    <td class="p-3">Celda (Intersección)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-white/5">
+                    <h4 class="text-sm font-bold text-sky-400 uppercase mb-4 text-center">Esquema de Equivalencia</h4>
+                    <table class="w-full text-sm">
+                        <tr class="border-b border-white/10">
+                            <th class="py-2 text-left">Base de Datos</th>
+                            <th class="py-2 text-right">Excel</th>
+                        </tr>
+                        <tr>
+                            <td class="py-3">Estructura Global</td>
+                            <td class="py-3 text-right font-mono text-emerald-400">Tabla</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3">Categoría (Vertical)</td>
+                            <td class="py-3 text-right font-mono text-emerald-400">Columna</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3">Información (Horizontal)</td>
+                            <td class="py-3 text-right font-mono text-emerald-400">Fila</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </section>
 
-        <section class="space-y-6">
-            <div class="flex items-center gap-2">
-                <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase italic">[💻 INTERACTUAR EN EL PC]</span>
-                <h2 class="text-3xl font-bold">Explorador de Datos "EMPRESA"</h2>
-            </div>
+        <section class="glass rounded-3xl p-8 relative">
+            <span class="absolute top-4 right-6 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">💻 INTERACTUAR EN EL PC</span>
+            <h3 class="text-2xl font-bold mb-2 flex items-center gap-2">
+                <span class="text-3xl">📊</span> Data Viz Lab
+            </h3>
+            <p class="text-slate-400 mb-8 italic">¿Cómo se ven los registros de una base de datos convertidos en información visual?</p>
             
-            <div class="glass p-8 rounded-3xl overflow-hidden relative">
-                <div class="mb-6 text-center">
-                    <p class="text-slate-400 mb-4">Haz clic en los botones para filtrar los datos en el gráfico interactivo y entender cómo se visualiza una Base de Datos.</p>
-                    <div class="flex justify-center gap-4">
-                        <button onclick="updateChart('sueldos')" class="bg-indigo-600 hover:bg-indigo-500 px-6 py-2 rounded-xl transition-all shadow-lg font-bold">Ver Sueldos 💰</button>
-                        <button onclick="updateChart('antiguedad')" class="bg-purple-600 hover:bg-purple-500 px-6 py-2 rounded-xl transition-all shadow-lg font-bold">Antigüedad (Años) ⏳</button>
-                    </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-2 bg-white/5 p-6 rounded-2xl border border-white/10">
+                    <canvas id="myChart" height="150"></canvas>
                 </div>
-                <div class="h-[400px]">
-                    <canvas id="dataChart"></canvas>
+                <div class="flex flex-col justify-center gap-4">
+                    <button onclick="updateChart('tienda')" class="w-full py-4 bg-sky-600 hover:bg-sky-500 rounded-xl font-bold transition-all shadow-lg hover:scale-105">📁 Caso A: Tienda Tech</button>
+                    <button onclick="updateChart('colegio')" class="w-full py-4 bg-purple-600 hover:bg-purple-500 rounded-xl font-bold transition-all shadow-lg hover:scale-105">📁 Caso B: Notas Colegio</button>
                 </div>
             </div>
         </section>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            <section class="space-y-6">
-                <div class="flex items-center gap-2">
-                    <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase italic">[🖥️ TRABAJO EN LA SALA]</span>
-                    <h2 class="text-2xl font-bold">Paso a Paso en Excel</h2>
-                </div>
-                <div class="glass p-6 rounded-3xl space-y-4">
-                    <ol class="space-y-4">
-                        <li class="flex gap-4 items-start">
-                            <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold">1</span>
-                            <p class="text-slate-300">Abre un nuevo libro de Excel y guárdalo como <strong>"Taller1_Apellido_Nombre.xlsx"</strong>.</p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                            <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold">2</span>
-                            <p class="text-slate-300">En la primera fila (A1, B1, C1...), escribe los <strong>Campos</strong>: ID, NOMBRE, CARGO, FECHA_INGRESO.</p>
-                        </li>
-                        <li class="flex gap-4 items-start">
-                            <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold">3</span>
-                            <p class="text-slate-300">Ingresa 5 registros (filas) con datos inventados siguiendo la estructura del docente.</p>
-                        </li>
-                    </ol>
-                </div>
-            </section>
+        <section class="glass rounded-3xl p-8 border-2 border-emerald-500/30 relative">
+            <span class="absolute top-4 right-6 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">🖥️ TRABAJO EN LA SALA</span>
+            <h3 class="text-2xl font-bold mb-6">El Reto del "Prompt Maestro"</h3>
+            
+            <div class="bg-black/40 p-6 rounded-2xl border border-white/10 mb-6">
+                <p class="mb-4 text-emerald-400 font-medium">Sigue estos pasos para generar tu primera tabla perfecta:</p>
+                <ol class="space-y-4 text-sm md:text-base">
+                    <li class="flex gap-4">
+                        <span class="bg-emerald-500 text-black font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0">1</span>
+                        <span>Copia el <strong>Prompt Maestro</strong> que está en el recuadro de abajo.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="bg-emerald-500 text-black font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0">2</span>
+                        <span>Pégalo en la Inteligencia Artificial que indique el profesor (Gemini/ChatGPT).</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="bg-emerald-500 text-black font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0">3</span>
+                        <span>Cuando la IA te de la tabla, selecciónala, cópiala y <strong>pégala en una hoja de Excel</strong>.</span>
+                    </li>
+                </ol>
+            </div>
 
-            <section class="space-y-6">
-                <div class="flex items-center gap-2">
-                    <span class="bg-cyan-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase italic">[🔍 INVESTIGACIÓN]</span>
-                    <h2 class="text-2xl font-bold">Reto Investigativo</h2>
+            <div class="relative group">
+                <textarea id="masterPrompt" readonly class="w-full h-40 bg-slate-900 text-emerald-300 p-6 rounded-2xl font-mono text-sm border border-white/10 focus:outline-none focus:ring-2 ring-emerald-500 transition-all">Actúa como un experto en gestión de datos. Crea una TABLA de base de datos para una TIENDA DE TECNOLOGÍA que contenga exactamente 6 registros. La tabla debe tener estos campos obligatorios: ID_Producto, Nombre_Articulo, Marca, Precio_Venta y Unidades_en_Stock. Devuélvela en formato de tabla de Markdown para que pueda copiarla y pegarla directamente en Microsoft Excel.</textarea>
+                <button onclick="copiarPrompt()" class="absolute bottom-4 right-4 bg-white text-black font-bold px-6 py-2 rounded-xl shadow-xl hover:bg-emerald-400 transition-colors">
+                    📋 Copiar Prompt
+                </button>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-6">
+            <div class="glass rounded-3xl p-8 relative">
+                <span class="absolute top-4 right-6 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">🔍 INVESTIGACIÓN</span>
+                <h3 class="text-xl font-bold mb-4">Misión de búsqueda</h3>
+                <p class="text-slate-400 text-sm mb-4">Investiga en Google y escribe la respuesta en tu cuaderno:</p>
+                <div class="bg-white/5 p-4 rounded-xl border border-pink-500/20">
+                    <p class="font-medium text-pink-200 italic">"¿Qué es un archivo CSV y por qué es tan importante para mover bases de datos a programas como Excel?"</p>
                 </div>
-                <div class="glass p-6 rounded-3xl border border-cyan-500/30 flex flex-col justify-center text-center space-y-4">
-                    <p class="text-slate-300 text-lg">Investiga en Google y escribe en tu cuaderno:</p>
-                    <p class="text-xl font-bold text-cyan-400">"¿Qué es una Llave Primaria (Primary Key) en una base de datos y para qué sirve?"</p>
-                    <div class="bg-black/40 p-4 rounded-xl italic text-sm text-slate-400 uppercase tracking-tighter">
-                        Pista: Es lo que hace que cada fila sea única.
+            </div>
+            <div class="glass rounded-3xl p-8 relative">
+                <span class="absolute top-4 right-6 bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">📄 TAREA</span>
+                <h3 class="text-xl font-bold mb-4">Compromiso en Hoja</h3>
+                <div class="flex items-center justify-center h-24 text-slate-500 border-2 border-dashed border-white/10 rounded-2xl">
+                    <p>No hay tarea de entrega para esta semana.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass rounded-[2.5rem] p-10 shadow-2xl border border-sky-500/20">
+            <h3 class="text-3xl font-bold text-center mb-10">Desafío Rápido ⚡</h3>
+            <div id="quiz-container" class="max-w-2xl mx-auto space-y-8">
+                <div class="quiz-step" id="q1">
+                    <p class="text-lg font-medium mb-4 text-center">1. En Excel, ¿qué elemento representa a un "CAMPO" de la base de datos?</p>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="checkAnswer(this, false)" class="option-btn p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left">A. La Fila (horizontal)</button>
+                        <button onclick="checkAnswer(this, true)" class="option-btn p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left">B. La Columna (vertical)</button>
+                        <button onclick="checkAnswer(this, false)" class="option-btn p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left">C. El color de la celda</button>
                     </div>
                 </div>
-            </section>
-        </div>
-
-        <section class="space-y-6">
-            <h2 class="text-3xl font-bold text-center mb-8 text-indigo-400 italic underline">Comprueba lo que sabes</h2>
-            <div id="quizContainer" class="max-w-2xl mx-auto glass p-8 rounded-3xl border border-white/10">
-                </div>
+            </div>
+            <div id="quiz-result" class="hidden text-center mt-8">
+                <p class="text-2xl font-bold text-emerald-400">¡Excelente repaso! Estás listo para Excel. 🚀</p>
+            </div>
         </section>
 
     </main>
 
-    <footer class="mt-20 py-12 border-t border-white/10 text-center">
-        <p class="text-slate-500 font-bold">© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
-        <p class="text-slate-600 text-sm mt-2 uppercase tracking-widest underline decoration-indigo-500">Colegio Santa Mariana de Jesús - Buga</p>
+    <footer class="mt-20 py-10 border-t border-white/5 text-center">
+        <p class="text-slate-500 font-medium">© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
+        <p class="text-xs text-slate-600 mt-2 tracking-widest">COLEGIO SANTA MARIANA DE JESÚS - BUGA</p>
     </footer>
 
     <script>
-        // --- FUNCIÓN COPIAR ENLACE ---
+        // --- FUNCIONES OBLIGATORIAS ---
         function copiarEnlace(){
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
                 const t = document.getElementById('toastCopiado');
                 t.classList.remove('hidden');
                 setTimeout(()=> t.classList.add('hidden'), 3000);
-            }).catch(() => {
-                alert("Enlace copiado: " + url);
-            });
+            }).catch(() => alert("Error al copiar enlace."));
         }
 
-        // --- ANIMACIÓN HERO ---
-        const canvas = document.getElementById('heroCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = 400;
-        let particles = [];
-        for(let i=0; i<50; i++){
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: Math.random() * 2 - 1,
-                vy: Math.random() * 2 - 1,
-                size: Math.random() * 2
-            });
-        }
-        function animate(){
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(255,255,255,0.5)";
-            particles.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x<0 || p.x>canvas.width) p.vx *= -1;
-                if(p.y<0 || p.y>canvas.height) p.vy *= -1;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-                ctx.fill();
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // --- CHART.JS ---
-        let mainChart;
-        const ctxChart = document.getElementById('dataChart').getContext('2d');
-        
-        const dataSet = {
-            sueldos: [3000, 2500, 1800, 2200, 2800],
-            antiguedad: [10, 5, 2, 4, 8],
-            labels: ['Juan Pérez', 'María López', 'Carlos Ruiz', 'Ana Rojas', 'Luis Mena']
-        };
-
-        function initChart(){
-            mainChart = new Chart(ctxChart, {
-                type: 'bar',
-                data: {
-                    labels: dataSet.labels,
-                    datasets: [{
-                        label: 'Sueldo Mensual ($)',
-                        data: dataSet.sueldos,
-                        backgroundColor: 'rgba(99, 102, 241, 0.5)',
-                        borderColor: 'rgb(99, 102, 241)',
-                        borderWidth: 2,
-                        borderRadius: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: 'white' } } },
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: 'white' } },
-                        x: { grid: { display: false }, ticks: { color: 'white' } }
-                    }
-                }
-            });
+        function copiarPrompt() {
+            const copyText = document.getElementById("masterPrompt");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            alert("¡Prompt Maestro copiado! Ahora pégalo en la IA.");
         }
 
-        function updateChart(type){
-            if(type === 'sueldos'){
-                mainChart.data.datasets[0].label = 'Sueldo Mensual ($)';
-                mainChart.data.datasets[0].data = dataSet.sueldos;
-                mainChart.data.datasets[0].backgroundColor = 'rgba(99, 102, 241, 0.5)';
-                mainChart.data.datasets[0].borderColor = 'rgb(99, 102, 241)';
-            } else {
-                mainChart.data.datasets[0].label = 'Años de Antigüedad';
-                mainChart.data.datasets[0].data = dataSet.antiguedad;
-                mainChart.data.datasets[0].backgroundColor = 'rgba(168, 85, 247, 0.5)';
-                mainChart.data.datasets[0].borderColor = 'rgb(168, 85, 247)';
+        // --- CHART LOGIC ---
+        const ctx = document.getElementById('myChart');
+        let currentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Laptops', 'Mouses', 'Teclados', 'Monitores', 'Cámaras'],
+                datasets: [{
+                    label: 'Stock en Base de Datos',
+                    data: [12, 45, 25, 8, 15],
+                    backgroundColor: ['#38bdf8', '#818cf8', '#34d399', '#f472b6', '#fbbf24'],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } } }
             }
-            mainChart.update();
-        }
-        initChart();
+        });
 
-        // --- QUIZ INTERACTIVO ---
-        const quizData = [
-            { q: "¿Qué representa una fila en una base de datos?", a: ["Un Campo", "Un Registro", "Una Tabla"], c: 1 },
-            { q: "En Excel, las columnas representan los:", a: ["Registros", "Cálculos", "Campos"], c: 2 },
-            { q: "¿Cómo se llama la intersección entre una Fila y una Columna?", a: ["Tabla", "Celda", "Valor"], c: 1 }
-        ];
-
-        let currentQuestion = 0;
-        function renderQuiz(){
-            const container = document.getElementById('quizContainer');
-            if(currentQuestion < quizData.length){
-                const item = quizData[currentQuestion];
-                container.innerHTML = `
-                    <div class="space-y-6 animate-in fade-in duration-500">
-                        <p class="text-sm text-indigo-400 font-bold uppercase tracking-widest">Pregunta ${currentQuestion + 1} de ${quizData.length}</p>
-                        <h3 class="text-2xl font-bold text-white">${item.q}</h3>
-                        <div class="grid gap-3">
-                            ${item.a.map((opt, i) => `
-                                <button onclick="checkAnswer(${i})" class="w-full text-left p-4 rounded-xl border border-white/10 hover:bg-white/5 transition-all card-hover font-semibold">
-                                    ${opt}
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
+        function updateChart(type) {
+            if(type === 'tienda') {
+                currentChart.data.labels = ['Laptops', 'Mouses', 'Teclados', 'Monitores'];
+                currentChart.data.datasets[0].data = [12, 45, 25, 8];
+                currentChart.data.datasets[0].label = 'Stock Tech';
             } else {
-                container.innerHTML = `
-                    <div class="text-center space-y-4">
-                        <div class="text-5xl">🏆</div>
-                        <h3 class="text-2xl font-bold text-white">¡Reto Completado!</h3>
-                        <p class="text-slate-400">Has repasado los conceptos clave. Estás listo para el trabajo en Excel.</p>
-                        <button onclick="currentQuestion=0; renderQuiz()" class="text-indigo-400 underline font-bold">Repetir Quiz</button>
-                    </div>
-                `;
+                currentChart.data.labels = ['Juan', 'María', 'Pedro', 'Sofía'];
+                currentChart.data.datasets[0].data = [4.5, 3.8, 5.0, 4.2];
+                currentChart.data.datasets[0].label = 'Promedio Notas';
+            }
+            currentChart.update();
+        }
+
+        // --- QUIZ LOGIC ---
+        function checkAnswer(btn, isCorrect) {
+            const allBtns = btn.parentElement.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.disabled = true);
+            
+            if(isCorrect) {
+                btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-400');
+                document.getElementById('quiz-result').classList.remove('hidden');
+            } else {
+                btn.classList.add('bg-red-500', 'text-white', 'border-red-400');
+                setTimeout(() => {
+                    allBtns.forEach(b => {
+                        b.disabled = false;
+                        b.classList.remove('bg-red-500', 'text-white', 'border-red-400');
+                    });
+                }, 1000);
             }
         }
-
-        function checkAnswer(idx){
-            const correct = quizData[currentQuestion].c;
-            if(idx === correct){
-                currentQuestion++;
-                renderQuiz();
-            } else {
-                alert("¡Casi! Inténtalo de nuevo.");
-            }
-        }
-        renderQuiz();
-
     </script>
 </body>
 </html>
