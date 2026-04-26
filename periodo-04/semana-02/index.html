@@ -1,1 +1,393 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 2: Creación de Tablas - Prof. William Fdo Bernal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        /* Custom Scrollbar for Chrome */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #818cf8; }
+    </style>
+</head>
+<body class="antialiased pb-10 relative">
+
+    <div class="max-w-5xl mx-auto flex justify-end gap-3 mb-4 mt-6 px-4">
+        <a href="../../../index.html"
+           class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-slate-600 hover:border-slate-400">
+           ⬅ Inicio (Grado)
+        </a>
+
+        <a href="../../index.html"
+           class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 hover:bg-purple-500">
+           ⬅ Menú del Periodo
+        </a>
+
+        <button type="button" onclick="copiarEnlace()"
+           class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 hover:bg-emerald-500">
+           🔗 Copiar enlace
+        </button>
+    </div>
+
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/80 text-white px-4 py-3 rounded-xl shadow-lg backdrop-blur z-50 border border-emerald-500">
+        Enlace copiado ✅
+    </div>
+
+    <header class="max-w-5xl mx-auto px-4 mb-10">
+        <div class="text-center mb-8">
+            <h2 class="text-emerald-400 font-semibold tracking-wider uppercase text-sm">Colegio Santa Mariana de Jesús</h2>
+            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mt-2 mb-2">
+                Creación de Tablas: Artículos y Clientes
+            </h1>
+            <p class="text-slate-400 text-lg">Área de Tecnología e Informática | Prof. William Fdo Bernal</p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-8 shadow-2xl relative overflow-hidden group hover:border-cyan-500/30 transition-all duration-500">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all"></div>
+            <h3 class="text-2xl font-bold text-white mb-3 flex items-center gap-2">
+                🎯 Objetivo de Aprendizaje
+            </h3>
+            <p class="text-slate-300 leading-relaxed text-lg">
+                Comprender cómo estructurar información del mundo real (inventarios y personas) en modelos tabulares de bases de datos, analizando la importancia de las llaves primarias y la integridad de los datos.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 space-y-10">
+
+        <section class="glass-card rounded-2xl p-8 border-l-4 border-l-blue-500 relative">
+            <span class="absolute -top-3 left-6 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase shadow-lg">
+                📝 COPIAR AL CUADERNO
+            </span>
+            
+            <h3 class="text-xl font-bold text-blue-300 mb-4">Conectando conceptos: De la Base a la Tabla</h3>
+            <p class="text-slate-300 mb-4">
+                En la <strong>Semana 1 (Recordando las Bases de Datos)</strong>, vimos que una BD es un gran almacén. Hoy vamos a construir los "estantes" de ese almacén: <strong>Las Tablas</strong>.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="bg-slate-800/50 p-5 rounded-xl">
+                    <h4 class="font-bold text-cyan-400 mb-2">📦 Tabla ARTÍCULOS</h4>
+                    <ul class="list-disc pl-5 text-slate-300 space-y-1 text-sm">
+                        <li><strong>Código:</strong> Identificador único (Ej: A01).</li>
+                        <li><strong>Nombre:</strong> Descripción del producto.</li>
+                        <li><strong>Precio:</strong> Valor comercial.</li>
+                        <li><strong>Categoría:</strong> Grupo al que pertenece.</li>
+                        <li><strong>Existencia:</strong> Cantidad en bodega.</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-800/50 p-5 rounded-xl">
+                    <h4 class="font-bold text-purple-400 mb-2">👥 Tabla CLIENTES</h4>
+                    <ul class="list-disc pl-5 text-slate-300 space-y-1 text-sm">
+                        <li><strong>Identificación:</strong> Cédula o TI (Llave principal).</li>
+                        <li><strong>Nombre:</strong> Nombre completo.</li>
+                        <li><strong>Dirección:</strong> Lugar de residencia.</li>
+                        <li><strong>Teléfono:</strong> Contacto móvil.</li>
+                        <li><strong>Correo:</strong> Email del usuario.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card rounded-2xl p-8 relative">
+            <span class="absolute -top-3 left-6 bg-purple-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase shadow-lg">
+                💻 INTERACTUAR EN EL PC
+            </span>
+            
+            <h3 class="text-2xl font-bold text-white mb-6">Laboratorio de Datos: Simulador de Inventario</h3>
+            <p class="text-slate-300 mb-6 text-sm">Agrega un nuevo artículo a la base de datos virtual y observa cómo se actualiza la gráfica de categorías en tiempo real. Esto es lo que hace un motor de base de datos en el backend.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-1 space-y-4 bg-slate-900/50 p-5 rounded-xl">
+                    <h4 class="font-semibold text-cyan-300">Añadir Registro</h4>
+                    <input type="text" id="itemCode" placeholder="Código (Ej: A004)" class="w-full bg-slate-800 text-white p-2 rounded border border-slate-600 focus:border-cyan-500 outline-none">
+                    <input type="text" id="itemName" placeholder="Nombre del Artículo" class="w-full bg-slate-800 text-white p-2 rounded border border-slate-600 focus:border-cyan-500 outline-none">
+                    <select id="itemCat" class="w-full bg-slate-800 text-white p-2 rounded border border-slate-600 focus:border-cyan-500 outline-none">
+                        <option value="Hardware">Hardware</option>
+                        <option value="Periféricos">Periféricos</option>
+                        <option value="Software">Software</option>
+                    </select>
+                    <input type="number" id="itemQty" placeholder="Existencia" class="w-full bg-slate-800 text-white p-2 rounded border border-slate-600 focus:border-cyan-500 outline-none">
+                    <button onclick="addArticle()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded transition-all">Guardar en Tabla</button>
+                </div>
+
+                <div class="md:col-span-2 space-y-6">
+                    <div class="overflow-x-auto rounded-xl border border-slate-700">
+                        <table class="w-full text-left text-sm text-slate-300" id="articlesTable">
+                            <thead class="bg-slate-800 text-cyan-400">
+                                <tr>
+                                    <th class="p-3">Código</th>
+                                    <th class="p-3">Nombre</th>
+                                    <th class="p-3">Categoría</th>
+                                    <th class="p-3">Exist.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-slate-700 bg-slate-900/50">
+                                </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-xl h-48 flex justify-center items-center">
+                        <canvas id="inventoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card rounded-2xl p-8 border-l-4 border-l-emerald-500 relative">
+            <span class="absolute -top-3 left-6 bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase shadow-lg">
+                🖥️ TRABAJO EN LA SALA
+            </span>
+            
+            <h3 class="text-xl font-bold text-emerald-300 mb-4">Actividad en sala: Mi solución con IA</h3>
+            
+            <div class="space-y-4 text-slate-300">
+                <p><strong>Parte 1 (Manual):</strong></p>
+                <ol class="list-decimal pl-5 space-y-2">
+                    <li>Dibuja en tu cuaderno una tabla de <strong>Artículos</strong> en blanco y una tabla de <strong>Clientes</strong>.</li>
+                    <li>Inventa y agrega tres (3) renglones nuevos a cada tabla usando tu imaginación (tu tienda favorita, amigos, familia).</li>
+                </ol>
+
+                <div class="mt-6 p-5 bg-slate-900/80 rounded-xl border border-emerald-500/30">
+                    <p class="font-bold text-white mb-2">🤖 Parte 2 (Ingeniería de Prompts):</p>
+                    <p class="text-sm mb-3">Diseña un "Prompt" (instrucción) para pedirle a una Inteligencia Artificial que te genere 3 registros nuevos perfectos para tu tabla.</p>
+                    
+                    <div class="relative">
+                        <textarea class="w-full bg-slate-800 text-cyan-300 p-4 rounded-lg border border-slate-600 focus:border-emerald-500 outline-none font-mono text-sm resize-none" rows="3" placeholder="Ejemplo: Actúa como un experto en bases de datos. Genera 3 registros en formato de tabla para una tienda de videojuegos, con las columnas: Código, Nombre, Precio, Categoría y Existencia..."></textarea>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">Escribe tu mejor prompt arriba, cópialo y pruébalo en Gemini o ChatGPT, luego transcribe el resultado a tu cuaderno.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <section class="glass-card rounded-2xl p-8 border-t-4 border-t-amber-500 relative">
+                <span class="absolute -top-3 left-6 bg-amber-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase shadow-lg">
+                    🔍 INVESTIGACIÓN
+                </span>
+                <h3 class="text-lg font-bold text-amber-300 mb-3">Para buscar en Google:</h3>
+                <p class="text-slate-300 italic">"¿Qué es una 'Llave Primaria' (Primary Key) en una base de datos y por qué es un error gravísimo que dos clientes tengan la misma identificación?"</p>
+                <p class="text-sm text-slate-400 mt-4">Anota el resultado resumido en tu cuaderno. ¡Lo discutiremos la próxima clase!</p>
+            </section>
+
+            <section class="glass-card rounded-2xl p-8 border-t-4 border-t-rose-500 relative">
+                <span class="absolute -top-3 left-6 bg-rose-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase shadow-lg">
+                    📄 TAREA EN HOJA SUELTA
+                </span>
+                <div class="flex items-start gap-4">
+                    <div class="text-4xl">📝</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-rose-300 mb-2">Entregable Físico</h3>
+                        <p class="text-slate-300 text-sm">
+                            Debes entregar la respuesta a la pregunta de investigación en una hoja en blanco, debidamente marcada con:
+                        </p>
+                        <ul class="list-disc pl-5 mt-2 text-sm text-rose-200">
+                            <li>Tu Nombre Completo</li>
+                            <li>Grado (8°)</li>
+                            <li>Fecha de entrega</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="glass-card rounded-2xl p-8 mt-10">
+            <h3 class="text-2xl font-bold text-center text-white mb-6">🎮 Reto Rápido: Comprueba tu lógica</h3>
+            
+            <div id="quiz-container" class="max-w-2xl mx-auto space-y-4">
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600" id="q1-box">
+                    <p class="font-semibold text-cyan-300 mb-3">1. ¿Qué dato es el más seguro para usar como "Identificación" de un cliente sin riesgo a que se repita?</p>
+                    <div class="flex gap-2">
+                        <button onclick="checkAnswer('q1', false)" class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded transition-all">El Nombre</button>
+                        <button onclick="checkAnswer('q1', true)" class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded transition-all">La Cédula/TI</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-600" id="q2-box">
+                    <p class="font-semibold text-cyan-300 mb-3">2. Si quiero saber cuántos teclados me quedan para vender, ¿En qué columna y tabla busco?</p>
+                    <div class="flex gap-2">
+                        <button onclick="checkAnswer('q2', true)" class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded transition-all">Existencia (Artículos)</button>
+                        <button onclick="checkAnswer('q2', false)" class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded transition-all">Categoría (Clientes)</button>
+                    </div>
+                </div>
+            </div>
+            <div id="quiz-result" class="text-center mt-6 hidden">
+                <p class="text-2xl font-bold text-emerald-400 animate-pulse">¡Excelente análisis estructural! 🚀</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-16 py-8 bg-slate-950 border-t border-slate-800 text-center">
+        <p class="text-slate-500 font-medium">
+            &copy; 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática
+        </p>
+    </footer>
+
+    <script>
+        // Función de Copiar Enlace
+        function copiarEnlace(){
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const t = document.getElementById('toastCopiado');
+                if(t){
+                    t.classList.remove('hidden');
+                    setTimeout(()=> t.classList.add('hidden'), 2000);
+                } else {
+                    alert("Enlace copiado ✅");
+                }
+            }).catch(() => {
+                alert("No se pudo copiar automáticamente. Copia el enlace manualmente desde la barra del navegador.");
+            });
+        }
+
+        // Lógica del Data Lab (Simulador)
+        let inventoryData = [
+            { code: 'A001', name: 'Mouse Gamer', cat: 'Periféricos', qty: 15 },
+            { code: 'A002', name: 'Monitor 24"', cat: 'Hardware', qty: 8 },
+            { code: 'A003', name: 'Antivirus', cat: 'Software', qty: 30 }
+        ];
+
+        let chartInstance = null;
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            inventoryData.forEach(item => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-800/50 transition-colors">
+                        <td class="p-3 font-mono text-cyan-300">${item.code}</td>
+                        <td class="p-3">${item.name}</td>
+                        <td class="p-3">
+                            <span class="bg-slate-700 px-2 py-1 rounded text-xs">${item.cat}</span>
+                        </td>
+                        <td class="p-3 font-bold">${item.qty}</td>
+                    </tr>
+                `;
+            });
+            updateChart();
+        }
+
+        function updateChart() {
+            const ctx = document.getElementById('inventoryChart').getContext('2d');
+            
+            // Agrupar por categoría
+            const catCounts = { 'Hardware': 0, 'Periféricos': 0, 'Software': 0 };
+            inventoryData.forEach(item => {
+                if(catCounts[item.cat] !== undefined) catCounts[item.cat]++;
+            });
+
+            if(chartInstance) {
+                chartInstance.destroy();
+            }
+
+            Chart.defaults.color = '#94a3b8';
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(catCounts),
+                    datasets: [{
+                        data: Object.values(catCounts),
+                        backgroundColor: ['#8b5cf6', '#06b6d4', '#10b981'],
+                        borderColor: '#0f172a',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' }
+                    },
+                    animation: { animateScale: true, animateRotate: true }
+                }
+            });
+        }
+
+        function addArticle() {
+            const code = document.getElementById('itemCode').value;
+            const name = document.getElementById('itemName').value;
+            const cat = document.getElementById('itemCat').value;
+            const qty = document.getElementById('itemQty').value;
+
+            if(!code || !name || !qty) {
+                alert("Completa todos los campos para registrar el artículo.");
+                return;
+            }
+
+            inventoryData.push({ code, name, cat, qty: parseInt(qty) });
+            
+            // Limpiar inputs
+            document.getElementById('itemCode').value = '';
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemQty').value = '';
+            
+            renderTable();
+        }
+
+        // Inicializar tabla al cargar
+        renderTable();
+
+        // Lógica del Micro-Quiz
+        let score = 0;
+        function checkAnswer(questionId, isCorrect) {
+            const box = document.getElementById(`${questionId}-box`);
+            if(isCorrect) {
+                box.classList.remove('border-slate-600', 'border-red-500');
+                box.classList.add('border-emerald-500', 'bg-emerald-900/30');
+                score++;
+            } else {
+                box.classList.remove('border-slate-600', 'border-emerald-500');
+                box.classList.add('border-red-500', 'bg-red-900/30');
+                // Efecto de vibración (shake)
+                box.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 300 });
+            }
+            
+            // Deshabilitar botones de esta pregunta
+            const buttons = box.querySelectorAll('button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            if(score === 2) {
+                document.getElementById('quiz-result').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
