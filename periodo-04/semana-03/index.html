@@ -1,1 +1,447 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 3 - La Tabla Facturador | Prof. William Fdo Bernal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Animaciones Personalizadas */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+        .shake { animation: shake 0.4s ease-in-out; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Scrollbar styling para Chrome */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #60a5fa; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950 text-gray-100 min-h-screen font-sans selection:bg-pink-500 selection:text-white p-4 md:p-8">
+
+    <!-- BARRA DE NAVEGACIÓN OBLIGATORIA -->
+    <div class="max-w-5xl mx-auto flex flex-wrap justify-end gap-3 mb-6 relative z-50">
+        <a href="../../../index.html"
+           class="bg-slate-800/80 text-white px-5 py-2.5 rounded-xl shadow border border-white/10 hover:scale-105 hover:bg-slate-700 transition-all duration-300 backdrop-blur flex items-center gap-2 font-semibold">
+           <i class="fas fa-home"></i> Inicio (Grado)
+        </a>
+
+        <a href="../../index.html"
+           class="bg-purple-600/90 text-white px-5 py-2.5 rounded-xl shadow border border-purple-400/30 hover:scale-105 hover:bg-purple-500 transition-all duration-300 backdrop-blur flex items-center gap-2 font-semibold">
+           <i class="fas fa-folder-open"></i> Menú del Periodo
+        </a>
+
+        <button type="button" onclick="copiarEnlace()"
+           class="bg-emerald-600/90 text-white px-5 py-2.5 rounded-xl shadow border border-emerald-400/30 hover:scale-105 hover:bg-emerald-500 transition-all duration-300 backdrop-blur flex items-center gap-2 font-semibold">
+           <i class="fas fa-link"></i> Copiar enlace
+        </button>
+    </div>
+
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/90 text-emerald-400 px-6 py-4 rounded-xl shadow-2xl backdrop-blur border border-emerald-500/30 z-50 transform transition-all duration-300 flex items-center gap-3 font-bold">
+        <i class="fas fa-check-circle text-xl"></i> ¡Enlace copiado al portapapeles!
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-5xl mx-auto space-y-10">
+
+        <!-- SECCIÓN 1: HERO -->
+        <header class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden animate-float text-white mt-4">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+            <p class="text-blue-300 font-bold uppercase tracking-widest text-sm mb-2"><i class="fas fa-school mr-2"></i>Colegio Santa Mariana de Jesús</p>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                La Tabla Facturador
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-blue-100 mb-6 drop-shadow">
+                Prof. William Fdo Bernal <span class="mx-2">|</span> Grado 8°
+            </p>
+            <div class="inline-block bg-blue-500/20 border border-blue-400/30 rounded-xl p-4 max-w-2xl backdrop-blur text-left shadow-inner">
+                <p class="text-gray-200 text-lg">
+                    <i class="fas fa-bullseye text-pink-400 mr-2"></i>
+                    <strong>Objetivo:</strong> Comprender la estructura de una tabla de ventas y cómo se conecta con las tablas de consulta mediante IDs únicos para evitar errores en bases de datos.
+                </p>
+            </div>
+        </header>
+
+        <!-- SECCIÓN 2: COPIAR AL CUADERNO -->
+        <section class="glass-card rounded-3xl p-8 relative">
+            <div class="absolute -top-4 left-6 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-2">
+                <i class="fas fa-pencil-alt"></i> 📝 COPIAR AL CUADERNO
+            </div>
+            
+            <div class="mt-4 space-y-6">
+                <div class="border-l-4 border-purple-500 pl-4 bg-purple-500/10 p-4 rounded-r-xl">
+                    <p class="text-sm text-purple-300 font-semibold mb-1">🔗 Conectando con la Semana 2:</p>
+                    <p class="text-gray-300">Ya creamos las tablas de <strong class="text-white">Artículos y Clientes</strong>. Ahora crearemos la tabla que une todo: el <strong class="text-white text-xl">Facturador</strong>.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
+                        <h3 class="text-2xl font-bold text-blue-400 mb-3"><i class="fas fa-file-invoice-dollar mr-2"></i>La Tabla Facturador</h3>
+                        <p class="text-gray-300 mb-4">Es el "corazón" del negocio. Registra cada venta realizada sin escribir nombres largos, solo utilizando códigos.</p>
+                        <ul class="space-y-2 text-gray-300 font-mono text-sm">
+                            <li><span class="text-pink-400">ID_Factura:</span> Llave Primaria (única).</li>
+                            <li><span class="text-blue-300">Fecha:</span> Día de la compra.</li>
+                            <li><span class="text-blue-300">ID_Cliente:</span> Código de quién compró.</li>
+                            <li><span class="text-blue-300">ID_Articulo:</span> Código de qué compró.</li>
+                            <li><span class="text-blue-300">Cantidad:</span> Unidades vendidas.</li>
+                            <li><span class="text-emerald-400 font-bold">Total:</span> Precio final.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-black/30 p-6 rounded-2xl border border-white/5">
+                        <h3 class="text-2xl font-bold text-emerald-400 mb-3"><i class="fas fa-database mr-2"></i>Tablas de Consulta</h3>
+                        <p class="text-gray-300 mb-4">Son listas de memoria que el sistema consulta rápidamente usando el ID.</p>
+                        <div class="space-y-3">
+                            <div class="bg-blue-900/40 p-3 rounded-lg border border-blue-500/30">
+                                <strong class="text-white text-sm">Ejemplo Práctico:</strong><br>
+                                <span class="text-sm text-gray-300">Si en el facturador pongo <strong class="text-yellow-400">ID_Articulo: A01</strong>, el sistema busca en la tabla Artículos y sabe que es un "Teclado Gamer".</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: INTERACTUAR EN EL PC (SIMULADOR) -->
+        <section class="glass-card rounded-3xl p-8 relative border-blue-500/30">
+            <div class="absolute -top-4 left-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-2">
+                <i class="fas fa-laptop-code"></i> 💻 INTERACTUAR EN EL PC
+            </div>
+            
+            <h2 class="text-3xl font-bold text-center mb-6 mt-4 text-white">Simulador Conceptual: El Cerebro del Facturador</h2>
+            <p class="text-center text-gray-300 mb-8 max-w-3xl mx-auto">Prueba cómo el Facturador (izquierda) se comunica con la Tabla de Consulta (derecha) escribiendo el ID correcto. Observa cómo calcula el total automáticamente.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Zona de Facturación (Input) -->
+                <div class="bg-slate-800 p-6 rounded-2xl border-2 border-slate-600 shadow-2xl relative">
+                    <div class="absolute top-0 right-0 bg-slate-600 text-xs px-3 py-1 rounded-bl-xl rounded-tr-xl font-bold">Módulo Facturador</div>
+                    <div class="space-y-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-bold text-blue-400 mb-1">Escribe el ID_Articulo:</label>
+                            <input type="text" id="sim-id" class="w-full bg-slate-900 border border-slate-500 rounded-lg px-4 py-2 text-white font-mono uppercase focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="Ej: P01, P02, P03">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-blue-400 mb-1">Cantidad vendida:</label>
+                            <input type="number" id="sim-qty" value="1" min="1" class="w-full bg-slate-900 border border-slate-500 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500 transition-all">
+                        </div>
+                        
+                        <div class="bg-black/50 p-4 rounded-xl border border-white/10 mt-4 h-32 flex flex-col justify-center">
+                            <p class="text-sm text-gray-400 mb-2">Pantalla de la Caja:</p>
+                            <div id="sim-display" class="text-2xl font-bold text-emerald-400 text-center animate-pulse">Esperando ID...</div>
+                            <div id="sim-total" class="text-lg font-mono text-center text-white mt-1 hidden">Total: $<span id="sim-total-val">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Consulta (Base de datos estática) -->
+                <div class="bg-indigo-900/50 p-6 rounded-2xl border-2 border-indigo-500/50 shadow-2xl relative">
+                    <div class="absolute top-0 right-0 bg-indigo-500 text-xs px-3 py-1 rounded-bl-xl rounded-tr-xl font-bold">Tabla Consulta: Artículos</div>
+                    <table class="w-full mt-4 text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-indigo-400/50 text-indigo-300">
+                                <th class="py-2">ID_Articulo</th>
+                                <th class="py-2">Nombre</th>
+                                <th class="py-2 text-right">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-200 font-mono text-sm">
+                            <tr class="border-b border-indigo-400/20 hover:bg-white/5 transition-colors" id="row-P01">
+                                <td class="py-3 font-bold text-yellow-400">P01</td>
+                                <td>Mouse Inalámbrico</td>
+                                <td class="text-right">$45.000</td>
+                            </tr>
+                            <tr class="border-b border-indigo-400/20 hover:bg-white/5 transition-colors" id="row-P02">
+                                <td class="py-3 font-bold text-yellow-400">P02</td>
+                                <td>Teclado Mecánico</td>
+                                <td class="text-right">$120.000</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors" id="row-P03">
+                                <td class="py-3 font-bold text-yellow-400">P03</td>
+                                <td>Monitor 24"</td>
+                                <td class="text-right">$450.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 text-xs text-indigo-300 text-center bg-indigo-950/50 p-2 rounded-lg">
+                        <i class="fas fa-info-circle"></i> Los precios están simplificados para el ejemplo.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: TRABAJO EN LA SALA -->
+        <section class="glass-card rounded-3xl p-8 relative border-purple-500/30">
+            <div class="absolute -top-4 left-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-2">
+                <i class="fas fa-desktop"></i> 🖥️ TRABAJO EN LA SALA
+            </div>
+            
+            <div class="mt-4">
+                <h2 class="text-3xl font-extrabold text-white mb-2">🛒 Actividad: "Mi Tiendita Virtual con IA + Excel"</h2>
+                <div class="flex flex-wrap gap-4 text-sm text-purple-200 mb-6 bg-black/20 p-3 rounded-lg inline-flex border border-purple-500/20">
+                    <span><i class="fas fa-clock text-purple-400"></i> Duración: 45 min</span>
+                    <span><i class="fas fa-tools text-purple-400"></i> Herramientas: Chat IA + Excel</span>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Paso 1 -->
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-blue-300 mb-3">1️⃣ Genera la estructura con IA (5 min) 🤖</h3>
+                        <p class="text-gray-300 mb-3">Copia y pega este prompt exacto en tu chat de IA preferido:</p>
+                        <div class="bg-black/50 p-4 rounded-xl border border-gray-600 relative group">
+                            <code class="text-emerald-400 font-mono text-sm block">"Actúa como experto en datos para 8°. Genera encabezados y 3 ejemplos para una tabla 'Artículos' (ID, Nombre, Precio) y 1 ejemplo para 'Facturador' (N_Factura, Fecha, ID_Producto, Cantidad, Total). Los IDs deben coincidir. Dame solo el texto separado por tabulaciones para pegar directo en Excel."</code>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-blue-300 mb-3">2️⃣ Crea la tabla 'Artículos' (10 min) 📊</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Abre Excel → Libro nuevo. En A1 escribe: <code class="bg-black/30 px-2 py-1 rounded text-pink-300">ID | Nombre | Precio</code></li>
+                            <li>Copia los 3 productos de la IA y pégalos desde A2.</li>
+                            <li>Selecciona A1:C4 → <code class="bg-blue-900 px-2 py-1 rounded text-white font-bold">Ctrl + T</code> → Aceptar.</li>
+                            <li>Aplica formato <strong>Moneda</strong> a la columna Precio.</li>
+                        </ul>
+                        <div class="mt-3 text-sm text-yellow-300 bg-yellow-900/30 p-2 rounded-lg border border-yellow-700/50">
+                            💡 <strong>Concepto clave:</strong> El ID es la "huella digital" única de cada producto. Nunca se repite.
+                        </div>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-blue-300 mb-3">3️⃣ Crea la tabla 'Facturador' (10 min) 🧾</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Salta una fila. En A7 escribe: <code class="bg-black/30 px-2 py-1 rounded text-pink-300">N_Factura | Fecha | ID_Producto | Cantidad | Total</code></li>
+                            <li>Registra 1 venta imaginaria. Usa <strong>EXACTAMENTE</strong> un ID de la tabla Artículos.</li>
+                            <li>En la celda Total, escribe la fórmula usando referencias de celda: <code class="bg-black/30 px-2 py-1 rounded text-green-400">=D8*C3</code> (Ajusta la celda C3 al precio que corresponda).</li>
+                            <li>Selecciona A7:E8 → <code class="bg-blue-900 px-2 py-1 rounded text-white font-bold">Ctrl + T</code>.</li>
+                        </ul>
+                        <div class="mt-3 text-sm text-red-300 bg-red-900/30 p-2 rounded-lg border border-red-700/50">
+                            🔗 <strong>Verifica:</strong> Si escribes un ID que no existe en Artículos, la relación de datos se rompe.
+                        </div>
+                    </div>
+
+                    <!-- Paso 4 -->
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-blue-300 mb-3">4️⃣ Revisa, reflexiona y guarda (10 min) 💾</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>En una celda libre (ej: A11) responde: <em>"¿Por qué es crítico que los IDs coincidan entre tablas?"</em> (1 línea).</li>
+                            <li>Guarda con nombre EXACTO: <code class="text-white font-bold">8_tienda_virtual_281124_TuNombre.xlsx</code></li>
+                        </ul>
+                        <div class="mt-4 p-4 bg-emerald-900/30 border border-emerald-500/50 rounded-xl">
+                            <h4 class="text-emerald-400 font-bold mb-1">✨ Reto avanzado:</h4>
+                            <p class="text-sm text-emerald-200">Pídele a la IA: <em>"¿Cómo uso BUSCARV o XLOOKUP en Excel para que el precio se llene automático al escribir el ID en Facturador?"</em> y prueba aplicarlo si terminas a tiempo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- SECCIÓN 5: INVESTIGACIÓN -->
+            <section class="glass-card rounded-3xl p-8 relative border-yellow-500/30">
+                <div class="absolute -top-4 left-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-2">
+                    <i class="fas fa-search"></i> 🔍 INVESTIGACIÓN
+                </div>
+                <div class="mt-4 text-center">
+                    <i class="fab fa-google text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-3">Para buscar y anotar en el cuaderno:</h3>
+                    <p class="text-yellow-300 font-medium text-lg bg-black/30 p-4 rounded-xl border border-yellow-500/20 shadow-inner">
+                        "¿Qué es una clave foránea (Foreign Key) en bases de datos y cómo se relaciona con la llave primaria?"
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 6: TAREA EN HOJA SUELTA -->
+            <section class="glass-card rounded-3xl p-8 relative border-gray-500/30 flex items-center justify-center">
+                <div class="absolute -top-4 left-6 bg-gradient-to-r from-gray-500 to-slate-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase tracking-wider flex items-center gap-2">
+                    <i class="fas fa-file-alt"></i> 📄 TAREA EN HOJA SUELTA
+                </div>
+                <div class="text-center mt-4">
+                    <div class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-mug-hot text-3xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-emerald-400">¡Descanso!</h3>
+                    <p class="text-gray-300">Esta semana no hay tarea para la casa.<br>¡Buen trabajo en la sala!</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN 7: GAMIFICACIÓN (QUIZ) -->
+        <section class="glass-card rounded-3xl p-8 text-center border-t-4 border-pink-500">
+            <h2 class="text-3xl font-extrabold text-white mb-6"><i class="fas fa-gamepad text-pink-400 mr-2"></i>Micro-Quiz de Cierre</h2>
+            <div id="quiz-container" class="max-w-2xl mx-auto space-y-4">
+                <!-- Las preguntas se inyectan vía JS -->
+            </div>
+            <div id="quiz-result" class="hidden mt-6 p-4 rounded-xl text-2xl font-bold text-white"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-16 bg-black/80 border-t border-white/10 py-8 text-center backdrop-blur relative z-10">
+        <p class="text-gray-400 text-sm tracking-widest uppercase mb-2">Colegio Santa Mariana de Jesús</p>
+        <p class="text-white font-bold">© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
+        <p class="text-xs text-blue-500/50 mt-2">Framework Bernal-Interactivo v2.0</p>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT -->
+    <script>
+        // 1. Lógica del Botón Copiar Enlace (OBLIGATORIA)
+        function copiarEnlace() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const t = document.getElementById('toastCopiado');
+                if(t) {
+                    t.classList.remove('hidden');
+                    t.classList.add('translate-y-4');
+                    setTimeout(() => {
+                        t.classList.add('hidden');
+                        t.classList.remove('translate-y-4');
+                    }, 2500);
+                } else {
+                    alert("Enlace copiado ✅");
+                }
+            }).catch(() => {
+                alert("No se pudo copiar automáticamente. Copia el enlace manualmente desde la barra del navegador.");
+            });
+        }
+
+        // 2. Lógica del Simulador Conceptual
+        const db_articulos = {
+            'P01': { nombre: 'Mouse Inalámbrico', precio: 45000 },
+            'P02': { nombre: 'Teclado Mecánico', precio: 120000 },
+            'P03': { nombre: 'Monitor 24"', precio: 450000 }
+        };
+
+        const inputId = document.getElementById('sim-id');
+        const inputQty = document.getElementById('sim-qty');
+        const display = document.getElementById('sim-display');
+        const totalDiv = document.getElementById('sim-total');
+        const totalVal = document.getElementById('sim-total-val');
+
+        function updateSimulator() {
+            const idVal = inputId.value.trim().toUpperCase();
+            const qty = parseInt(inputQty.value) || 0;
+
+            // Reset highlights en la tabla
+            document.querySelectorAll('tbody tr').forEach(tr => tr.classList.remove('bg-blue-500/30', 'border-blue-500'));
+
+            if (idVal === '') {
+                display.innerHTML = 'Esperando ID...';
+                display.className = 'text-2xl font-bold text-gray-500 text-center animate-pulse';
+                totalDiv.classList.add('hidden');
+                return;
+            }
+
+            if (db_articulos[idVal]) {
+                const item = db_articulos[idVal];
+                const total = item.precio * qty;
+                
+                display.innerHTML = `<i class="fas fa-check-circle mr-2"></i>${item.nombre}`;
+                display.className = 'text-2xl font-bold text-emerald-400 text-center drop-shadow-md';
+                
+                totalVal.innerText = new Intl.NumberFormat('es-CO').format(total);
+                totalDiv.classList.remove('hidden');
+
+                // Resaltar en tabla
+                const row = document.getElementById(`row-${idVal}`);
+                if(row) {
+                    row.classList.add('bg-blue-500/30', 'border-blue-500');
+                }
+            } else {
+                display.innerHTML = '<i class="fas fa-times-circle mr-2 text-red-500"></i>ID No Encontrado';
+                display.className = 'text-2xl font-bold text-red-400 text-center shake';
+                totalDiv.classList.add('hidden');
+            }
+        }
+
+        inputId.addEventListener('input', updateSimulator);
+        inputQty.addEventListener('input', updateSimulator);
+
+
+        // 3. Lógica del Micro-Quiz Gamificado
+        const questions = [
+            { q: "¿Qué función cumple la tabla Facturador?", options: ["Registrar las ventas usando códigos.", "Guardar fotos de los clientes."], correct: 0 },
+            { q: "¿Para qué sirven las Tablas de Consulta?", options: ["Para cambiar el color de la web.", "Para evitar escribir nombres largos repetidos."], correct: 1 },
+            { q: "¿Qué pasa si en el Facturador pongo un ID que no existe?", options: ["El sistema inventa el precio.", "La relación de datos se rompe y da error."], correct: 1 }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        const quizContainer = document.getElementById('quiz-container');
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            quizContainer.innerHTML = `
+                <div class="bg-black/40 p-6 rounded-2xl border border-white/10 shadow-lg transition-all duration-300" id="q-box">
+                    <p class="text-xl font-bold text-blue-200 mb-6">Pregunta ${currentQuestion + 1} de ${questions.length}:<br><span class="text-white">${q.q}</span></p>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="checkAnswer(0)" class="w-full text-left bg-slate-800 hover:bg-blue-600/80 p-4 rounded-xl text-gray-200 font-semibold border border-white/5 hover:scale-[1.02] transition-all duration-300">A) ${q.options[0]}</button>
+                        <button onclick="checkAnswer(1)" class="w-full text-left bg-slate-800 hover:bg-blue-600/80 p-4 rounded-xl text-gray-200 font-semibold border border-white/5 hover:scale-[1.02] transition-all duration-300">B) ${q.options[1]}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selected) {
+            const correct = questions[currentQuestion].correct;
+            const qBox = document.getElementById('q-box');
+            
+            if (selected === correct) {
+                score++;
+                qBox.classList.add('bg-emerald-900/50', 'border-emerald-500');
+            } else {
+                qBox.classList.add('bg-red-900/50', 'border-red-500', 'shake');
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 800);
+        }
+
+        function showResults() {
+            const resultDiv = document.getElementById('quiz-result');
+            quizContainer.classList.add('hidden');
+            resultDiv.classList.remove('hidden');
+            
+            if (score === questions.length) {
+                resultDiv.innerHTML = `🏆 ¡Perfecto! Puntuación: ${score}/${questions.length} <br><span class="text-sm font-normal text-gray-300">Dominas la lógica de bases de datos.</span>`;
+                resultDiv.classList.add('bg-gradient-to-r', 'from-emerald-600', 'to-teal-600', 'shadow-[0_0_30px_rgba(16,185,129,0.5)]');
+            } else {
+                resultDiv.innerHTML = `👍 ¡Buen intento! Puntuación: ${score}/${questions.length} <br><span class="text-sm font-normal text-gray-300">Repasa el material e inténtalo en tu mente de nuevo.</span>`;
+                resultDiv.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-indigo-600');
+            }
+        }
+
+        // Iniciar quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
