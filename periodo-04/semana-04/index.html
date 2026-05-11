@@ -4,330 +4,695 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8° - El Detective de Excel: BUSCARV</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Urbanist', sans-serif; background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        
-        /* Animaciones */
-        .hover-scale { transition: all 0.3s ease; }
-        .hover-scale:hover { transform: scale(1.02); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
-        
-        /* Flip Cards para Analogías */
-        .flip-card { background-color: transparent; width: 100%; height: 250px; perspective: 1000px; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
-        .flip-card-back { transform: rotateY(180deg); background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+        :root {
+            --neon-blue: #0ea5e9;
+            --neon-purple: #8b5cf6;
+            --neon-green: #10b981;
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
 
-        /* Canvas Scan Effect */
-        #canvasScan { border-radius: 1rem; background: #000; width: 100%; max-width: 500px; height: 200px; margin: 0 auto; display: block; }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #020617; 
+            color: #f8fafc; 
+            overflow-x: hidden;
+        }
+
+        .font-mono { font-family: 'Space Mono', monospace; }
+
+        /* Efectos Glassmorphism Premium */
+        .glass-panel { 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+
+        /* Animaciones Hover Extremas */
+        .hover-glow { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-glow:hover { 
+            transform: translateY(-8px) scale(1.02); 
+            box-shadow: 0 20px 40px -10px var(--neon-purple);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        /* Flip Cards 3D */
+        .flip-card { perspective: 1500px; height: 280px; }
+        .flip-card-inner { 
+            position: relative; width: 100%; height: 100%; text-align: center; 
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; 
+        }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { 
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+            border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; 
+        }
+        .flip-card-front { background: var(--glass-bg); border: 1px solid var(--glass-border); }
+        .flip-card-back { 
+            transform: rotateY(180deg); 
+            background: linear-gradient(135deg, #3b0764, #1e1b4b);
+            border: 1px solid var(--neon-purple);
+            box-shadow: inset 0 0 30px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Líneas conectoras para el Stepper */
+        .stepper-line::after {
+            content: ''; position: absolute; left: 2rem; top: 4rem; bottom: -2rem; width: 2px;
+            background: linear-gradient(to bottom, var(--neon-blue), transparent);
+            z-index: -1;
+        }
+        .stepper-item:last-child .stepper-line::after { display: none; }
+
+        /* Animación de esferas de fondo */
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .blob { animation: float 10s infinite alternate ease-in-out; }
+        
+        /* Ocultar scrollbar pero permitir scroll */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body>
+<body class="antialiased relative">
 
-<div class="max-w-5xl mx-auto flex justify-end gap-3 mb-4 mt-6 px-4">
-  <a href="../../../index.html"
-     class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10">
-     ⬅ Inicio (Grado)
+<!-- FONDO ANIMADO INMERSIVO -->
+<div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-indigo-600/20 rounded-full blur-[120px] blob"></div>
+    <div class="absolute top-[40%] right-[-10%] w-[35rem] h-[35rem] bg-emerald-600/10 rounded-full blur-[100px] blob" style="animation-delay: -3s;"></div>
+    <div class="absolute bottom-[-20%] left-[20%] w-[50rem] h-[50rem] bg-purple-900/20 rounded-full blur-[150px] blob" style="animation-delay: -7s;"></div>
+    <!-- Rejilla superpuesta -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDQwIEwgNDAgNDAgTCA0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-50 z-[-1]"></div>
+</div>
+
+<!-- 🔒 BARRA DE BOTONES OBLIGATORIA -->
+<div class="max-w-6xl mx-auto flex justify-end gap-3 pt-6 px-4 relative z-50">
+  <a href="../../../index.html" class="bg-slate-800/80 text-white px-5 py-2.5 rounded-xl shadow-lg hover:scale-105 hover:bg-slate-700 transition-all duration-300 backdrop-blur-md border border-white/10 font-medium text-sm flex items-center gap-2">
+     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+     Inicio (Grado)
   </a>
 
-  <a href="../../index.html"
-     class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
-     ⬅ Menú del Periodo
+  <a href="../../index.html" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-purple-500/30 hover:scale-105 transition-all duration-300 border border-purple-400/30 font-medium text-sm flex items-center gap-2">
+     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+     Menú del Periodo
   </a>
 
-  <button type="button" onclick="copiarEnlace()"
-     class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
-     🔗 Copiar enlace
+  <button type="button" onclick="copiarEnlace()" class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-500/30 hover:scale-105 transition-all duration-300 border border-emerald-400/30 font-medium text-sm flex items-center gap-2">
+     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+     Copiar enlace
   </button>
 </div>
 
-<div id="toastCopiado" class="fixed top-6 right-6 hidden bg-emerald-500 text-white px-4 py-3 rounded-xl shadow-lg backdrop-blur z-50">
-  Enlace copiado ✅
+<div id="toastCopiado" class="fixed top-8 right-8 hidden bg-gradient-to-r from-emerald-400 to-green-500 text-slate-900 font-bold px-6 py-4 rounded-2xl shadow-[0_10px_40px_rgba(16,185,129,0.5)] backdrop-blur-xl z-[100] transform transition-all flex items-center gap-3">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+  ¡Enlace copiado al portapapeles!
 </div>
 
-<header class="max-w-6xl mx-auto px-4 py-12 text-center">
-    <h4 class="text-purple-400 font-bold tracking-widest uppercase text-sm mb-2">Colegio Santa Mariana de Jesús</h4>
-    <h1 class="text-5xl md:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400">
+<!-- >> SECCIÓN 1: HERO -->
+<header class="max-w-6xl mx-auto px-4 py-16 text-center relative">
+    <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-sky-400/30 bg-sky-500/10 backdrop-blur-md">
+        <span class="text-sky-300 font-bold tracking-widest uppercase text-xs">Colegio Santa Mariana de Jesús | Prof. William Fdo Bernal</span>
+    </div>
+    
+    <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-sky-100 to-sky-400 drop-shadow-lg">
         El Detective de Excel
     </h1>
-    <p class="text-xl text-slate-400 mb-8">Dominando el comando <span class="text-white font-mono bg-slate-800 px-2 py-1 rounded">BUSCARV</span></p>
     
-    <div class="glass max-w-2xl mx-auto p-6 rounded-3xl">
-        <div class="flex items-center gap-4 text-left">
-            <div class="bg-blue-500/20 p-4 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    <p class="text-2xl text-slate-300 mb-12 font-light">
+        Dominando la magia algorítmica de <span class="font-mono text-sky-400 font-bold bg-sky-900/30 px-3 py-1 rounded-lg border border-sky-500/30 shadow-[0_0_15px_rgba(14,165,233,0.3)]">BUSCARV</span>
+    </p>
+    
+    <div class="glass-panel max-w-3xl mx-auto p-8 rounded-[2rem] border-t-2 border-t-sky-400/50 hover-glow">
+        <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+            <div class="bg-gradient-to-br from-sky-500 to-blue-600 p-5 rounded-2xl shadow-lg shadow-sky-500/30 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
             <div>
-                <p class="text-xs font-bold text-blue-400 uppercase">Objetivo de Aprendizaje</p>
-                <p class="text-slate-200">Aprender a automatizar búsquedas de información en grandes bases de datos mediante la lógica de coordenadas verticales y coincidencia exacta.</p>
+                <p class="text-sm font-black text-sky-400 uppercase tracking-widest mb-2">Misión de Aprendizaje</p>
+                <p class="text-lg text-slate-200 leading-relaxed">Automatizar búsquedas instantáneas en bases de datos masivas. Extraeremos información exacta utilizando coordenadas verticales y lógica matricial.</p>
             </div>
         </div>
     </div>
 </header>
 
-<main class="max-w-6xl mx-auto px-4 space-y-12">
+<main class="max-w-6xl mx-auto px-4 space-y-20 pb-20">
 
-    <section class="space-y-4">
-        <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">📝 COPIAR AL CUADERNO</span>
-        <div class="glass-card p-8 rounded-3xl grid md:grid-cols-2 gap-8">
-            <div>
-                <h3 class="text-2xl font-bold mb-4 text-blue-300">Resumen Tecnológico</h3>
-                <p class="text-slate-400 mb-4">La semana pasada usamos <strong>Filtros</strong> para esconder datos. Hoy usaremos <strong>BUSCARV</strong> para extraer datos específicos sin movernos de lugar.</p>
-                <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 font-mono text-sm space-y-2">
-                    <p class="text-emerald-400">=BUSCARV(valor_buscado; matriz; col; falso)</p>
-                    <ul class="text-slate-500 text-xs list-disc ml-4 space-y-1">
-                        <li><strong>Valor:</strong> La pista que ya tienes (ej: Código).</li>
-                        <li><strong>Matriz:</strong> Dónde buscar (Toda la tabla).</li>
-                        <li><strong>Col:</strong> El número de la columna con la respuesta.</li>
-                        <li><strong>Falso:</strong> Para que la búsqueda sea exacta.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex items-center justify-center">
-                <div class="text-center">
-                    <div class="text-5xl mb-2">🔍</div>
-                    <p class="text-xs text-slate-500 italic">"El comando que busca por ti"</p>
-                </div>
-            </div>
+    <!-- [📝 COPIAR AL CUADERNO] -->
+    <section class="relative">
+        <div class="absolute -top-3 -left-3 z-10">
+            <span class="bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs font-black px-4 py-2 rounded-full uppercase tracking-wider shadow-lg shadow-rose-500/40 border border-rose-400/50">
+                📝 COPIAR AL CUADERNO
+            </span>
         </div>
-    </section>
-
-    <section class="space-y-4 text-center">
-        <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">💻 INTERACTUAR EN EL PC</span>
-        <h2 class="text-3xl font-bold mt-2">Simulador de Escaneo Vertical</h2>
-        <div class="glass-card p-8 rounded-3xl">
-            <canvas id="canvasScan"></canvas>
-            <div class="mt-6 flex justify-center gap-4">
-                <button onclick="startScan()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-bold transition-all">Iniciar Escaneo</button>
-                <button onclick="resetScan()" class="bg-slate-700 hover:bg-slate-600 px-6 py-2 rounded-xl font-bold transition-all">Resetear</button>
-            </div>
-            <p id="scanStatus" class="mt-4 text-emerald-400 font-mono text-sm h-4">Esperando instrucción...</p>
-        </div>
-    </section>
-
-    <section class="space-y-4">
-        <h2 class="text-2xl font-bold flex items-center gap-2">
-            <span class="bg-purple-600 p-2 rounded-lg">📊</span> Dashboard de Inventario
-        </h2>
-        <div class="glass-card p-6 rounded-3xl">
-            <div class="h-[300px]">
-                <canvas id="inventoryChart"></canvas>
-            </div>
-            <div class="flex justify-center gap-4 mt-6">
-                <button onclick="updateChart('A')" class="bg-slate-800 hover:bg-purple-600 px-4 py-2 rounded-xl text-sm transition-all">Ver Almacén A</button>
-                <button onclick="updateChart('B')" class="bg-slate-800 hover:bg-emerald-600 px-4 py-2 rounded-xl text-sm transition-all">Ver Almacén B</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="grid md:grid-cols-3 gap-6">
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front glass-card border-b-4 border-blue-500">
-                    <div class="text-4xl mb-4">🏥</div>
-                    <h3 class="font-bold">El Hospital</h3>
-                    <p class="text-xs text-slate-500 mt-2">¿Cómo funciona?</p>
+        <div class="glass-panel p-10 pt-12 rounded-[2.5rem] grid md:grid-cols-12 gap-10 items-center">
+            <div class="md:col-span-7 space-y-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="h-1 w-12 bg-rose-500 rounded-full"></div>
+                    <p class="text-rose-400 font-bold uppercase text-sm tracking-widest">Conexión con Tema Anterior</p>
                 </div>
-                <div class="flip-card-back">
-                    <p class="text-sm font-semibold">Tú das tu Cédula (Valor buscado), el sistema busca en la base de datos (Matriz) y te dice en qué cuarto estás (Columna).</p>
-                </div>
-            </div>
-        </div>
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front glass-card border-b-4 border-emerald-500">
-                    <div class="text-4xl mb-4">🍎</div>
-                    <h3 class="font-bold">El Supermercado</h3>
-                    <p class="text-xs text-slate-500 mt-2">¿Cómo funciona?</p>
-                </div>
-                <div class="flip-card-back">
-                    <p class="text-sm font-semibold">El escáner lee el código de barras (Valor), busca en el inventario (Matriz) y trae el precio (Columna).</p>
-                </div>
-            </div>
-        </div>
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front glass-card border-b-4 border-purple-500">
-                    <div class="text-4xl mb-4">⚽</div>
-                    <h3 class="font-bold">Álbum Panini</h3>
-                    <p class="text-xs text-slate-500 mt-2">¿Cómo funciona?</p>
-                </div>
-                <div class="flip-card-back">
-                    <p class="text-sm font-semibold">Buscas el número de la lámina (Valor), vas a la página correcta (Matriz) y ves el nombre del jugador (Columna).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="space-y-4">
-        <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">🖥️ TRABAJO EN LA SALA</span>
-        <div class="glass-card p-8 rounded-3xl space-y-6">
-            <div class="flex items-start gap-4">
-                <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
-                <div>
-                    <h4 class="font-bold text-lg">Uso de IA para Datos Crudos</h4>
-                    <p class="text-slate-400 text-sm mb-3">Copia y pega este prompt en tu IA favorita:</p>
-                    <div class="bg-black/40 p-4 rounded-xl font-mono text-xs text-blue-300 border border-white/5 select-all">
-                        "Genera una tabla con 10 registros ficticios de inventario para la empresa EMPRESA. Columnas: Codigo, Articulo, Categoria, Proveedor, Precio, Stock. Formato TSV (valores separados por tabulador), con encabezado en la primera fila. Sin comillas, sin explicaciones, solo los datos puros."
+                <p class="text-slate-300 text-lg">Semana 3 vimos "Filtros" para ocultar datos. Hoy, con BUSCARV, <strong class="text-white">extraemos datos a un panel de control</strong> sin alterar la base original.</p>
+                
+                <div class="bg-[#0f172a] p-6 rounded-2xl border border-slate-700 shadow-inner relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-emerald-500"></div>
+                    <p class="text-sky-400 font-mono text-lg font-bold mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Sintaxis del Comando
+                    </p>
+                    <div class="font-mono text-sm space-y-3">
+                        <p class="text-white bg-slate-800/50 p-3 rounded-lg border border-slate-700">=BUSCARV( <span class="text-pink-400">¿Qué_busco?</span> ; <span class="text-indigo-400">¿Dónde_busco?</span> ; <span class="text-emerald-400">Columna</span> ; <span class="text-amber-400">Exacto</span> )</p>
+                        <ul class="text-slate-400 pl-4 space-y-2">
+                            <li><span class="text-pink-400 font-bold">Valor:</span> La pista (Ej: Código de barras).</li>
+                            <li><span class="text-indigo-400 font-bold">Matriz:</span> El mapa entero (La tabla).</li>
+                            <li><span class="text-emerald-400 font-bold">Columna:</span> El N° donde está la respuesta.</li>
+                            <li><span class="text-amber-400 font-bold">Falso (0):</span> Obliga a buscar exactamente eso.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
-            <div class="flex items-start gap-4">
-                <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
-                <div>
-                    <h4 class="font-bold text-lg">Estructuración en Excel</h4>
-                    <p class="text-slate-400 text-sm">Pega los datos en la celda <strong>A1</strong>. Aplica formato de tabla, moneda en la columna Precio y centra los textos. ¡Que se vea profesional!</p>
-                </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-                <div class="bg-emerald-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
-                <div>
-                    <h4 class="font-bold text-lg">El Motor de Búsqueda</h4>
-                    <p class="text-slate-400 text-sm">En la celda G2 escribe un código que exista en tu tabla. En H3 usa la fórmula:</p>
-                    <code class="block bg-slate-900 p-2 rounded mt-2 text-emerald-400 text-center">=BUSCARV(G3; $A$2:$F$11; 2; FALSO)</code>
-                </div>
-            </div>
-
-            <div class="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-2xl flex items-center gap-4">
-                <span class="text-2xl">✨</span>
-                <p class="text-sm text-yellow-200"><strong>Reto Avanzado:</strong> Crea una alerta que diga "AGOTADO" usando la función SI combinada con el stock actual.</p>
+            <div class="md:col-span-5 flex justify-center relative">
+                <div class="absolute inset-0 bg-rose-500/20 blur-[80px] rounded-full"></div>
+                <img src="https://api.iconify.design/fluent-emoji-flat:detective.svg" alt="Detective" class="w-48 h-48 drop-shadow-[0_20px_50px_rgba(244,63,94,0.4)] animate-bounce" style="animation-duration: 3s;">
             </div>
         </div>
     </section>
 
-    <section class="glass p-8 rounded-[3rem] text-center border-2 border-purple-500/20">
-        <h2 class="text-3xl font-bold mb-8">Micro-Quiz de Velocidad</h2>
-        <div id="quiz" class="max-w-xl mx-auto space-y-4">
-            <div id="q1" class="glass-card p-6 rounded-2xl hover-scale cursor-pointer" onclick="checkQuiz(1, true)">
-                <p class="font-bold">¿Qué argumento asegura que la búsqueda sea exacta?</p>
-                <div class="grid grid-cols-2 gap-2 mt-4">
-                    <div class="bg-slate-800 p-2 rounded-lg text-xs">A) VERDADERO</div>
-                    <div class="bg-slate-800 p-2 rounded-lg text-xs">B) FALSO</div>
+    <!-- [💻 INTERACTUAR EN EL PC] -->
+    <section class="relative">
+        <div class="absolute -top-3 -left-3 z-10">
+            <span class="bg-gradient-to-r from-sky-400 to-blue-600 text-white text-xs font-black px-4 py-2 rounded-full uppercase tracking-wider shadow-lg shadow-blue-500/40 border border-blue-400/50">
+                💻 INTERACTUAR EN EL PC
+            </span>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-8 mt-6">
+            <!-- MOD-A: Simulador Conceptual -->
+            <div class="glass-panel p-8 rounded-[2.5rem] flex flex-col items-center hover-glow">
+                <h2 class="text-2xl font-bold mb-2 text-white">Scanner de Matriz <span class="text-sky-400 font-mono text-sm ml-2">v2.0</span></h2>
+                <p class="text-slate-400 text-sm mb-6 text-center">Simulación visual de cómo la IA de Excel recorre la tabla de arriba hacia abajo.</p>
+                
+                <div class="relative w-full max-w-sm rounded-xl overflow-hidden border-2 border-slate-700 bg-[#020617] shadow-[0_0_30px_rgba(14,165,233,0.15)]">
+                    <canvas id="scannerCanvas" width="380" height="240" class="w-full h-auto block"></canvas>
+                    <div id="scanResultOverlay" class="absolute inset-0 bg-emerald-900/80 backdrop-blur-sm hidden flex-col items-center justify-center border-4 border-emerald-400 transition-all">
+                        <svg class="w-16 h-16 text-emerald-400 mb-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <p class="text-white font-mono font-bold text-xl">DATO ENCONTRADO</p>
+                        <p id="foundText" class="text-emerald-300 font-mono mt-2 bg-black/50 px-4 py-1 rounded"></p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex gap-4 w-full">
+                    <button onclick="startVisualScan()" class="flex-1 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white py-3 rounded-xl font-bold shadow-lg shadow-sky-500/30 transition-all flex justify-center items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        Buscar "C303"
+                    </button>
+                    <button onclick="resetVisualScan()" class="px-6 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold transition-all border border-slate-600">
+                        Reset
+                    </button>
                 </div>
             </div>
-            <div id="quiz-feedback" class="h-8 font-bold text-emerald-400"></div>
+
+            <!-- MOD-B: Data Lab -->
+            <div class="glass-panel p-8 rounded-[2.5rem] flex flex-col hover-glow">
+                <h2 class="text-2xl font-bold mb-2 text-white flex items-center gap-3">
+                    <span class="bg-indigo-500/20 text-indigo-400 p-2 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></span>
+                    Dashboard EMPRESA
+                </h2>
+                <p class="text-slate-400 text-sm mb-6">Visualización del stock al que estamos conectando nuestra búsqueda.</p>
+                
+                <div class="flex-grow bg-[#0f172a] rounded-xl border border-slate-700 p-4 relative h-[250px]">
+                    <canvas id="neonChart"></canvas>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <button onclick="switchDataset('A')" class="bg-[#1e293b] hover:bg-indigo-600/30 text-slate-300 hover:text-white py-3 rounded-xl border border-slate-700 hover:border-indigo-500 transition-all text-sm font-bold flex flex-col items-center">
+                        <span class="text-indigo-400 text-lg mb-1">📦</span> Sede Principal
+                    </button>
+                    <button onclick="switchDataset('B')" class="bg-[#1e293b] hover:bg-emerald-600/30 text-slate-300 hover:text-white py-3 rounded-xl border border-slate-700 hover:border-emerald-500 transition-all text-sm font-bold flex flex-col items-center">
+                        <span class="text-emerald-400 text-lg mb-1">🚚</span> Sede Bodega
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="space-y-4">
-        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">🔍 INVESTIGACIÓN</span>
-        <div class="glass-card p-6 rounded-3xl border-l-4 border-orange-500">
-            <p class="text-slate-300 italic">"Busca en Google: ¿Qué pasa si el valor que busco no está en la primera columna de la matriz? Escribe la solución que encontrarías en Excel en tu cuaderno."</p>
+    <!-- [MOD-C] Zona de Analogías (Tarjetas 3D) -->
+    <section class="grid md:grid-cols-3 gap-8">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front hover-glow border-t-4 border-t-indigo-500">
+                    <div class="w-20 h-20 bg-indigo-500/20 rounded-full flex items-center justify-center mb-4 border border-indigo-500/50">
+                        <span class="text-4xl">🏥</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Clínica Médica</h3>
+                    <p class="text-xs text-indigo-300 font-bold uppercase tracking-widest bg-indigo-900/50 px-3 py-1 rounded-full">Gira la tarjeta</p>
+                </div>
+                <div class="flip-card-back">
+                    <h4 class="text-xl font-bold text-white mb-4 border-b border-white/20 pb-2 w-full text-center">La Lógica</h4>
+                    <p class="text-sm text-indigo-100 font-medium text-left w-full space-y-2">
+                        <span class="block"><span class="text-pink-300 font-bold">1. Valor:</span> Das tu Cédula al llegar.</span>
+                        <span class="block"><span class="text-sky-300 font-bold">2. Matriz:</span> Buscan en el sistema.</span>
+                        <span class="block"><span class="text-emerald-300 font-bold">3. Columna:</span> Te dicen en qué piso estás.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card" style="animation-delay: 0.1s;">
+            <div class="flip-card-inner">
+                <div class="flip-card-front hover-glow border-t-4 border-t-emerald-500">
+                    <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mb-4 border border-emerald-500/50">
+                        <span class="text-4xl">🛒</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Supermercado</h3>
+                    <p class="text-xs text-emerald-300 font-bold uppercase tracking-widest bg-emerald-900/50 px-3 py-1 rounded-full">Gira la tarjeta</p>
+                </div>
+                <div class="flip-card-back" style="background: linear-gradient(135deg, #064e3b, #0f766e);">
+                    <h4 class="text-xl font-bold text-white mb-4 border-b border-white/20 pb-2 w-full text-center">La Lógica</h4>
+                    <p class="text-sm text-emerald-100 font-medium text-left w-full space-y-2">
+                        <span class="block"><span class="text-pink-300 font-bold">1. Valor:</span> El lector lee el código de barras.</span>
+                        <span class="block"><span class="text-sky-300 font-bold">2. Matriz:</span> Revisa el inventario central.</span>
+                        <span class="block"><span class="text-emerald-300 font-bold">3. Columna:</span> Trae a la pantalla el Precio.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card" style="animation-delay: 0.2s;">
+            <div class="flip-card-inner">
+                <div class="flip-card-front hover-glow border-t-4 border-t-amber-500">
+                    <div class="w-20 h-20 bg-amber-500/20 rounded-full flex items-center justify-center mb-4 border border-amber-500/50">
+                        <span class="text-4xl">⚽</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Álbum Mundial</h3>
+                    <p class="text-xs text-amber-300 font-bold uppercase tracking-widest bg-amber-900/50 px-3 py-1 rounded-full">Gira la tarjeta</p>
+                </div>
+                <div class="flip-card-back" style="background: linear-gradient(135deg, #78350f, #b45309);">
+                    <h4 class="text-xl font-bold text-white mb-4 border-b border-white/20 pb-2 w-full text-center">La Lógica</h4>
+                    <p class="text-sm text-amber-100 font-medium text-left w-full space-y-2">
+                        <span class="block"><span class="text-pink-300 font-bold">1. Valor:</span> Miras el número en tu lámina.</span>
+                        <span class="block"><span class="text-sky-300 font-bold">2. Matriz:</span> Buscas en las páginas del álbum.</span>
+                        <span class="block"><span class="text-emerald-300 font-bold">3. Columna:</span> Pegas en el recuadro correcto.</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="bg-slate-800/30 p-8 rounded-3xl text-center border border-dashed border-slate-600">
-        <span class="bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">📄 TAREA EN HOJA SUELTA</span>
-        <p class="text-slate-500 mt-4">Esta semana no hay tarea para la casa. ¡Disfruta tu tiempo libre!</p>
+    <!-- [🖥️ TRABAJO EN LA SALA] -->
+    <section class="relative">
+        <div class="absolute -top-3 -left-3 z-10">
+            <span class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-xs font-black px-4 py-2 rounded-full uppercase tracking-wider shadow-lg shadow-purple-500/40 border border-purple-400/50">
+                🖥️ TRABAJO EN LA SALA
+            </span>
+        </div>
+        
+        <div class="glass-panel p-10 pt-14 rounded-[2.5rem] border-t-4 border-t-purple-500">
+            <h2 class="text-3xl font-black text-white mb-10 text-center">Reto en Sala: Mi solución con IA</h2>
+            
+            <div class="space-y-12 relative pl-4 md:pl-0">
+                
+                <!-- Paso 1 -->
+                <div class="stepper-item relative flex flex-col md:flex-row gap-6 items-start">
+                    <div class="stepper-line flex-shrink-0 relative">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 shadow-[0_0_20px_rgba(139,92,246,0.5)] flex items-center justify-center text-2xl font-black text-white border border-purple-300/30">1</div>
+                    </div>
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-700 w-full hover-glow">
+                        <h4 class="font-bold text-xl text-white flex items-center gap-3 mb-3">
+                            <span class="text-2xl">🤖</span> Generación de Datos Ficticios (TSV)
+                        </h4>
+                        <p class="text-slate-400 text-sm mb-4">Abre tu asistente de IA (ej. Gemini/ChatGPT) y copia exactamente este prompt. <strong class="text-indigo-400">Concepto clave:</strong> El formato TSV mantiene las columnas separadas.</p>
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                            <div class="relative bg-black/80 p-5 rounded-xl font-mono text-sm text-indigo-300 border border-slate-700 select-all cursor-text">
+                                "Genera una tabla con 10 registros ficticios de inventario para la empresa EMPRESA. Columnas: Codigo, Articulo, Categoria, Proveedor, Precio, Stock. Formato TSV (valores separados por tabulador), con encabezado en la primera fila. Sin comillas, sin explicaciones, solo los datos puros para copiar y pegar directamente en Excel."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="stepper-item relative flex flex-col md:flex-row gap-6 items-start">
+                    <div class="stepper-line flex-shrink-0 relative">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-sky-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] flex items-center justify-center text-2xl font-black text-white border border-blue-300/30">2</div>
+                    </div>
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-700 w-full hover-glow">
+                        <h4 class="font-bold text-xl text-white flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📊</span> Pegado Directo y Formato Visual
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed">Copia la salida de la IA, selecciona la celda <strong class="text-sky-400 font-mono bg-slate-800 px-2 rounded">A1</strong> en Excel y pega con <kbd class="bg-slate-800 border border-slate-600 px-2 py-1 rounded text-xs text-white">Ctrl + V</kbd>. Los datos se distribuirán en columnas. Aplica negrita en encabezados, fondo azul claro en fila 1 y formato Moneda en Precio.</p>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="stepper-item relative flex flex-col md:flex-row gap-6 items-start">
+                    <div class="stepper-line flex-shrink-0 relative">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-[0_0_20px_rgba(16,185,129,0.5)] flex items-center justify-center text-2xl font-black text-white border border-emerald-300/30">3</div>
+                    </div>
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-700 w-full hover-glow">
+                        <h4 class="font-bold text-xl text-white flex items-center gap-3 mb-3">
+                            <span class="text-2xl">⚙️</span> Implementación del Motor BUSCARV
+                        </h4>
+                        <p class="text-slate-400 mb-4">En <span class="font-mono text-white">G2</span> escribe 'ID Buscado'. En <span class="font-mono text-white">G3</span> pon un código real. Luego, usa estas fórmulas mágicas:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-black/50 p-4 rounded-xl border border-emerald-500/30">
+                                <p class="text-xs text-emerald-400 font-bold mb-1 uppercase">Para obtener el Artículo (H3)</p>
+                                <code class="text-white font-mono text-sm">=BUSCARV(G3; $A$2:$F$11; 2; FALSO)</code>
+                            </div>
+                            <div class="bg-black/50 p-4 rounded-xl border border-emerald-500/30">
+                                <p class="text-xs text-emerald-400 font-bold mb-1 uppercase">Para clasificar Costo (J3)</p>
+                                <code class="text-white font-mono text-sm">=SI(I3>5000; "Alto"; "Estándar")</code>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-start gap-3 bg-blue-900/20 p-4 rounded-xl border border-blue-500/20">
+                            <span class="text-xl">💡</span>
+                            <p class="text-sm text-blue-200"><strong class="text-blue-400">Tip Pro:</strong> El rango <code class="bg-blue-950 px-1 rounded">$A$2:$F$11</code> usa referencias absolutas (signo dólar) para que la matriz no se dañe si copias la fórmula hacia abajo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guardar & Reto -->
+                <div class="stepper-item relative flex flex-col md:flex-row gap-6 items-start">
+                    <div class="stepper-line flex-shrink-0 relative">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-[0_0_20px_rgba(245,158,11,0.5)] flex items-center justify-center text-2xl font-black text-white border border-amber-300/30">4</div>
+                    </div>
+                    <div class="w-full space-y-6">
+                        <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-700">
+                            <h4 class="font-bold text-white flex items-center gap-2 mb-2"><span class="text-xl">💾</span> Guarda tu obra maestra</h4>
+                            <code class="block w-full bg-black/60 p-3 rounded-lg text-amber-400 font-mono text-sm border border-amber-500/20 text-center">8_intro_buscarv_empresa_fecha(ddmmaa)_nombre.xlsx</code>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-amber-900/40 to-orange-900/40 border border-amber-500/30 p-6 rounded-2xl relative overflow-hidden group">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/20 rounded-full blur-[40px] group-hover:bg-amber-400/40 transition-all duration-700"></div>
+                            <h4 class="font-black text-xl text-amber-400 flex items-center gap-2 mb-3">
+                                ✨ Reto Nivel Experto
+                            </h4>
+                            <p class="text-amber-100/80 text-sm">Agrega una columna 'Disponible' con la fórmula <code class="bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800">=SI(F3>0; "Sí"; "Agotado")</code> y aplica <strong>Formato Condicional</strong> para que las filas con stock cero se pinten de rojo intenso. ¡Un verdadero sistema de alertas!</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="grid md:grid-cols-2 gap-8">
+        <!-- [🔍 INVESTIGACIÓN] -->
+        <section class="relative">
+            <div class="absolute -top-3 -left-3 z-10">
+                <span class="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-black px-4 py-2 rounded-full uppercase tracking-wider shadow-lg shadow-orange-500/40 border border-orange-400/50">
+                    🔍 INVESTIGACIÓN
+                </span>
+            </div>
+            <div class="glass-panel p-8 pt-10 rounded-[2rem] h-full flex flex-col justify-center border-l-4 border-l-orange-500 hover-glow">
+                <svg class="w-10 h-10 text-orange-400 mb-4 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+                <h3 class="text-white font-bold text-xl mb-3">Misión de Búsqueda</h3>
+                <p class="text-slate-300 italic">"Busca en Google o consúltale a una IA: ¿Qué pasa si el valor que busco NO está en la primera columna de la matriz? ¿Qué otras funciones de Excel existen para solucionar ese problema? Anota el nombre de la función en tu cuaderno."</p>
+            </div>
+        </section>
+
+        <!-- [GAMIFICACIÓN] Micro-Quiz -->
+        <section class="glass-panel p-8 rounded-[2rem] border border-fuchsia-500/30 shadow-[0_0_30px_rgba(217,70,239,0.1)] relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-fuchsia-600/20 blur-[80px] rounded-full pointer-events-none"></div>
+            <h3 class="text-2xl font-black text-white mb-6 flex items-center gap-3">
+                <span class="bg-fuchsia-500/20 text-fuchsia-400 p-2 rounded-xl">🎮</span> Control de Daños
+            </h3>
+            
+            <div id="quiz-container" class="space-y-4 relative z-10">
+                <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700 hover:border-fuchsia-400/50 transition-colors cursor-pointer group" onclick="solveQuiz(this, false)">
+                    <p class="text-white font-medium group-hover:text-fuchsia-300 transition-colors">¿Qué hace el '0' o 'FALSO' al final de la fórmula?</p>
+                    <p class="text-xs text-slate-500 mt-2">Busca un valor aproximado si no encuentra el exacto.</p>
+                </div>
+                
+                <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700 hover:border-emerald-400/50 transition-colors cursor-pointer group" onclick="solveQuiz(this, true)">
+                    <p class="text-white font-medium group-hover:text-emerald-300 transition-colors">¿Qué hace el '0' o 'FALSO' al final de la fórmula?</p>
+                    <p class="text-xs text-slate-500 mt-2">Obliga al motor a buscar exactamente el texto o código ingresado sin margen de error.</p>
+                </div>
+            </div>
+            
+            <div id="quiz-feedback" class="mt-6 text-center font-bold text-lg hidden p-3 rounded-xl backdrop-blur-md border"></div>
+        </section>
+    </div>
+
+    <!-- [📄 TAREA EN HOJA SUELTA] -->
+    <section class="relative">
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+            <span class="bg-slate-700 text-white text-xs font-black px-4 py-2 rounded-full uppercase tracking-wider shadow-lg shadow-black border border-slate-500">
+                📄 TAREA EN HOJA SUELTA
+            </span>
+        </div>
+        <div class="bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.02)_10px,rgba(255,255,255,0.02)_20px)] bg-slate-900 p-12 rounded-[2rem] text-center border-2 border-dashed border-slate-700 flex flex-col items-center justify-center">
+            <span class="text-5xl mb-4 grayscale opacity-60">🏖️</span>
+            <h3 class="text-2xl font-bold text-slate-300">Descanso Autorizado</h3>
+            <p class="text-slate-500 mt-2">Esta semana no hay tarea asignada. Repasa los conceptos mentalmente y disfruta tu tiempo.</p>
+        </div>
     </section>
 
 </main>
 
-<footer class="mt-20 py-12 bg-slate-950 text-center">
-    <p class="text-slate-500 font-bold">© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
-    <p class="text-xs text-slate-700 mt-2 tracking-[0.3em] uppercase">Colegio Santa Mariana de Jesús - Buga</p>
+<footer class="mt-10 py-16 bg-[#020617] text-center border-t border-white/5 relative z-10">
+    <div class="w-24 h-1 bg-gradient-to-r from-sky-500 to-purple-500 mx-auto rounded-full mb-8 opacity-50"></div>
+    <p class="text-slate-400 font-bold text-lg tracking-wide">© 2026 | Prof. William Fdo Bernal</p>
+    <p class="text-sky-500/70 text-sm mt-2 font-mono">Área de Tecnología e Informática</p>
+    <p class="text-xs text-slate-600 mt-6 tracking-[0.4em] uppercase font-black">Colegio Santa Mariana de Jesús - Buga</p>
 </footer>
 
 <script>
-    // --- LÓGICA DE NAVEGACIÓN ---
+    // --- LÓGICA DE COPIAR ENLACE (OBLIGATORIA) ---
     function copiarEnlace(){
       const url = window.location.href;
       navigator.clipboard.writeText(url).then(() => {
         const t = document.getElementById('toastCopiado');
         t.classList.remove('hidden');
-        setTimeout(()=> t.classList.add('hidden'), 2000);
+        t.classList.add('flex');
+        setTimeout(() => {
+            t.classList.add('hidden');
+            t.classList.remove('flex');
+        }, 3000);
+      }).catch(() => {
+        alert("No se pudo copiar automáticamente. Copia el enlace manualmente.");
       });
     }
 
-    // --- SIMULADOR CANVAS ---
-    const canvas = document.getElementById('canvasScan');
-    const ctx = canvas.getContext('2d');
-    let scanY = 0;
-    let scanning = false;
+    // --- CHART.JS NEON (MOD-B) ---
+    const ctxChart = document.getElementById('neonChart').getContext('2d');
+    
+    // Crear gradiente dinámico
+    let gradientIndigo = ctxChart.createLinearGradient(0, 0, 0, 400);
+    gradientIndigo.addColorStop(0, 'rgba(99, 102, 241, 0.8)');
+    gradientIndigo.addColorStop(1, 'rgba(99, 102, 241, 0.1)');
 
-    function drawGrid() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = '#1e293b';
-        for(let i=0; i<canvas.width; i+=40) {
-            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
-        }
-        for(let j=0; j<canvas.height; j+=40) {
-            ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
-        }
-        
-        if(scanning) {
-            ctx.strokeStyle = '#10b981';
-            ctx.lineWidth = 3;
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = '#10b981';
-            ctx.beginPath();
-            ctx.moveTo(0, scanY);
-            ctx.lineTo(canvas.width, scanY);
-            ctx.stroke();
-            scanY += 2;
-            if(scanY > canvas.height) scanY = 0;
-            requestAnimationFrame(drawGrid);
-        }
-    }
-    drawGrid();
+    let gradientEmerald = ctxChart.createLinearGradient(0, 0, 0, 400);
+    gradientEmerald.addColorStop(0, 'rgba(16, 185, 129, 0.8)');
+    gradientEmerald.addColorStop(1, 'rgba(16, 185, 129, 0.1)');
 
-    function startScan() {
-        scanning = true;
-        document.getElementById('scanStatus').innerText = "ESCANEO VERTICAL EN CURSO... BUSCANDO COINCIDENCIA";
-        drawGrid();
-    }
-    function resetScan() {
-        scanning = false;
-        scanY = 0;
-        document.getElementById('scanStatus').innerText = "SISTEMA LISTO.";
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawGrid();
-    }
-
-    // --- CHART.JS ---
-    const chartCtx = document.getElementById('inventoryChart').getContext('2d');
-    let inventoryChart = new Chart(chartCtx, {
+    const chartConfig = {
         type: 'bar',
         data: {
-            labels: ['Resmas', 'Esferos', 'Marcadores', 'Toner', 'Carpetas'],
+            labels: ['💻 Laptops', '🖱️ Mouse', '⌨️ Teclados', '🖨️ Toners', '📁 Carpetas'],
             datasets: [{
-                label: 'Stock Actual',
-                data: [45, 120, 80, 15, 60],
-                backgroundColor: 'rgba(99, 102, 241, 0.5)',
-                borderColor: '#6366f1',
-                borderWidth: 2,
-                borderRadius: 8
+                label: 'Unidades en Stock',
+                data: [15, 120, 85, 8, 450],
+                backgroundColor: gradientIndigo,
+                borderColor: '#818cf8',
+                borderWidth: 1,
+                borderRadius: 6,
+                hoverBackgroundColor: '#6366f1'
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } } }
+            plugins: {
+                legend: { labels: { color: '#94a3b8', font: { family: 'Outfit' } } }
+            },
+            scales: {
+                y: { 
+                    beginAtZero: true, 
+                    grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
+                    ticks: { color: '#64748b' }
+                },
+                x: { 
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8', font: { size: 11 } }
+                }
+            },
+            animation: { duration: 1500, easing: 'easeOutQuart' }
         }
-    });
+    };
+    
+    let inventarioChart = new Chart(ctxChart, chartConfig);
 
-    function updateChart(type) {
-        const newData = type === 'A' ? [45, 120, 80, 15, 60] : [20, 90, 40, 5, 15];
-        inventoryChart.data.datasets[0].data = newData;
-        inventoryChart.data.datasets[0].backgroundColor = type === 'A' ? 'rgba(99, 102, 241, 0.5)' : 'rgba(16, 185, 129, 0.5)';
-        inventoryChart.update();
+    function switchDataset(tipo) {
+        if(tipo === 'A') {
+            inventarioChart.data.datasets[0].data = [15, 120, 85, 8, 450];
+            inventarioChart.data.datasets[0].backgroundColor = gradientIndigo;
+            inventarioChart.data.datasets[0].borderColor = '#818cf8';
+        } else {
+            inventarioChart.data.datasets[0].data = [50, 40, 20, 35, 100];
+            inventarioChart.data.datasets[0].backgroundColor = gradientEmerald;
+            inventarioChart.data.datasets[0].borderColor = '#34d399';
+        }
+        inventarioChart.update();
     }
 
-    // --- QUIZ ---
-    function checkQuiz(q, isCorrect) {
+    // --- CANVAS SCANNER AVANZADO (MOD-A) ---
+    const canvas = document.getElementById('scannerCanvas');
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('scanResultOverlay');
+    const resultText = document.getElementById('foundText');
+    
+    // Datos de la "tabla" a dibujar
+    const tableData = [
+        ["CÓDIGO", "ARTÍCULO", "PRECIO"],
+        ["A101", "Monitor 24\"", "$120.000"],
+        ["B202", "Mouse Gamer", "$45.000"],
+        ["C303", "Teclado RGB", "$85.000"],
+        ["D404", "Disco SSD", "$150.000"],
+        ["E505", "Audífonos", "$60.000"]
+    ];
+
+    let scanY = 30; // Inicia debajo del header
+    let isScanning = false;
+    let targetRowIndex = 3; // Donde está C303
+    let targetY = 30 + (targetRowIndex * 35); 
+    let scanSpeed = 2;
+
+    function drawTable() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.font = '12px "Space Mono"';
+        ctx.textAlign = 'left';
+
+        tableData.forEach((row, i) => {
+            const y = 30 + (i * 35);
+            // Fondo de fila alterna
+            if (i > 0 && i % 2 !== 0) { ctx.fillStyle = 'rgba(255,255,255,0.02)'; ctx.fillRect(0, y-20, canvas.width, 35); }
+            
+            // Texto
+            ctx.fillStyle = i === 0 ? '#38bdf8' : '#94a3b8'; // Header azul, resto gris
+            if (i === 0) ctx.font = 'bold 12px "Space Mono"'; else ctx.font = '12px "Space Mono"';
+            
+            ctx.fillText(row[0], 20, y);
+            ctx.fillText(row[1], 120, y);
+            ctx.fillText(row[2], 260, y);
+            
+            // Línea separadora
+            ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+            ctx.beginPath(); ctx.moveTo(0, y+10); ctx.lineTo(canvas.width, y+10); ctx.stroke();
+        });
+    }
+
+    function animateScan() {
+        if (!isScanning) return;
+        drawTable();
+
+        // Dibujar el láser del escáner
+        ctx.fillStyle = 'rgba(14, 165, 233, 0.2)';
+        ctx.fillRect(0, scanY - 15, canvas.width, 30);
+        
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#38bdf8';
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(0, scanY);
+        ctx.lineTo(canvas.width, scanY);
+        ctx.stroke();
+        ctx.shadowBlur = 0; // Reset shadow
+
+        // Texto flotante de "Analizando..."
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '10px "Space Mono"';
+        ctx.fillText("BUSCANDO 'C303'...", canvas.width - 120, scanY - 20);
+
+        scanY += scanSpeed;
+
+        if (scanY >= targetY) {
+            isScanning = false;
+            // Dibujar Highlight verde
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.3)';
+            ctx.fillRect(0, targetY - 20, canvas.width, 35);
+            ctx.strokeStyle = '#34d399';
+            ctx.strokeRect(2, targetY - 20, canvas.width - 4, 35);
+            
+            // Mostrar Overlay
+            setTimeout(() => {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+                resultText.innerText = "Teclado RGB | $85.000";
+            }, 400);
+            return;
+        }
+
+        requestAnimationFrame(animateScan);
+    }
+
+    function startVisualScan() {
+        if(isScanning) return;
+        scanY = 30; // Reset posición
+        isScanning = true;
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        animateScan();
+    }
+
+    function resetVisualScan() {
+        isScanning = false;
+        scanY = 30;
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        drawTable();
+    }
+
+    // Inicializar Canvas
+    drawTable();
+
+    // --- LÓGICA DEL QUIZ ---
+    function solveQuiz(element, isCorrect) {
         const feedback = document.getElementById('quiz-feedback');
-        if(isCorrect) {
-            feedback.innerText = "¡CORRECTO! El detective necesita precisión absoluta. 🎯";
-            feedback.classList.add('animate-bounce');
+        feedback.classList.remove('hidden');
+        
+        // Reset all
+        const options = document.querySelectorAll('#quiz-container > div');
+        options.forEach(opt => {
+            opt.classList.remove('bg-emerald-900/50', 'border-emerald-500', 'bg-rose-900/50', 'border-rose-500');
+        });
+
+        if (isCorrect) {
+            element.classList.add('bg-emerald-900/50', 'border-emerald-500');
+            feedback.innerHTML = "¡EXACTO! 🎯 Ese '0' evita que Excel adivine y cometa errores.";
+            feedback.className = "mt-6 text-center font-bold text-lg p-3 rounded-xl backdrop-blur-md border border-emerald-500/50 bg-emerald-500/10 text-emerald-400 block animate-pulse";
+        } else {
+            element.classList.add('bg-rose-900/50', 'border-rose-500');
+            feedback.innerHTML = "ERROR Crítico 💥 'Falso' o '0' fuerza la coincidencia exacta. Intenta de nuevo.";
+            feedback.className = "mt-6 text-center font-bold text-lg p-3 rounded-xl backdrop-blur-md border border-rose-500/50 bg-rose-500/10 text-rose-400 block";
         }
     }
 </script>
