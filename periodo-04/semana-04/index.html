@@ -3,42 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordenamiento de Datos - Grado 8</title>
+    <title>Clase 7 y 8: El Detective de Excel (BUSCARV)</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #9333ea 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
             background-attachment: fixed;
-            color: white;
+            color: #f8fafc;
         }
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
+        
+        /* Glassmorphism Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
-        /* Flip Card CSS */
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-        .group:hover .group-hover\:rotate-y-180 { transform: rotateY(180deg); }
-        
-        /* Custom Scrollbar for table */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.5); }
+
+        .glass-header {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb; 
+        }
+
+        /* 3D Flip Card */
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="antialiased min-h-screen flex flex-col">
 
-    <div class="max-w-5xl mx-auto flex justify-end gap-3 mb-4">
+    <!-- BARRA DE NAVEGACIÓN OBLIGATORIA -->
+    <div class="max-w-5xl mx-auto w-full flex justify-end gap-3 mt-6 px-4 z-50">
         <a href="../../../index.html"
-           class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur">
+           class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-slate-600">
            ⬅ Inicio (Grado)
         </a>
 
@@ -53,183 +105,268 @@
         </button>
     </div>
 
-    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/80 text-white px-4 py-3 rounded-xl shadow-lg backdrop-blur z-50">
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/90 text-emerald-400 px-6 py-4 rounded-xl shadow-2xl backdrop-blur border border-emerald-500 z-50 font-bold transition-all">
         Enlace copiado ✅
     </div>
 
-    <header class="max-w-5xl mx-auto glass rounded-3xl p-8 mb-12 shadow-2xl relative overflow-hidden text-center">
-        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500"></div>
-        <h3 class="text-emerald-300 font-bold tracking-widest uppercase text-sm mb-2">Colegio Santa Mariana de Jesús | Prof. William Fdo Bernal</h3>
-        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
-            Ordenamiento de Datos
-        </h1>
-        <div class="inline-block bg-white/20 px-6 py-3 rounded-full border border-white/30 backdrop-blur-md mb-6 hover:scale-105 transition-transform duration-300">
-            <p class="text-lg font-semibold">Grado 8 - Semana 4</p>
+    <!-- SECCIÓN 1: HERO -->
+    <header class="max-w-5xl mx-auto w-full px-4 py-12 text-center">
+        <div class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-sm font-semibold tracking-wide backdrop-blur">
+            SEMANA 4 | GRADO 8°
         </div>
-        <p class="text-xl max-w-3xl mx-auto leading-relaxed text-blue-50">
-            ¡Hola chicos! Ya tienen la lista de sus compañeros en el cuaderno. Ahora vamos a entender cómo <strong>Excel</strong> puede organizar esa información en un abrir y cerrar de ojos. ¡Pasemos del papel a lo digital!
+        <h1 class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-4 drop-shadow-lg">
+            El Detective de Excel
+        </h1>
+        <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6">Comando <span class="font-bold text-white bg-blue-600/30 px-2 rounded">BUSCARV</span></h2>
+        
+        <div class="glass-card max-w-2xl mx-auto p-6 rounded-2xl">
+            <h3 class="text-emerald-400 font-bold mb-2 flex items-center justify-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Objetivo de Aprendizaje
+            </h3>
+            <p class="text-slate-200">
+                Comprender y aplicar la función BUSCARV para extraer datos específicos de grandes matrices de información, integrando inteligencia artificial para la generación de bases de datos empresariales.
+            </p>
+        </div>
+        
+        <p class="mt-8 text-sm text-slate-400 font-semibold tracking-widest uppercase">
+            Colegio Santa Mariana de Jesús | Prof. William Fdo Bernal
         </p>
     </header>
 
-    <main class="max-w-5xl mx-auto space-y-12">
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-5xl mx-auto w-full px-4 pb-20 flex-grow space-y-12">
 
-        <section>
-            <h2 class="text-3xl font-bold mb-6 text-center text-emerald-300 drop-shadow-md">1. ¿Qué es ordenar información?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="group h-64 perspective-1000 cursor-pointer">
-                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
-                        <div class="absolute w-full h-full glass rounded-2xl flex flex-col justify-center items-center p-6 backface-hidden shadow-xl border-t-4 border-emerald-400">
-                            <div class="text-6xl mb-4">📈</div>
-                            <h3 class="text-2xl font-bold">Orden Ascendente</h3>
-                            <p class="text-sm text-center mt-2 text-gray-200">(Pasa el mouse / Toca)</p>
-                        </div>
-                        <div class="absolute w-full h-full bg-emerald-600 rounded-2xl flex flex-col justify-center items-center p-6 backface-hidden rotate-y-180 shadow-xl">
-                            <h3 class="text-xl font-bold mb-2">Sube o Crece</h3>
-                            <ul class="text-left list-disc pl-5 space-y-2">
-                                <li><strong>Textos:</strong> De la A a la Z.</li>
-                                <li><strong>Números:</strong> Del menor al mayor (1, 2, 3...).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group h-64 perspective-1000 cursor-pointer">
-                    <div class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
-                        <div class="absolute w-full h-full glass rounded-2xl flex flex-col justify-center items-center p-6 backface-hidden shadow-xl border-t-4 border-pink-400">
-                            <div class="text-6xl mb-4">📉</div>
-                            <h3 class="text-2xl font-bold">Orden Descendente</h3>
-                            <p class="text-sm text-center mt-2 text-gray-200">(Pasa el mouse / Toca)</p>
-                        </div>
-                        <div class="absolute w-full h-full bg-pink-600 rounded-2xl flex flex-col justify-center items-center p-6 backface-hidden rotate-y-180 shadow-xl">
-                            <h3 class="text-xl font-bold mb-2">Baja o Decrece</h3>
-                            <ul class="text-left list-disc pl-5 space-y-2">
-                                <li><strong>Textos:</strong> De la Z a la A.</li>
-                                <li><strong>Números:</strong> Del mayor al menor (10, 9, 8...).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold text-blue-300">2. Simulador: Tu Lista de Clase</h2>
-                <div class="bg-blue-900/50 px-4 py-2 rounded-lg text-sm border border-blue-400/30 mt-4 md:mt-0">
-                    <span id="estado-orden" class="font-mono text-yellow-300">Estado: Datos Originales</span>
-                </div>
+        <!-- [📝 COPIAR AL CUADERNO] -->
+        <section class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:border-blue-400/50 transition-colors duration-500">
+            <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
+                📝 COPIAR AL CUADERNO
             </div>
             
-            <p class="mb-6 text-gray-200">Esta es una simulación de la lista que tienes en tu cuaderno. Usa los botones para ver cómo Excel organizará tus datos cuando vayamos a la sala de sistemas.</p>
-
-            <div class="flex flex-wrap gap-3 mb-6">
-                <button onclick="ordenarPor('apellido', 'asc')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl shadow transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-sm">
-                    🔤 Apellido (A-Z)
-                </button>
-                <button onclick="ordenarPor('edad', 'desc')" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl shadow transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-sm">
-                    🔢 Edad (Mayor a Menor)
-                </button>
-                <button onclick="ordenarMultiple()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl shadow transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-sm border-2 border-emerald-300">
-                    ✨ Orden Múltiple: Género + Nombre
-                </button>
-                <button onclick="resetData()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl shadow transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-sm ml-auto">
-                    🔄 Reiniciar
-                </button>
-            </div>
-
-            <div class="overflow-x-auto rounded-xl border border-white/20 shadow-inner bg-black/20">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-white/10 text-blue-200">
-                            <th class="p-4 font-semibold border-b border-white/20">Nombre</th>
-                            <th class="p-4 font-semibold border-b border-white/20">Apellido</th>
-                            <th class="p-4 font-semibold border-b border-white/20 text-center">Edad</th>
-                            <th class="p-4 font-semibold border-b border-white/20 text-center">Género</th>
-                            <th class="p-4 font-semibold border-b border-white/20">Deporte</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-body" class="transition-all duration-500">
-                        </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20">
-            <h2 class="text-3xl font-bold mb-6 text-purple-300">3. Análisis de nuestra clase</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <p class="text-lg mb-4 text-gray-200">Al organizar los datos en Excel, también podemos crear gráficos para entender mejor a nuestro grupo.</p>
-                    <p class="text-lg text-gray-200">Aquí vemos la distribución de deportes favoritos del grado 8. ¡Pasa el mouse sobre el gráfico!</p>
-                </div>
-                <div class="bg-white/5 p-4 rounded-2xl">
-                    <canvas id="miGrafico"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20 bg-gradient-to-br from-indigo-900/50 to-purple-900/50">
-            <h2 class="text-3xl font-bold mb-6 text-center text-yellow-300">🎮 Micro-Quiz: ¡Ponte a prueba!</h2>
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-3 text-blue-300">
+                <span class="text-3xl">📓</span> Fundamentación Teórica
+            </h2>
             
-            <div id="quiz-container" class="space-y-6 max-w-2xl mx-auto">
-                <div class="bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/30 transition-colors">
-                    <p class="font-bold text-lg mb-3">1. Si ordeno una columna de "Edades" de forma Ascendente, ¿quién aparecerá de primero?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-white/10 transition">
-                            <input type="radio" name="q1" value="a" class="w-4 h-4 text-emerald-500">
-                            <span>El compañero de mayor edad.</span>
-                        </label>
-                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-white/10 transition">
-                            <input type="radio" name="q1" value="b" class="w-4 h-4 text-emerald-500">
-                            <span>El compañero de menor edad.</span>
-                        </label>
-                    </div>
+            <div class="space-y-4 text-slate-200 leading-relaxed">
+                <p><strong>Conexión con el tema anterior:</strong> En la clase pasada vimos la <em>"Magia con Filtros"</em>, que nos servía para ocultar información y ver solo un grupo específico. Hoy daremos un paso técnico más avanzado: <strong>Extraer un dato exacto y cruzar información</strong> usando funciones lógicas.</p>
+                
+                <div class="bg-black/30 p-4 rounded-xl border border-slate-700/50">
+                    <h3 class="text-xl font-bold text-cyan-400 mb-2">¿Qué es BUSCARV?</h3>
+                    <p>Es una función de búsqueda matricial. Le indica a Excel que busque un valor en la <strong>primera columna</strong> de una matriz de datos y, cuando lo encuentre, se mueva hacia la derecha para devolvernos el valor de una columna específica en esa misma fila.</p>
                 </div>
 
-                <div class="bg-white/10 p-5 rounded-xl border border-white/10 hover:border-white/30 transition-colors">
-                    <p class="font-bold text-lg mb-3">2. Para ordenar el listado primero por Género y luego por Apellido, necesito usar:</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-white/10 transition">
-                            <input type="radio" name="q2" value="a" class="w-4 h-4 text-emerald-500">
-                            <span>Ordenamiento por múltiples columnas (Niveles).</span>
-                        </label>
-                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-white/10 transition">
-                            <input type="radio" name="q2" value="b" class="w-4 h-4 text-emerald-500">
-                            <span>El botón de copiar y pegar.</span>
-                        </label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-600/50">
+                        <h4 class="font-bold text-purple-400 mb-2">Estructura Sintáctica:</h4>
+                        <code class="text-sm text-green-300 bg-black/50 px-2 py-1 rounded block mb-2">=BUSCARV(Valor; Matriz; Columna; Rango)</code>
+                        <ul class="text-sm space-y-1 list-disc list-inside">
+                            <li><strong>Valor:</strong> El dato que conozco (Ej. Código).</li>
+                            <li><strong>Matriz:</strong> Toda la base de datos.</li>
+                            <li><strong>Columna:</strong> Número de columna del resultado.</li>
+                            <li><strong>Rango (FALSO / 0):</strong> Para búsqueda exacta.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-600/50">
+                        <h4 class="font-bold text-amber-400 mb-2">Uso Profesional:</h4>
+                        <p class="text-sm">En el mundo real, evita errores humanos al facturar, buscar historiales médicos o gestionar inventarios en grandes empresas.</p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <button onclick="revisarQuiz()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg py-3 rounded-xl shadow-lg hover:scale-105 transition-all duration-300">
-                    ✅ Calificar Quiz
-                </button>
-                <div id="quiz-resultado" class="hidden text-center text-2xl font-bold mt-4 p-4 rounded-xl"></div>
+        <!-- [💻 INTERACTUAR EN EL PC] -->
+        <section class="glass-card rounded-3xl p-8 relative">
+            <div class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
+                💻 INTERACTUAR EN EL PC
             </div>
 
-            <div class="mt-10 p-6 bg-emerald-900/40 border border-emerald-500/30 rounded-2xl text-center">
-                <h3 class="text-2xl font-bold text-emerald-300 mb-2">🚀 Reto para la Sala de Sistemas</h3>
-                <p>En nuestra próxima clase práctica de 45 minutos, abrirás Excel, copiarás las 5 columnas de la lista que tienes en tu cuaderno y aplicarás los 3 tipos de ordenamiento que acabamos de simular. ¡Prepara tu cuaderno!</p>
+            <h2 class="text-2xl font-bold mb-6 text-purple-300 flex items-center gap-3">
+                <span class="text-3xl">⚙️</span> Laboratorio de Datos: Simulador BUSCARV
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- MOD-A: Simulador Conceptual (Canvas) -->
+                <div class="flex flex-col">
+                    <h3 class="text-lg font-semibold text-slate-300 mb-2">Simulador Lógico (Cómo "piensa" Excel)</h3>
+                    <div class="bg-black/50 rounded-xl border border-slate-600/50 overflow-hidden relative" style="height: 300px;">
+                        <canvas id="buscarvCanvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="flex gap-2 mt-4 justify-center">
+                        <button onclick="startSimulation()" class="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:shadow-emerald-500/50 transition-all">Iniciar Búsqueda</button>
+                    </div>
+                </div>
+
+                <!-- MOD-B: Data Lab (Chart.js) -->
+                <div class="flex flex-col">
+                    <h3 class="text-lg font-semibold text-slate-300 mb-2">Análisis de Inventario (Base de Datos EMPRESA)</h3>
+                    <div class="bg-white/5 rounded-xl border border-slate-600/50 p-4 flex-grow">
+                        <canvas id="inventoryChart"></canvas>
+                    </div>
+                    <div class="flex gap-2 mt-4 justify-center">
+                        <button onclick="updateChart('A')" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg transition-all">Categoría A</button>
+                        <button onclick="updateChart('B')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-lg transition-all">Categoría B</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [🖥️ TRABAJO EN LA SALA] -->
+        <section class="glass-card rounded-3xl p-8 relative border-t-4 border-emerald-500">
+            <div class="absolute top-0 right-0 bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
+                🖥️ TRABAJO EN LA SALA
+            </div>
+
+            <h2 class="text-2xl font-bold mb-6 text-emerald-300 flex items-center gap-3">
+                <span class="text-3xl">🚀</span> Actividad Práctica: Mi solución con IA
+            </h2>
+
+            <div class="space-y-6">
+                <!-- Paso 1 -->
+                <div class="flex gap-4 group">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400 font-bold text-xl group-hover:scale-110 group-hover:bg-emerald-500/40 transition-all">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-100">Generación de la BD con IA Generativa 🤖</h3>
+                        <p class="text-slate-300 mt-1 mb-2">Abre tu asistente de IA preferido y pega EXACTAMENTE este prompt:</p>
+                        <div class="bg-black/60 p-4 rounded-lg border border-slate-700 font-mono text-sm text-green-400 relative">
+                            "Genera una tabla en formato CSV separada por comas con 25 filas de datos para una base de datos de inventario llamada EMPRESA. Las columnas deben ser: Codigo, Articulo, Categoria, Proveedor, Precio, Stock. Los datos deben ser realistas para un almacén de suministros de oficina. Incluye un encabezado. No añadas explicaciones adicionales, solo el texto plano listo para copiar."
+                            <button onclick="copyPrompt(this)" class="absolute top-2 right-2 bg-slate-700 hover:bg-slate-600 text-white text-xs px-2 py-1 rounded">Copiar</button>
+                        </div>
+                        <p class="text-sm text-rose-300 mt-2">⚠️ Si la IA te da viñetas o tablas markdown, exígele: "Devuélveme estrictamente formato CSV plano con encabezados, separando valores con comas."</p>
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="flex gap-4 group">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 border border-blue-400/50 flex items-center justify-center text-blue-400 font-bold text-xl group-hover:scale-110 group-hover:bg-blue-500/40 transition-all">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-100">Estructuración Visual en Excel 📊</h3>
+                        <p class="text-slate-300 mt-1">Pega los datos en <strong>A1</strong>. Usa la herramienta "Texto en columnas" si es necesario. Aplica relleno azul a los encabezados, centra el contenido, ajusta anchos, aplica formato "Moneda" a Precio y pon bordes a toda la tabla.</p>
+                        <p class="text-sm text-cyan-300 mt-1">💡 <em>Concepto clave:</em> La precisión del BUSCARV depende de la estructuración matricial de los datos fuente.</p>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="flex gap-4 group">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-400/50 flex items-center justify-center text-purple-400 font-bold text-xl group-hover:scale-110 group-hover:bg-purple-500/40 transition-all">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-100">Implementación del Motor de Búsqueda ⚙️</h3>
+                        <p class="text-slate-300 mt-1">En <strong>G2</strong> escribe 'ID Buscado'. En <strong>G3</strong> digita un código que exista en tu tabla.</p>
+                        <ul class="mt-2 space-y-2 text-sm font-mono bg-black/40 p-3 rounded-lg border border-slate-700/50">
+                            <li><span class="text-slate-400">En H3 (Artículo):</span> <span class="text-amber-300">=BUSCARV(G3; $A$2:$F$26; 2; FALSO)</span></li>
+                            <li><span class="text-slate-400">En I3 (Precio):</span> <span class="text-amber-300">=BUSCARV(G3; $A$2:$F$26; 5; FALSO)</span></li>
+                            <li><span class="text-slate-400">En J3 (Clasificación):</span> <span class="text-pink-300">=SI(I3>5000; "Presupuesto Alto"; "Costo Estándar")</span></li>
+                        </ul>
+                        <p class="text-sm text-emerald-300 mt-2">💡 El argumento FALSO fuerza una coincidencia exacta, evitando errores fatales en empresas reales.</p>
+                    </div>
+                </div>
+
+                <!-- Paso 4 -->
+                <div class="flex gap-4 group">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 font-bold text-xl group-hover:scale-110 group-hover:bg-amber-500/40 transition-all">
+                        4
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-100">Guarda el Proyecto 💾</h3>
+                        <p class="text-slate-300 mt-1">Nomenclatura estricta: <code class="bg-black/50 px-2 py-1 rounded text-amber-300">8_intro_buscarv_empresa_fecha(ddmmaa)_apellido.xlsx</code></p>
+                    </div>
+                </div>
+
+                <!-- Reto Avanzado -->
+                <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-rose-900/40 to-orange-900/40 border border-orange-500/30">
+                    <h4 class="font-bold text-orange-400 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        ✨ Reto Avanzado (Para los más Rápidos)
+                    </h4>
+                    <p class="text-sm text-slate-200 mt-2">Vincula G3 a una <strong>lista desplegable</strong> (Validación de datos) para evitar errores de tipeo. Añade una columna para el Stock usando BUSCARV y aplícale <strong>Formato Condicional</strong> (texto rojo si es menor a 15).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIONES FINALES: INVESTIGACIÓN Y TAREA -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- [🔍 INVESTIGACIÓN] -->
+            <section class="glass-card rounded-3xl p-6 relative group hover:shadow-cyan-500/20 transition-all duration-300">
+                <div class="absolute top-0 right-0 bg-cyan-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
+                    🔍 INVESTIGACIÓN
+                </div>
+                <h2 class="text-xl font-bold mb-3 text-cyan-300 flex items-center gap-2">
+                    <span>🌐</span> Búsqueda Web
+                </h2>
+                <p class="text-slate-300 text-sm">Busca en Google y anota en tu cuaderno la respuesta:</p>
+                <div class="mt-4 p-4 bg-black/40 rounded-xl border border-cyan-500/30 font-semibold text-cyan-100">
+                    "¿Qué es la función BUSCARX (XLOOKUP) en las versiones modernas de Excel y por qué dicen que es mejor que BUSCARV?"
+                </div>
+            </section>
+
+            <!-- [📄 TAREA EN HOJA SUELTA] -->
+            <section class="glass-card rounded-3xl p-6 relative border-dashed border-2 border-slate-600/50 opacity-80">
+                <div class="absolute top-0 right-0 bg-slate-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
+                    📄 TAREA EN HOJA SUELTA
+                </div>
+                <h2 class="text-xl font-bold mb-3 text-slate-300 flex items-center gap-2">
+                    <span>🏠</span> Trabajo en Casa
+                </h2>
+                <div class="flex flex-col items-center justify-center h-24">
+                    <span class="text-3xl mb-2">🎉</span>
+                    <p class="text-slate-400 font-bold tracking-wide">ESTA SEMANA NO HAY TAREA</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- GAMIFICACIÓN (Micro-Quiz) -->
+        <section class="glass-card rounded-3xl p-8 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-blue-600/10 to-transparent pointer-events-none"></div>
+            <h2 class="text-2xl font-bold text-white mb-6 relative z-10">🎮 Comprueba tu Nivel de Detective</h2>
+            
+            <div id="quizContainer" class="max-w-lg mx-auto relative z-10">
+                <p class="text-lg text-slate-200 mb-6 font-medium">¿Qué significa el valor "FALSO" o "0" al final de la fórmula BUSCARV?</p>
+                
+                <div class="space-y-3">
+                    <button onclick="checkQuiz(this, false)" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl border border-slate-600 transition-all duration-300 text-left">
+                        A) Que los datos de la tabla son falsos.
+                    </button>
+                    <button onclick="checkQuiz(this, true)" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl border border-slate-600 transition-all duration-300 text-left">
+                        B) Que exige una coincidencia EXACTA del código buscado.
+                    </button>
+                    <button onclick="checkQuiz(this, false)" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl border border-slate-600 transition-all duration-300 text-left">
+                        C) Que la fórmula tiene un error.
+                    </button>
+                </div>
+                
+                <div id="quizFeedback" class="mt-6 hidden text-lg font-bold p-4 rounded-xl"></div>
             </div>
         </section>
 
     </main>
 
-    <footer class="mt-16 py-8 bg-black/40 backdrop-blur-md text-center border-t border-white/10">
-        <p class="text-gray-300 font-semibold tracking-wide text-sm">
-            © 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática
+    <!-- FOOTER OBLIGATORIO -->
+    <footer class="bg-[#050b14] border-t border-slate-800 py-6 text-center z-10 relative mt-auto">
+        <p class="text-slate-500 text-sm tracking-widest font-light">
+            &copy; 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática
         </p>
     </footer>
 
+    <!-- SCRIPTS LÓGICOS -->
     <script>
-        // FUNCIÓN OBLIGATORIA: COPIAR ENLACE
+        // 1. RUTEO Y BOTONES (Obligatorio)
         function copiarEnlace(){
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
                 const t = document.getElementById('toastCopiado');
                 if(t){
                     t.classList.remove('hidden');
-                    setTimeout(()=> t.classList.add('hidden'), 2000);
+                    // Animación de entrada
+                    t.classList.add('animate-bounce');
+                    setTimeout(() => {
+                        t.classList.remove('animate-bounce');
+                        t.classList.add('hidden');
+                    }, 2500);
                 } else {
                     alert("Enlace copiado ✅");
                 }
@@ -238,151 +375,233 @@
             });
         }
 
-        // DATOS DEL SIMULADOR (Lista de clase ficticia de Grado 8)
-        const datosOriginales = [
-            { nombre: 'Camilo', apellido: 'Pérez', edad: 14, genero: 'M', deporte: 'Fútbol' },
-            { nombre: 'Valeria', apellido: 'Gómez', edad: 13, genero: 'F', deporte: 'Voleibol' },
-            { nombre: 'Andrés', apellido: 'Ramírez', edad: 13, genero: 'M', deporte: 'Baloncesto' },
-            { nombre: 'Sofía', apellido: 'López', edad: 14, genero: 'F', deporte: 'Fútbol' },
-            { nombre: 'Mateo', apellido: 'Díaz', edad: 15, genero: 'M', deporte: 'Natación' },
-            { nombre: 'Laura', apellido: 'Martínez', edad: 13, genero: 'F', deporte: 'Patinaje' },
-            { nombre: 'Santiago', apellido: 'Castro', edad: 14, genero: 'M', deporte: 'Fútbol' },
-            { nombre: 'Isabella', apellido: 'Rojas', edad: 13, genero: 'F', deporte: 'Voleibol' }
-        ];
+        function copyPrompt(btn) {
+            const text = btn.parentElement.innerText.replace('Copiar', '').trim();
+            navigator.clipboard.writeText(text);
+            const originalText = btn.innerText;
+            btn.innerText = '¡Copiado!';
+            btn.classList.replace('bg-slate-700', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-slate-700');
+            }, 2000);
+        }
 
-        let datosActuales = [...datosOriginales];
+        // 2. CANVAS - SIMULADOR BUSCARV
+        const canvas = document.getElementById('buscarvCanvas');
+        const ctx = canvas.getContext('2d');
+        let animFrame;
+        let scanY = 50;
+        let scanX = 50;
+        let isScanning = false;
+        let phase = 0;
 
-        function renderizarTabla(datos) {
-            const tbody = document.getElementById('tabla-body');
-            tbody.innerHTML = '';
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+            drawStatic();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        function drawStatic() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            datos.forEach((alumno, index) => {
-                // Pequeño delay para animación en cascada
-                setTimeout(() => {
-                    const tr = document.createElement('tr');
-                    tr.className = "border-b border-white/10 hover:bg-white/10 transition-colors duration-200 animate-fade-in";
-                    tr.innerHTML = `
-                        <td class="p-4">${alumno.nombre}</td>
-                        <td class="p-4 font-semibold">${alumno.apellido}</td>
-                        <td class="p-4 text-center"><span class="bg-blue-500/20 px-2 py-1 rounded text-blue-200">${alumno.edad}</span></td>
-                        <td class="p-4 text-center">${alumno.genero === 'M' ? '👦 M' : '👧 F'}</td>
-                        <td class="p-4 text-emerald-200">${alumno.deporte}</td>
-                    `;
-                    tbody.appendChild(tr);
-                }, index * 50); // 50ms por fila
+            // Dibujar tabla simulada
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(50, 50, 300, 200);
+            
+            // Columnas y filas
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 2;
+            for(let i=1; i<=3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(50 + (i*100), 50);
+                ctx.lineTo(50 + (i*100), 250);
+                ctx.stroke();
+            }
+            for(let i=1; i<=4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(50, 50 + (i*40));
+                ctx.lineTo(350, 50 + (i*40));
+                ctx.stroke();
+            }
+
+            // Textos
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '14px Poppins';
+            ctx.fillText('Cód', 60, 75);
+            ctx.fillText('Producto', 160, 75);
+            ctx.fillText('Precio', 260, 75);
+
+            ctx.fillStyle = '#cbd5e1';
+            const data = [
+                ['A10', 'Teclado', '$20'],
+                ['B20', 'Mouse', '$15'],
+                ['C30', 'Monitor', '$150'],
+                ['D40', 'Cable', '$5']
+            ];
+
+            data.forEach((row, rIdx) => {
+                row.forEach((text, cIdx) => {
+                    ctx.fillText(text, 60 + (cIdx*100), 115 + (rIdx*40));
+                });
             });
+
+            // Target Text
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = 'bold 16px Poppins';
+            ctx.fillText('Buscando: "C30" (Col 3)', 400, 100);
         }
 
-        function actualizarEstado(mensaje) {
-            document.getElementById('estado-orden').innerText = "Estado: " + mensaje;
-        }
+        function animateScan() {
+            drawStatic();
 
-        function ordenarPor(columna, direccion) {
-            datosActuales.sort((a, b) => {
-                let valorA = a[columna];
-                let valorB = b[columna];
+            // Dibujar scanner
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.3)';
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 2;
+
+            if (phase === 1) {
+                // Escaneo Vertical
+                ctx.fillRect(50, scanY, 100, 40);
+                ctx.strokeRect(50, scanY, 100, 40);
+                scanY += 2;
+                if (scanY >= 170) { // Llega a C30
+                    scanY = 170;
+                    phase = 2;
+                    setTimeout(() => requestAnimationFrame(animateScan), 500);
+                    return;
+                }
+            } else if (phase === 2) {
+                // Escaneo Horizontal
+                ctx.fillRect(scanX, 170, 100, 40);
+                ctx.strokeRect(scanX, 170, 100, 40);
+                scanX += 3;
+                if (scanX >= 250) { // Llega a Precio
+                    scanX = 250;
+                    phase = 3;
+                }
+            } else if (phase === 3) {
+                // Encontrado
+                ctx.fillStyle = 'rgba(52, 211, 153, 0.5)';
+                ctx.fillRect(250, 170, 100, 40);
+                ctx.strokeStyle = '#34d399';
+                ctx.strokeRect(250, 170, 100, 40);
                 
-                if (valorA < valorB) return direccion === 'asc' ? -1 : 1;
-                if (valorA > valorB) return direccion === 'asc' ? 1 : -1;
-                return 0;
-            });
-            renderizarTabla(datosActuales);
-            let dirTexto = direccion === 'asc' ? 'Ascendente' : 'Descendente';
-            actualizarEstado(`Ordenado por ${columna.charAt(0).toUpperCase() + columna.slice(1)} (${dirTexto})`);
-        }
-
-        function ordenarMultiple() {
-            datosActuales.sort((a, b) => {
-                // Nivel 1: Género (F antes que M)
-                if (a.genero < b.genero) return -1;
-                if (a.genero > b.genero) return 1;
-                // Nivel 2: Nombre (Ascendente)
-                if (a.nombre < b.nombre) return -1;
-                if (a.nombre > b.nombre) return 1;
-                return 0;
-            });
-            renderizarTabla(datosActuales);
-            actualizarEstado("Orden Múltiple: 1º Género, 2º Nombre");
-        }
-
-        function resetData() {
-            datosActuales = [...datosOriginales];
-            renderizarTabla(datosActuales);
-            actualizarEstado("Datos Originales");
-        }
-
-        // LÓGICA DEL QUIZ
-        function revisarQuiz() {
-            const q1 = document.querySelector('input[name="q1"]:checked');
-            const q2 = document.querySelector('input[name="q2"]:checked');
-            const resDiv = document.getElementById('quiz-resultado');
-            
-            if(!q1 || !q2) {
-                resDiv.className = "block text-center text-xl font-bold mt-4 p-4 rounded-xl bg-orange-500/80 text-white";
-                resDiv.innerText = "⚠️ Responde todas las preguntas, por favor.";
+                ctx.fillStyle = '#34d399';
+                ctx.font = 'bold 20px Poppins';
+                ctx.fillText('¡Encontrado: $150!', 400, 150);
+                isScanning = false;
                 return;
             }
 
-            let puntaje = 0;
-            if(q1.value === 'b') puntaje++;
-            if(q2.value === 'a') puntaje++;
+            animFrame = requestAnimationFrame(animateScan);
+        }
 
-            resDiv.classList.remove('hidden');
-            if(puntaje === 2) {
-                resDiv.className = "block text-center text-2xl font-bold mt-4 p-4 rounded-xl bg-emerald-500/80 text-white shadow-lg shadow-emerald-500/50 transform scale-105 transition-all duration-300";
-                resDiv.innerText = "🌟 ¡Excelente! Tienes claro cómo ordenar en Excel.";
+        function startSimulation() {
+            if(isScanning) return;
+            isScanning = true;
+            scanY = 90;
+            scanX = 50;
+            phase = 1;
+            cancelAnimationFrame(animFrame);
+            animateScan();
+        }
+
+        // 3. CHART.JS - Data Lab
+        let inventoryChart;
+        const ctxChart = document.getElementById('inventoryChart').getContext('2d');
+        
+        const dataA = {
+            labels: ['Lápices', 'Resmas', 'Carpetas', 'Bolígrafos'],
+            datasets: [{
+                label: 'Stock Actual (Cat. A)',
+                data: [120, 45, 80, 200],
+                backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                borderColor: 'rgba(56, 189, 248, 1)',
+                borderWidth: 2,
+                borderRadius: 4
+            }]
+        };
+
+        const dataB = {
+            labels: ['Monitores', 'Teclados', 'Mouse', 'Cables USB'],
+            datasets: [{
+                label: 'Stock Actual (Cat. B)',
+                data: [12, 25, 30, 85],
+                backgroundColor: 'rgba(167, 139, 250, 0.6)',
+                borderColor: 'rgba(167, 139, 250, 1)',
+                borderWidth: 2,
+                borderRadius: 4
+            }]
+        };
+
+        function initChart() {
+            Chart.defaults.color = '#cbd5e1';
+            inventoryChart = new Chart(ctxChart, {
+                type: 'bar',
+                data: dataA,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } },
+                        x: { grid: { display: false } }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    },
+                    plugins: {
+                        legend: { labels: { font: { family: 'Poppins' } } },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', titleFont: { family: 'Poppins' }, bodyFont: { family: 'Poppins' } }
+                    }
+                }
+            });
+        }
+
+        function updateChart(cat) {
+            inventoryChart.data = cat === 'A' ? dataA : dataB;
+            inventoryChart.update();
+        }
+
+        // 4. MICRO-QUIZ LOGIC
+        function checkQuiz(btn, isCorrect) {
+            const container = btn.parentElement;
+            const feedback = document.getElementById('quizFeedback');
+            const buttons = container.querySelectorAll('button');
+            
+            // Disable all
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.remove('hover:bg-slate-700');
+                if(b === btn && !isCorrect) {
+                    b.classList.replace('bg-slate-800', 'bg-red-900/80');
+                    b.classList.replace('border-slate-600', 'border-red-500');
+                } else if (b.innerText.includes('B)')) {
+                    // Show correct answer anyway
+                    b.classList.replace('bg-slate-800', 'bg-emerald-600/80');
+                    b.classList.replace('border-slate-600', 'border-emerald-400');
+                }
+            });
+
+            feedback.classList.remove('hidden');
+            if(isCorrect) {
+                feedback.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/50');
+                feedback.innerHTML = '¡Excelente! 🕵️‍♂️ "FALSO" u "0" asegura que no asigne el precio de otro artículo por error si no encuentra el código exacto.';
             } else {
-                resDiv.className = "block text-center text-2xl font-bold mt-4 p-4 rounded-xl bg-pink-500/80 text-white";
-                resDiv.innerText = `Obtuviste ${puntaje} de 2. ¡Revisa los apuntes e inténtalo de nuevo!`;
+                feedback.classList.add('bg-red-500/20', 'text-red-400', 'border', 'border-red-500/50');
+                feedback.innerHTML = 'Cuidado... En empresas, el valor "FALSO" obliga a Excel a encontrar el código EXACTO, sino devuelve error (#N/D), previniendo que cobres mal un artículo.';
             }
         }
 
-        // INICIALIZACIÓN
-        document.addEventListener('DOMContentLoaded', () => {
-            // Render table
-            renderizarTabla(datosActuales);
+        // Init everything on load
+        window.onload = () => {
+            resizeCanvas();
+            initChart();
+        };
 
-            // Chart.js Setup
-            const ctx = document.getElementById('miGrafico').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Fútbol', 'Voleibol', 'Baloncesto', 'Natación', 'Patinaje'],
-                    datasets: [{
-                        data: [3, 2, 1, 1, 1],
-                        backgroundColor: [
-                            'rgba(59, 130, 246, 0.8)', // blue
-                            'rgba(16, 185, 129, 0.8)', // emerald
-                            'rgba(245, 158, 11, 0.8)', // amber
-                            'rgba(139, 92, 246, 0.8)', // purple
-                            'rgba(236, 72, 153, 0.8)'  // pink
-                        ],
-                        borderColor: 'rgba(255,255,255,0.2)',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: 'white' } }
-                    },
-                    animation: { animateScale: true, animateRotate: true }
-                }
-            });
-        });
-
-        // Agregando animación keyframe simple para las filas de la tabla
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fade-in {
-                animation: fadeIn 0.4s ease-out forwards;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
+</html>
 </html>
