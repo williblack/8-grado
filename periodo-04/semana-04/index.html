@@ -3,605 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 7 y 8: El Detective de Excel (BUSCARV)</title>
-    
-    <!-- Tailwind CSS -->
+    <title>8° - El Detective de Excel: BUSCARV</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
-            background-attachment: fixed;
-            color: #f8fafc;
-        }
+        body { font-family: 'Urbanist', sans-serif; background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
         
-        /* Glassmorphism Utilities */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
+        /* Animaciones */
+        .hover-scale { transition: all 0.3s ease; }
+        .hover-scale:hover { transform: scale(1.02); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        
+        /* Flip Cards para Analogías */
+        .flip-card { background-color: transparent; width: 100%; height: 250px; perspective: 1000px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+        .flip-card-back { transform: rotateY(180deg); background: linear-gradient(135deg, #4f46e5, #7c3aed); }
 
-        .glass-header {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6; 
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb; 
-        }
-
-        /* 3D Flip Card */
-        .flip-card {
-            perspective: 1000px;
-            height: 200px;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        .flip-card-back {
-            transform: rotateY(180deg);
-        }
+        /* Canvas Scan Effect */
+        #canvasScan { border-radius: 1rem; background: #000; width: 100%; max-width: 500px; height: 200px; margin: 0 auto; display: block; }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body>
 
-    <!-- BARRA DE NAVEGACIÓN OBLIGATORIA -->
-    <div class="max-w-5xl mx-auto w-full flex justify-end gap-3 mt-6 px-4 z-50">
-        <a href="../../../index.html"
-           class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-slate-600">
-           ⬅ Inicio (Grado)
-        </a>
+<div class="max-w-5xl mx-auto flex justify-end gap-3 mb-4 mt-6 px-4">
+  <a href="../../../index.html"
+     class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10">
+     ⬅ Inicio (Grado)
+  </a>
 
-        <a href="../../index.html"
-           class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
-           ⬅ Menú del Periodo
-        </a>
+  <a href="../../index.html"
+     class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
+     ⬅ Menú del Periodo
+  </a>
 
-        <button type="button" onclick="copiarEnlace()"
-           class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
-           🔗 Copiar enlace
-        </button>
+  <button type="button" onclick="copiarEnlace()"
+     class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
+     🔗 Copiar enlace
+  </button>
+</div>
+
+<div id="toastCopiado" class="fixed top-6 right-6 hidden bg-emerald-500 text-white px-4 py-3 rounded-xl shadow-lg backdrop-blur z-50">
+  Enlace copiado ✅
+</div>
+
+<header class="max-w-6xl mx-auto px-4 py-12 text-center">
+    <h4 class="text-purple-400 font-bold tracking-widest uppercase text-sm mb-2">Colegio Santa Mariana de Jesús</h4>
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400">
+        El Detective de Excel
+    </h1>
+    <p class="text-xl text-slate-400 mb-8">Dominando el comando <span class="text-white font-mono bg-slate-800 px-2 py-1 rounded">BUSCARV</span></p>
+    
+    <div class="glass max-w-2xl mx-auto p-6 rounded-3xl">
+        <div class="flex items-center gap-4 text-left">
+            <div class="bg-blue-500/20 p-4 rounded-2xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-blue-400 uppercase">Objetivo de Aprendizaje</p>
+                <p class="text-slate-200">Aprender a automatizar búsquedas de información en grandes bases de datos mediante la lógica de coordenadas verticales y coincidencia exacta.</p>
+            </div>
+        </div>
     </div>
+</header>
 
-    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/90 text-emerald-400 px-6 py-4 rounded-xl shadow-2xl backdrop-blur border border-emerald-500 z-50 font-bold transition-all">
-        Enlace copiado ✅
-    </div>
+<main class="max-w-6xl mx-auto px-4 space-y-12">
 
-    <!-- SECCIÓN 1: HERO -->
-    <header class="max-w-5xl mx-auto w-full px-4 py-12 text-center">
-        <div class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-sm font-semibold tracking-wide backdrop-blur">
-            SEMANA 4 | GRADO 8°
+    <section class="space-y-4">
+        <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">📝 COPIAR AL CUADERNO</span>
+        <div class="glass-card p-8 rounded-3xl grid md:grid-cols-2 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold mb-4 text-blue-300">Resumen Tecnológico</h3>
+                <p class="text-slate-400 mb-4">La semana pasada usamos <strong>Filtros</strong> para esconder datos. Hoy usaremos <strong>BUSCARV</strong> para extraer datos específicos sin movernos de lugar.</p>
+                <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 font-mono text-sm space-y-2">
+                    <p class="text-emerald-400">=BUSCARV(valor_buscado; matriz; col; falso)</p>
+                    <ul class="text-slate-500 text-xs list-disc ml-4 space-y-1">
+                        <li><strong>Valor:</strong> La pista que ya tienes (ej: Código).</li>
+                        <li><strong>Matriz:</strong> Dónde buscar (Toda la tabla).</li>
+                        <li><strong>Col:</strong> El número de la columna con la respuesta.</li>
+                        <li><strong>Falso:</strong> Para que la búsqueda sea exacta.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex items-center justify-center">
+                <div class="text-center">
+                    <div class="text-5xl mb-2">🔍</div>
+                    <p class="text-xs text-slate-500 italic">"El comando que busca por ti"</p>
+                </div>
+            </div>
         </div>
-        <h1 class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-4 drop-shadow-lg">
-            El Detective de Excel
-        </h1>
-        <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6">Comando <span class="font-bold text-white bg-blue-600/30 px-2 rounded">BUSCARV</span></h2>
-        
-        <div class="glass-card max-w-2xl mx-auto p-6 rounded-2xl">
-            <h3 class="text-emerald-400 font-bold mb-2 flex items-center justify-center gap-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                Objetivo de Aprendizaje
-            </h3>
-            <p class="text-slate-200">
-                Comprender y aplicar la función BUSCARV para extraer datos específicos de grandes matrices de información, integrando inteligencia artificial para la generación de bases de datos empresariales.
-            </p>
+    </section>
+
+    <section class="space-y-4 text-center">
+        <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">💻 INTERACTUAR EN EL PC</span>
+        <h2 class="text-3xl font-bold mt-2">Simulador de Escaneo Vertical</h2>
+        <div class="glass-card p-8 rounded-3xl">
+            <canvas id="canvasScan"></canvas>
+            <div class="mt-6 flex justify-center gap-4">
+                <button onclick="startScan()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-bold transition-all">Iniciar Escaneo</button>
+                <button onclick="resetScan()" class="bg-slate-700 hover:bg-slate-600 px-6 py-2 rounded-xl font-bold transition-all">Resetear</button>
+            </div>
+            <p id="scanStatus" class="mt-4 text-emerald-400 font-mono text-sm h-4">Esperando instrucción...</p>
         </div>
-        
-        <p class="mt-8 text-sm text-slate-400 font-semibold tracking-widest uppercase">
-            Colegio Santa Mariana de Jesús | Prof. William Fdo Bernal
-        </p>
-    </header>
+    </section>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="max-w-5xl mx-auto w-full px-4 pb-20 flex-grow space-y-12">
-
-        <!-- [📝 COPIAR AL CUADERNO] -->
-        <section class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:border-blue-400/50 transition-colors duration-500">
-            <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
-                📝 COPIAR AL CUADERNO
+    <section class="space-y-4">
+        <h2 class="text-2xl font-bold flex items-center gap-2">
+            <span class="bg-purple-600 p-2 rounded-lg">📊</span> Dashboard de Inventario
+        </h2>
+        <div class="glass-card p-6 rounded-3xl">
+            <div class="h-[300px]">
+                <canvas id="inventoryChart"></canvas>
             </div>
-            
-            <h2 class="text-2xl font-bold mb-4 flex items-center gap-3 text-blue-300">
-                <span class="text-3xl">📓</span> Fundamentación Teórica
-            </h2>
-            
-            <div class="space-y-4 text-slate-200 leading-relaxed">
-                <p><strong>Conexión con el tema anterior:</strong> En la clase pasada vimos la <em>"Magia con Filtros"</em>, que nos servía para ocultar información y ver solo un grupo específico. Hoy daremos un paso técnico más avanzado: <strong>Extraer un dato exacto y cruzar información</strong> usando funciones lógicas.</p>
-                
-                <div class="bg-black/30 p-4 rounded-xl border border-slate-700/50">
-                    <h3 class="text-xl font-bold text-cyan-400 mb-2">¿Qué es BUSCARV?</h3>
-                    <p>Es una función de búsqueda matricial. Le indica a Excel que busque un valor en la <strong>primera columna</strong> de una matriz de datos y, cuando lo encuentre, se mueva hacia la derecha para devolvernos el valor de una columna específica en esa misma fila.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-600/50">
-                        <h4 class="font-bold text-purple-400 mb-2">Estructura Sintáctica:</h4>
-                        <code class="text-sm text-green-300 bg-black/50 px-2 py-1 rounded block mb-2">=BUSCARV(Valor; Matriz; Columna; Rango)</code>
-                        <ul class="text-sm space-y-1 list-disc list-inside">
-                            <li><strong>Valor:</strong> El dato que conozco (Ej. Código).</li>
-                            <li><strong>Matriz:</strong> Toda la base de datos.</li>
-                            <li><strong>Columna:</strong> Número de columna del resultado.</li>
-                            <li><strong>Rango (FALSO / 0):</strong> Para búsqueda exacta.</li>
-                        </ul>
-                    </div>
-                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-600/50">
-                        <h4 class="font-bold text-amber-400 mb-2">Uso Profesional:</h4>
-                        <p class="text-sm">En el mundo real, evita errores humanos al facturar, buscar historiales médicos o gestionar inventarios en grandes empresas.</p>
-                    </div>
-                </div>
+            <div class="flex justify-center gap-4 mt-6">
+                <button onclick="updateChart('A')" class="bg-slate-800 hover:bg-purple-600 px-4 py-2 rounded-xl text-sm transition-all">Ver Almacén A</button>
+                <button onclick="updateChart('B')" class="bg-slate-800 hover:bg-emerald-600 px-4 py-2 rounded-xl text-sm transition-all">Ver Almacén B</button>
             </div>
-        </section>
-
-        <!-- [💻 INTERACTUAR EN EL PC] -->
-        <section class="glass-card rounded-3xl p-8 relative">
-            <div class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
-                💻 INTERACTUAR EN EL PC
-            </div>
-
-            <h2 class="text-2xl font-bold mb-6 text-purple-300 flex items-center gap-3">
-                <span class="text-3xl">⚙️</span> Laboratorio de Datos: Simulador BUSCARV
-            </h2>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- MOD-A: Simulador Conceptual (Canvas) -->
-                <div class="flex flex-col">
-                    <h3 class="text-lg font-semibold text-slate-300 mb-2">Simulador Lógico (Cómo "piensa" Excel)</h3>
-                    <div class="bg-black/50 rounded-xl border border-slate-600/50 overflow-hidden relative" style="height: 300px;">
-                        <canvas id="buscarvCanvas" class="w-full h-full"></canvas>
-                    </div>
-                    <div class="flex gap-2 mt-4 justify-center">
-                        <button onclick="startSimulation()" class="bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:shadow-emerald-500/50 transition-all">Iniciar Búsqueda</button>
-                    </div>
-                </div>
-
-                <!-- MOD-B: Data Lab (Chart.js) -->
-                <div class="flex flex-col">
-                    <h3 class="text-lg font-semibold text-slate-300 mb-2">Análisis de Inventario (Base de Datos EMPRESA)</h3>
-                    <div class="bg-white/5 rounded-xl border border-slate-600/50 p-4 flex-grow">
-                        <canvas id="inventoryChart"></canvas>
-                    </div>
-                    <div class="flex gap-2 mt-4 justify-center">
-                        <button onclick="updateChart('A')" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-lg transition-all">Categoría A</button>
-                        <button onclick="updateChart('B')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-lg transition-all">Categoría B</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- [🖥️ TRABAJO EN LA SALA] -->
-        <section class="glass-card rounded-3xl p-8 relative border-t-4 border-emerald-500">
-            <div class="absolute top-0 right-0 bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
-                🖥️ TRABAJO EN LA SALA
-            </div>
-
-            <h2 class="text-2xl font-bold mb-6 text-emerald-300 flex items-center gap-3">
-                <span class="text-3xl">🚀</span> Actividad Práctica: Mi solución con IA
-            </h2>
-
-            <div class="space-y-6">
-                <!-- Paso 1 -->
-                <div class="flex gap-4 group">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400 font-bold text-xl group-hover:scale-110 group-hover:bg-emerald-500/40 transition-all">
-                        1
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-100">Generación de la BD con IA Generativa 🤖</h3>
-                        <p class="text-slate-300 mt-1 mb-2">Abre tu asistente de IA preferido y pega EXACTAMENTE este prompt:</p>
-                        <div class="bg-black/60 p-4 rounded-lg border border-slate-700 font-mono text-sm text-green-400 relative">
-                            "Genera una tabla en formato CSV separada por comas con 25 filas de datos para una base de datos de inventario llamada EMPRESA. Las columnas deben ser: Codigo, Articulo, Categoria, Proveedor, Precio, Stock. Los datos deben ser realistas para un almacén de suministros de oficina. Incluye un encabezado. No añadas explicaciones adicionales, solo el texto plano listo para copiar."
-                            <button onclick="copyPrompt(this)" class="absolute top-2 right-2 bg-slate-700 hover:bg-slate-600 text-white text-xs px-2 py-1 rounded">Copiar</button>
-                        </div>
-                        <p class="text-sm text-rose-300 mt-2">⚠️ Si la IA te da viñetas o tablas markdown, exígele: "Devuélveme estrictamente formato CSV plano con encabezados, separando valores con comas."</p>
-                    </div>
-                </div>
-
-                <!-- Paso 2 -->
-                <div class="flex gap-4 group">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 border border-blue-400/50 flex items-center justify-center text-blue-400 font-bold text-xl group-hover:scale-110 group-hover:bg-blue-500/40 transition-all">
-                        2
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-100">Estructuración Visual en Excel 📊</h3>
-                        <p class="text-slate-300 mt-1">Pega los datos en <strong>A1</strong>. Usa la herramienta "Texto en columnas" si es necesario. Aplica relleno azul a los encabezados, centra el contenido, ajusta anchos, aplica formato "Moneda" a Precio y pon bordes a toda la tabla.</p>
-                        <p class="text-sm text-cyan-300 mt-1">💡 <em>Concepto clave:</em> La precisión del BUSCARV depende de la estructuración matricial de los datos fuente.</p>
-                    </div>
-                </div>
-
-                <!-- Paso 3 -->
-                <div class="flex gap-4 group">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-400/50 flex items-center justify-center text-purple-400 font-bold text-xl group-hover:scale-110 group-hover:bg-purple-500/40 transition-all">
-                        3
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-100">Implementación del Motor de Búsqueda ⚙️</h3>
-                        <p class="text-slate-300 mt-1">En <strong>G2</strong> escribe 'ID Buscado'. En <strong>G3</strong> digita un código que exista en tu tabla.</p>
-                        <ul class="mt-2 space-y-2 text-sm font-mono bg-black/40 p-3 rounded-lg border border-slate-700/50">
-                            <li><span class="text-slate-400">En H3 (Artículo):</span> <span class="text-amber-300">=BUSCARV(G3; $A$2:$F$26; 2; FALSO)</span></li>
-                            <li><span class="text-slate-400">En I3 (Precio):</span> <span class="text-amber-300">=BUSCARV(G3; $A$2:$F$26; 5; FALSO)</span></li>
-                            <li><span class="text-slate-400">En J3 (Clasificación):</span> <span class="text-pink-300">=SI(I3>5000; "Presupuesto Alto"; "Costo Estándar")</span></li>
-                        </ul>
-                        <p class="text-sm text-emerald-300 mt-2">💡 El argumento FALSO fuerza una coincidencia exacta, evitando errores fatales en empresas reales.</p>
-                    </div>
-                </div>
-
-                <!-- Paso 4 -->
-                <div class="flex gap-4 group">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 font-bold text-xl group-hover:scale-110 group-hover:bg-amber-500/40 transition-all">
-                        4
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-100">Guarda el Proyecto 💾</h3>
-                        <p class="text-slate-300 mt-1">Nomenclatura estricta: <code class="bg-black/50 px-2 py-1 rounded text-amber-300">8_intro_buscarv_empresa_fecha(ddmmaa)_apellido.xlsx</code></p>
-                    </div>
-                </div>
-
-                <!-- Reto Avanzado -->
-                <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-rose-900/40 to-orange-900/40 border border-orange-500/30">
-                    <h4 class="font-bold text-orange-400 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        ✨ Reto Avanzado (Para los más Rápidos)
-                    </h4>
-                    <p class="text-sm text-slate-200 mt-2">Vincula G3 a una <strong>lista desplegable</strong> (Validación de datos) para evitar errores de tipeo. Añade una columna para el Stock usando BUSCARV y aplícale <strong>Formato Condicional</strong> (texto rojo si es menor a 15).</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIONES FINALES: INVESTIGACIÓN Y TAREA -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- [🔍 INVESTIGACIÓN] -->
-            <section class="glass-card rounded-3xl p-6 relative group hover:shadow-cyan-500/20 transition-all duration-300">
-                <div class="absolute top-0 right-0 bg-cyan-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
-                    🔍 INVESTIGACIÓN
-                </div>
-                <h2 class="text-xl font-bold mb-3 text-cyan-300 flex items-center gap-2">
-                    <span>🌐</span> Búsqueda Web
-                </h2>
-                <p class="text-slate-300 text-sm">Busca en Google y anota en tu cuaderno la respuesta:</p>
-                <div class="mt-4 p-4 bg-black/40 rounded-xl border border-cyan-500/30 font-semibold text-cyan-100">
-                    "¿Qué es la función BUSCARX (XLOOKUP) en las versiones modernas de Excel y por qué dicen que es mejor que BUSCARV?"
-                </div>
-            </section>
-
-            <!-- [📄 TAREA EN HOJA SUELTA] -->
-            <section class="glass-card rounded-3xl p-6 relative border-dashed border-2 border-slate-600/50 opacity-80">
-                <div class="absolute top-0 right-0 bg-slate-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl z-10 shadow-lg">
-                    📄 TAREA EN HOJA SUELTA
-                </div>
-                <h2 class="text-xl font-bold mb-3 text-slate-300 flex items-center gap-2">
-                    <span>🏠</span> Trabajo en Casa
-                </h2>
-                <div class="flex flex-col items-center justify-center h-24">
-                    <span class="text-3xl mb-2">🎉</span>
-                    <p class="text-slate-400 font-bold tracking-wide">ESTA SEMANA NO HAY TAREA</p>
-                </div>
-            </section>
         </div>
+    </section>
 
-        <!-- GAMIFICACIÓN (Micro-Quiz) -->
-        <section class="glass-card rounded-3xl p-8 text-center relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-blue-600/10 to-transparent pointer-events-none"></div>
-            <h2 class="text-2xl font-bold text-white mb-6 relative z-10">🎮 Comprueba tu Nivel de Detective</h2>
-            
-            <div id="quizContainer" class="max-w-lg mx-auto relative z-10">
-                <p class="text-lg text-slate-200 mb-6 font-medium">¿Qué significa el valor "FALSO" o "0" al final de la fórmula BUSCARV?</p>
-                
-                <div class="space-y-3">
-                    <button onclick="checkQuiz(this, false)" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl border border-slate-600 transition-all duration-300 text-left">
-                        A) Que los datos de la tabla son falsos.
-                    </button>
-                    <button onclick="checkQuiz(this, true)" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl border border-slate-600 transition-all duration-300 text-left">
-                        B) Que exige una coincidencia EXACTA del código buscado.
-                    </button>
-                    <button onclick="checkQuiz(this, false)" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl border border-slate-600 transition-all duration-300 text-left">
-                        C) Que la fórmula tiene un error.
-                    </button>
+    <section class="grid md:grid-cols-3 gap-6">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front glass-card border-b-4 border-blue-500">
+                    <div class="text-4xl mb-4">🏥</div>
+                    <h3 class="font-bold">El Hospital</h3>
+                    <p class="text-xs text-slate-500 mt-2">¿Cómo funciona?</p>
                 </div>
-                
-                <div id="quizFeedback" class="mt-6 hidden text-lg font-bold p-4 rounded-xl"></div>
+                <div class="flip-card-back">
+                    <p class="text-sm font-semibold">Tú das tu Cédula (Valor buscado), el sistema busca en la base de datos (Matriz) y te dice en qué cuarto estás (Columna).</p>
+                </div>
             </div>
-        </section>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front glass-card border-b-4 border-emerald-500">
+                    <div class="text-4xl mb-4">🍎</div>
+                    <h3 class="font-bold">El Supermercado</h3>
+                    <p class="text-xs text-slate-500 mt-2">¿Cómo funciona?</p>
+                </div>
+                <div class="flip-card-back">
+                    <p class="text-sm font-semibold">El escáner lee el código de barras (Valor), busca en el inventario (Matriz) y trae el precio (Columna).</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front glass-card border-b-4 border-purple-500">
+                    <div class="text-4xl mb-4">⚽</div>
+                    <h3 class="font-bold">Álbum Panini</h3>
+                    <p class="text-xs text-slate-500 mt-2">¿Cómo funciona?</p>
+                </div>
+                <div class="flip-card-back">
+                    <p class="text-sm font-semibold">Buscas el número de la lámina (Valor), vas a la página correcta (Matriz) y ves el nombre del jugador (Columna).</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <section class="space-y-4">
+        <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">🖥️ TRABAJO EN LA SALA</span>
+        <div class="glass-card p-8 rounded-3xl space-y-6">
+            <div class="flex items-start gap-4">
+                <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+                <div>
+                    <h4 class="font-bold text-lg">Uso de IA para Datos Crudos</h4>
+                    <p class="text-slate-400 text-sm mb-3">Copia y pega este prompt en tu IA favorita:</p>
+                    <div class="bg-black/40 p-4 rounded-xl font-mono text-xs text-blue-300 border border-white/5 select-all">
+                        "Genera una tabla con 10 registros ficticios de inventario para la empresa EMPRESA. Columnas: Codigo, Articulo, Categoria, Proveedor, Precio, Stock. Formato TSV (valores separados por tabulador), con encabezado en la primera fila. Sin comillas, sin explicaciones, solo los datos puros."
+                    </div>
+                </div>
+            </div>
 
-    <!-- FOOTER OBLIGATORIO -->
-    <footer class="bg-[#050b14] border-t border-slate-800 py-6 text-center z-10 relative mt-auto">
-        <p class="text-slate-500 text-sm tracking-widest font-light">
-            &copy; 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática
-        </p>
-    </footer>
+            <div class="flex items-start gap-4">
+                <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+                <div>
+                    <h4 class="font-bold text-lg">Estructuración en Excel</h4>
+                    <p class="text-slate-400 text-sm">Pega los datos en la celda <strong>A1</strong>. Aplica formato de tabla, moneda en la columna Precio y centra los textos. ¡Que se vea profesional!</p>
+                </div>
+            </div>
 
-    <!-- SCRIPTS LÓGICOS -->
-    <script>
-        // 1. RUTEO Y BOTONES (Obligatorio)
-        function copiarEnlace(){
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                const t = document.getElementById('toastCopiado');
-                if(t){
-                    t.classList.remove('hidden');
-                    // Animación de entrada
-                    t.classList.add('animate-bounce');
-                    setTimeout(() => {
-                        t.classList.remove('animate-bounce');
-                        t.classList.add('hidden');
-                    }, 2500);
-                } else {
-                    alert("Enlace copiado ✅");
-                }
-            }).catch(() => {
-                alert("No se pudo copiar automáticamente. Copia el enlace manualmente desde la barra del navegador.");
-            });
+            <div class="flex items-start gap-4">
+                <div class="bg-emerald-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+                <div>
+                    <h4 class="font-bold text-lg">El Motor de Búsqueda</h4>
+                    <p class="text-slate-400 text-sm">En la celda G2 escribe un código que exista en tu tabla. En H3 usa la fórmula:</p>
+                    <code class="block bg-slate-900 p-2 rounded mt-2 text-emerald-400 text-center">=BUSCARV(G3; $A$2:$F$11; 2; FALSO)</code>
+                </div>
+            </div>
+
+            <div class="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-2xl flex items-center gap-4">
+                <span class="text-2xl">✨</span>
+                <p class="text-sm text-yellow-200"><strong>Reto Avanzado:</strong> Crea una alerta que diga "AGOTADO" usando la función SI combinada con el stock actual.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="glass p-8 rounded-[3rem] text-center border-2 border-purple-500/20">
+        <h2 class="text-3xl font-bold mb-8">Micro-Quiz de Velocidad</h2>
+        <div id="quiz" class="max-w-xl mx-auto space-y-4">
+            <div id="q1" class="glass-card p-6 rounded-2xl hover-scale cursor-pointer" onclick="checkQuiz(1, true)">
+                <p class="font-bold">¿Qué argumento asegura que la búsqueda sea exacta?</p>
+                <div class="grid grid-cols-2 gap-2 mt-4">
+                    <div class="bg-slate-800 p-2 rounded-lg text-xs">A) VERDADERO</div>
+                    <div class="bg-slate-800 p-2 rounded-lg text-xs">B) FALSO</div>
+                </div>
+            </div>
+            <div id="quiz-feedback" class="h-8 font-bold text-emerald-400"></div>
+        </div>
+    </section>
+
+    <section class="space-y-4">
+        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">🔍 INVESTIGACIÓN</span>
+        <div class="glass-card p-6 rounded-3xl border-l-4 border-orange-500">
+            <p class="text-slate-300 italic">"Busca en Google: ¿Qué pasa si el valor que busco no está en la primera columna de la matriz? Escribe la solución que encontrarías en Excel en tu cuaderno."</p>
+        </div>
+    </section>
+
+    <section class="bg-slate-800/30 p-8 rounded-3xl text-center border border-dashed border-slate-600">
+        <span class="bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">📄 TAREA EN HOJA SUELTA</span>
+        <p class="text-slate-500 mt-4">Esta semana no hay tarea para la casa. ¡Disfruta tu tiempo libre!</p>
+    </section>
+
+</main>
+
+<footer class="mt-20 py-12 bg-slate-950 text-center">
+    <p class="text-slate-500 font-bold">© 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática</p>
+    <p class="text-xs text-slate-700 mt-2 tracking-[0.3em] uppercase">Colegio Santa Mariana de Jesús - Buga</p>
+</footer>
+
+<script>
+    // --- LÓGICA DE NAVEGACIÓN ---
+    function copiarEnlace(){
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        const t = document.getElementById('toastCopiado');
+        t.classList.remove('hidden');
+        setTimeout(()=> t.classList.add('hidden'), 2000);
+      });
+    }
+
+    // --- SIMULADOR CANVAS ---
+    const canvas = document.getElementById('canvasScan');
+    const ctx = canvas.getContext('2d');
+    let scanY = 0;
+    let scanning = false;
+
+    function drawGrid() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#1e293b';
+        for(let i=0; i<canvas.width; i+=40) {
+            ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
         }
-
-        function copyPrompt(btn) {
-            const text = btn.parentElement.innerText.replace('Copiar', '').trim();
-            navigator.clipboard.writeText(text);
-            const originalText = btn.innerText;
-            btn.innerText = '¡Copiado!';
-            btn.classList.replace('bg-slate-700', 'bg-emerald-600');
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.classList.replace('bg-emerald-600', 'bg-slate-700');
-            }, 2000);
+        for(let j=0; j<canvas.height; j+=40) {
+            ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
         }
-
-        // 2. CANVAS - SIMULADOR BUSCARV
-        const canvas = document.getElementById('buscarvCanvas');
-        const ctx = canvas.getContext('2d');
-        let animFrame;
-        let scanY = 50;
-        let scanX = 50;
-        let isScanning = false;
-        let phase = 0;
-
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-            drawStatic();
-        }
-        window.addEventListener('resize', resizeCanvas);
-
-        function drawStatic() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Dibujar tabla simulada
-            ctx.fillStyle = '#1e293b';
-            ctx.fillRect(50, 50, 300, 200);
-            
-            // Columnas y filas
-            ctx.strokeStyle = '#334155';
-            ctx.lineWidth = 2;
-            for(let i=1; i<=3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(50 + (i*100), 50);
-                ctx.lineTo(50 + (i*100), 250);
-                ctx.stroke();
-            }
-            for(let i=1; i<=4; i++) {
-                ctx.beginPath();
-                ctx.moveTo(50, 50 + (i*40));
-                ctx.lineTo(350, 50 + (i*40));
-                ctx.stroke();
-            }
-
-            // Textos
-            ctx.fillStyle = '#94a3b8';
-            ctx.font = '14px Poppins';
-            ctx.fillText('Cód', 60, 75);
-            ctx.fillText('Producto', 160, 75);
-            ctx.fillText('Precio', 260, 75);
-
-            ctx.fillStyle = '#cbd5e1';
-            const data = [
-                ['A10', 'Teclado', '$20'],
-                ['B20', 'Mouse', '$15'],
-                ['C30', 'Monitor', '$150'],
-                ['D40', 'Cable', '$5']
-            ];
-
-            data.forEach((row, rIdx) => {
-                row.forEach((text, cIdx) => {
-                    ctx.fillText(text, 60 + (cIdx*100), 115 + (rIdx*40));
-                });
-            });
-
-            // Target Text
-            ctx.fillStyle = '#38bdf8';
-            ctx.font = 'bold 16px Poppins';
-            ctx.fillText('Buscando: "C30" (Col 3)', 400, 100);
-        }
-
-        function animateScan() {
-            drawStatic();
-
-            // Dibujar scanner
-            ctx.fillStyle = 'rgba(56, 189, 248, 0.3)';
-            ctx.strokeStyle = '#38bdf8';
-            ctx.lineWidth = 2;
-
-            if (phase === 1) {
-                // Escaneo Vertical
-                ctx.fillRect(50, scanY, 100, 40);
-                ctx.strokeRect(50, scanY, 100, 40);
-                scanY += 2;
-                if (scanY >= 170) { // Llega a C30
-                    scanY = 170;
-                    phase = 2;
-                    setTimeout(() => requestAnimationFrame(animateScan), 500);
-                    return;
-                }
-            } else if (phase === 2) {
-                // Escaneo Horizontal
-                ctx.fillRect(scanX, 170, 100, 40);
-                ctx.strokeRect(scanX, 170, 100, 40);
-                scanX += 3;
-                if (scanX >= 250) { // Llega a Precio
-                    scanX = 250;
-                    phase = 3;
-                }
-            } else if (phase === 3) {
-                // Encontrado
-                ctx.fillStyle = 'rgba(52, 211, 153, 0.5)';
-                ctx.fillRect(250, 170, 100, 40);
-                ctx.strokeStyle = '#34d399';
-                ctx.strokeRect(250, 170, 100, 40);
-                
-                ctx.fillStyle = '#34d399';
-                ctx.font = 'bold 20px Poppins';
-                ctx.fillText('¡Encontrado: $150!', 400, 150);
-                isScanning = false;
-                return;
-            }
-
-            animFrame = requestAnimationFrame(animateScan);
-        }
-
-        function startSimulation() {
-            if(isScanning) return;
-            isScanning = true;
-            scanY = 90;
-            scanX = 50;
-            phase = 1;
-            cancelAnimationFrame(animFrame);
-            animateScan();
-        }
-
-        // 3. CHART.JS - Data Lab
-        let inventoryChart;
-        const ctxChart = document.getElementById('inventoryChart').getContext('2d');
         
-        const dataA = {
-            labels: ['Lápices', 'Resmas', 'Carpetas', 'Bolígrafos'],
+        if(scanning) {
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 3;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#10b981';
+            ctx.beginPath();
+            ctx.moveTo(0, scanY);
+            ctx.lineTo(canvas.width, scanY);
+            ctx.stroke();
+            scanY += 2;
+            if(scanY > canvas.height) scanY = 0;
+            requestAnimationFrame(drawGrid);
+        }
+    }
+    drawGrid();
+
+    function startScan() {
+        scanning = true;
+        document.getElementById('scanStatus').innerText = "ESCANEO VERTICAL EN CURSO... BUSCANDO COINCIDENCIA";
+        drawGrid();
+    }
+    function resetScan() {
+        scanning = false;
+        scanY = 0;
+        document.getElementById('scanStatus').innerText = "SISTEMA LISTO.";
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
+    }
+
+    // --- CHART.JS ---
+    const chartCtx = document.getElementById('inventoryChart').getContext('2d');
+    let inventoryChart = new Chart(chartCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Resmas', 'Esferos', 'Marcadores', 'Toner', 'Carpetas'],
             datasets: [{
-                label: 'Stock Actual (Cat. A)',
-                data: [120, 45, 80, 200],
-                backgroundColor: 'rgba(56, 189, 248, 0.6)',
-                borderColor: 'rgba(56, 189, 248, 1)',
+                label: 'Stock Actual',
+                data: [45, 120, 80, 15, 60],
+                backgroundColor: 'rgba(99, 102, 241, 0.5)',
+                borderColor: '#6366f1',
                 borderWidth: 2,
-                borderRadius: 4
+                borderRadius: 8
             }]
-        };
-
-        const dataB = {
-            labels: ['Monitores', 'Teclados', 'Mouse', 'Cables USB'],
-            datasets: [{
-                label: 'Stock Actual (Cat. B)',
-                data: [12, 25, 30, 85],
-                backgroundColor: 'rgba(167, 139, 250, 0.6)',
-                borderColor: 'rgba(167, 139, 250, 1)',
-                borderWidth: 2,
-                borderRadius: 4
-            }]
-        };
-
-        function initChart() {
-            Chart.defaults.color = '#cbd5e1';
-            inventoryChart = new Chart(ctxChart, {
-                type: 'bar',
-                data: dataA,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } },
-                        x: { grid: { display: false } }
-                    },
-                    animation: {
-                        duration: 1000,
-                        easing: 'easeOutQuart'
-                    },
-                    plugins: {
-                        legend: { labels: { font: { family: 'Poppins' } } },
-                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', titleFont: { family: 'Poppins' }, bodyFont: { family: 'Poppins' } }
-                    }
-                }
-            });
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } } }
         }
+    });
 
-        function updateChart(cat) {
-            inventoryChart.data = cat === 'A' ? dataA : dataB;
-            inventoryChart.update();
+    function updateChart(type) {
+        const newData = type === 'A' ? [45, 120, 80, 15, 60] : [20, 90, 40, 5, 15];
+        inventoryChart.data.datasets[0].data = newData;
+        inventoryChart.data.datasets[0].backgroundColor = type === 'A' ? 'rgba(99, 102, 241, 0.5)' : 'rgba(16, 185, 129, 0.5)';
+        inventoryChart.update();
+    }
+
+    // --- QUIZ ---
+    function checkQuiz(q, isCorrect) {
+        const feedback = document.getElementById('quiz-feedback');
+        if(isCorrect) {
+            feedback.innerText = "¡CORRECTO! El detective necesita precisión absoluta. 🎯";
+            feedback.classList.add('animate-bounce');
         }
+    }
+</script>
 
-        // 4. MICRO-QUIZ LOGIC
-        function checkQuiz(btn, isCorrect) {
-            const container = btn.parentElement;
-            const feedback = document.getElementById('quizFeedback');
-            const buttons = container.querySelectorAll('button');
-            
-            // Disable all
-            buttons.forEach(b => {
-                b.disabled = true;
-                b.classList.remove('hover:bg-slate-700');
-                if(b === btn && !isCorrect) {
-                    b.classList.replace('bg-slate-800', 'bg-red-900/80');
-                    b.classList.replace('border-slate-600', 'border-red-500');
-                } else if (b.innerText.includes('B)')) {
-                    // Show correct answer anyway
-                    b.classList.replace('bg-slate-800', 'bg-emerald-600/80');
-                    b.classList.replace('border-slate-600', 'border-emerald-400');
-                }
-            });
-
-            feedback.classList.remove('hidden');
-            if(isCorrect) {
-                feedback.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/50');
-                feedback.innerHTML = '¡Excelente! 🕵️‍♂️ "FALSO" u "0" asegura que no asigne el precio de otro artículo por error si no encuentra el código exacto.';
-            } else {
-                feedback.classList.add('bg-red-500/20', 'text-red-400', 'border', 'border-red-500/50');
-                feedback.innerHTML = 'Cuidado... En empresas, el valor "FALSO" obliga a Excel a encontrar el código EXACTO, sino devuelve error (#N/D), previniendo que cobres mal un artículo.';
-            }
-        }
-
-        // Init everything on load
-        window.onload = () => {
-            resizeCanvas();
-            initChart();
-        };
-
-    </script>
 </body>
-</html>
 </html>
