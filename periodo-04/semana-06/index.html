@@ -1,1 +1,432 @@
-hola
+Aquí tienes la Aplicación Web Interactiva diseñada específicamente para tus estudiantes de grado 8°, cumpliendo con la estructura del Framework Bernal V4, rutas dinámicas y un diseño moderno (Glassmorphism).
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 6 - Operaciones Comerciales | Prof. William Fdo Bernal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            color: #f8fafc;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom Animations */
+        @keyframes pointLeft {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-20px); }
+        }
+        .animate-point-left {
+            animation: pointLeft 1.2s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4s infinite ease-in-out;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #818cf8; }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-10">
+
+    <div class="max-w-6xl mx-auto flex justify-end gap-3 mb-4 pt-4 px-4 relative z-50">
+        <a href="../../../index.html" class="bg-slate-800/70 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300 backdrop-blur border border-white/10">
+            ⬅ Inicio (Grado)
+        </a>
+        <a href="../../index.html" class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
+            ⬅ Menú del Periodo
+        </a>
+        <button type="button" onclick="copiarEnlace()" class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow hover:scale-105 transition-all duration-300">
+            🔗 Copiar enlace
+        </button>
+    </div>
+
+    <div id="toastCopiado" class="fixed top-6 right-6 hidden bg-black/80 text-white px-6 py-4 rounded-xl shadow-2xl backdrop-blur border border-emerald-500/50 z-50 transition-all">
+        ¡Enlace copiado al portapapeles! ✅
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 space-y-8">
+
+        <header class="glass-panel rounded-3xl p-8 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+            <h3 class="text-emerald-400 font-semibold tracking-widest uppercase text-sm mb-2">Colegio Santa Mariana de Jesús | Grado 8°</h3>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 animate-float">
+                ¿Cómo se calcula una factura?
+            </h1>
+            <h2 class="text-xl md:text-2xl text-slate-300 mb-6 font-light">Subtotal, Descuentos e IVA</h2>
+            
+            <div class="inline-block bg-white/10 px-6 py-3 rounded-2xl border border-white/20">
+                <p class="text-lg font-medium text-blue-200">🎯 Objetivo: Dominar el cálculo matemático de operaciones comerciales aplicadas a la vida real y a hojas de cálculo.</p>
+            </div>
+        </header>
+
+        <section class="glass-panel rounded-3xl p-8 hover:shadow-cyan-500/10 transition-shadow duration-500">
+            <div class="mb-4">
+                <span class="bg-cyan-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-lg">
+                    📝 COPIAR AL CUADERNO
+                </span>
+            </div>
+            <h2 class="text-2xl font-bold mb-4 text-cyan-300">De los Filtros al Dinero Real</h2>
+            <div class="text-slate-200 text-lg leading-relaxed space-y-4">
+                <p>En la <strong>semana 5 vimos "Magia con Filtros"</strong>, aprendiendo a organizar y extraer datos valiosos de grandes tablas. Hoy, daremos un paso más: convertiremos esos datos en información financiera.</p>
+                <p>Toda compra oficial genera una factura con 3 pasos matemáticos inquebrantables:</p>
+                <ol class="list-decimal list-inside space-y-2 bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                    <li><strong>Subtotal:</strong> Es la multiplicación de (Cantidad × Precio base).</li>
+                    <li><strong>Descuento:</strong> Rebaja que se aplica <em>sobre el subtotal</em>. Al restarlo, obtenemos el Subtotal Bruto.</li>
+                    <li><strong>IVA (Impuesto al Valor Agregado):</strong> En Colombia generalmente es el 19%. Este impuesto <strong>se calcula sobre el valor ya descontado</strong> y se suma al final para obtener el <strong>Total a Pagar</strong>.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="glass-panel rounded-3xl p-8 border-t-4 border-t-pink-500">
+            <div class="mb-6">
+                <span class="bg-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-lg">
+                    💻 INTERACTUAR EN EL PC
+                </span>
+            </div>
+            <h2 class="text-2xl font-bold mb-6 text-pink-300">Simulador de Caja Registradora</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6 bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Precio del Producto (COP): <span id="valPrecio" class="text-white font-bold">$100,000</span></label>
+                        <input type="range" id="inputPrecio" min="10000" max="500000" step="5000" value="100000" class="w-full accent-pink-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Descuento de la tienda (%): <span id="valDesc" class="text-emerald-400 font-bold">10%</span></label>
+                        <input type="range" id="inputDesc" min="0" max="50" step="5" value="10" class="w-full accent-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">IVA aplicable (%): <span id="valIva" class="text-amber-400 font-bold">19%</span></label>
+                        <input type="range" id="inputIva" min="0" max="19" step="1" value="19" class="w-full accent-amber-500">
+                    </div>
+
+                    <div class="mt-6 p-4 bg-slate-900 rounded-xl border border-slate-600">
+                        <div class="flex justify-between mb-2"><span class="text-slate-400">Subtotal:</span> <span id="outSub" class="font-mono text-white"></span></div>
+                        <div class="flex justify-between mb-2"><span class="text-slate-400">Menos Descuento:</span> <span id="outDesc" class="font-mono text-emerald-400"></span></div>
+                        <div class="flex justify-between mb-2"><span class="text-slate-400">Base Gravable:</span> <span id="outBase" class="font-mono text-white"></span></div>
+                        <div class="flex justify-between mb-2"><span class="text-slate-400">Más IVA:</span> <span id="outIva" class="font-mono text-amber-400"></span></div>
+                        <div class="w-full h-px bg-slate-600 my-2"></div>
+                        <div class="flex justify-between items-center"><span class="text-lg font-bold text-pink-400">TOTAL A PAGAR:</span> <span id="outTotal" class="text-2xl font-mono font-bold text-white"></span></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 flex items-center justify-center">
+                    <canvas id="facturaChart" class="w-full max-w-[300px]"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-panel rounded-3xl p-8 border-t-4 border-t-blue-500">
+            <div class="mb-6">
+                <span class="bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-lg">
+                    🖥️ TRABAJO EN LA SALA
+                </span>
+            </div>
+            <h2 class="text-3xl font-bold mb-6 text-blue-300">Actividad en sala: Mi solución con IA</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-slate-800/40 p-6 rounded-2xl border border-white/10 hover:border-blue-400/50 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-emerald-400 mb-3">🤖 Paso 1: Generar los datos con IA</h3>
+                    <p class="text-slate-300 mb-4">Pídele a un asistente de IA (ChatGPT, Gemini, Copilot) que cree una tabla copiando exactamente este prompt:</p>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 font-mono text-sm text-amber-300 mb-4 select-all">
+                        "Genera una tabla con 5 columnas: Código, Producto, Cantidad, Precio (COP), Dto. (%). Crea exactamente 10 filas de productos comerciales realistas (ej: electrónicos, papelería, ropa). Códigos como ART001 a ART010. Cantidades entre 1 y 10. Precios entre 5.000 y 200.000 pesos colombianos. Descuentos entre 0% y 30% (números enteros). Entrega SOLO la tabla en formato TSV (valores separados por tabulación) con exactamente 10 filas de datos más 1 fila de encabezados, sin explicaciones, sin markdown, sin código, sin comillas. Usa tabulaciones reales como separador."
+                    </div>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
+                        <li>Copia el resultado y pégalo en la celda A1 de Excel.</li>
+                        <li>⚠️ Si se pega en una sola columna, usa "Datos > Texto en columnas" (separador: tabulación).</li>
+                        <li>💡 <em>El formato TSV es ideal para transferir datos limpios a Excel sin errores.</em></li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/40 p-6 rounded-2xl border border-white/10 hover:border-blue-400/50 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-emerald-400 mb-3">📊 Paso 2: Formato profesional</h3>
+                    <p class="text-slate-300 mb-3">Aplica el siguiente formato sobre los datos en el rango A1:E11:</p>
+                    <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
+                        <li>Usa "Dar formato como tabla" (Ctrl + T).</li>
+                        <li>Encabezados: Fondo azul oscuro, fuente blanca negrita, centrado.</li>
+                        <li>Cantidades centradas.</li>
+                        <li>Columna "Precio": Formato moneda (COP) sin decimales.</li>
+                        <li>Columna "Dto.": Formato porcentaje sin decimales.</li>
+                        <li>✅ <em>Verifica que los precios tengan el símbolo $ y los descuentos el %.</em></li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/40 p-6 rounded-2xl border border-white/10 hover:border-blue-400/50 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-emerald-400 mb-3">⚙️ Paso 3: Fórmulas de la Factura</h3>
+                    <p class="text-slate-300 mb-3">Inserta estas columnas y calcula (arrastra la fórmula hasta la fila 11):</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <span class="text-pink-400 font-bold">F1:</span> Subtotal<br>
+                            <span class="font-mono text-white">=C2*D2</span>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <span class="text-pink-400 font-bold">G1:</span> Subtotal con desc.<br>
+                            <span class="font-mono text-white">=F2*(1-E2)</span>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <span class="text-pink-400 font-bold">H1:</span> IVA (19%)<br>
+                            <span class="font-mono text-white">=G2*19%</span>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <span class="text-pink-400 font-bold">I1:</span> Total Producto<br>
+                            <span class="font-mono text-white">=G2+H2</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-300 mt-4 mb-2 font-bold">Métricas Comerciales (Usa celdas libres abajo):</p>
+                    <ul class="list-disc list-inside text-slate-300 space-y-1 text-sm font-mono bg-slate-900 p-4 rounded-xl">
+                        <li>Total factura: <span class="text-emerald-400">=SUMA(I2:I11)</span></li>
+                        <li>Subtotal bruto: <span class="text-emerald-400">=SUMA(F2:F11)</span></li>
+                        <li>Producto más caro: <span class="text-emerald-400">=MAX(D2:D11)</span></li>
+                        <li>Desc > 10%: <span class="text-emerald-400">=CONTAR.SI(E2:E11;">0.10")</span></li>
+                        <li>Buscar ART003: <span class="text-emerald-400">=BUSCARV("ART003";A2:I11;9;FALSO)</span></li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800/40 p-6 rounded-2xl border border-white/10 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-amber-400 mb-2">💾 Paso Final: Guardar</h3>
+                        <p class="text-slate-300 text-sm">Nomenclatura: <code class="bg-black px-2 py-1 rounded text-white">grado_tema_fecha(ddmmaa)_nombre.xlsx</code></p>
+                        <p class="text-slate-400 text-xs mt-1">Ejemplo: 8_facturacion_240526_juan_perez.xlsx</p>
+                    </div>
+                    <div class="flex-1 bg-purple-900/40 p-4 rounded-xl border border-purple-500/30">
+                        <h4 class="text-purple-300 font-bold text-sm mb-1">✨ Reto Avanzado</h4>
+                        <p class="text-slate-300 text-xs">Pide a la IA una columna "Categoría". Luego usa <code>=SUMAR.SI(B2:B11;"Electrónica";I2:I11)</code> para sumar solo esa categoría.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass-panel rounded-3xl p-8 border-l-4 border-l-amber-500">
+                <div class="mb-4">
+                    <span class="bg-amber-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-lg">
+                        🔍 INVESTIGACIÓN
+                    </span>
+                </div>
+                <h3 class="text-xl font-bold text-amber-300 mb-3">Consulta en Google</h3>
+                <p class="text-slate-300">
+                    Investiga y responde con tus propias palabras:<br><br>
+                    <strong>¿Qué significan las siglas IVA en Colombia, de cuánto es el porcentaje general actual y menciona 3 productos de la canasta familiar que estén EXENTOS (que no paguen este impuesto)?</strong>
+                </p>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-8 border-r-4 border-r-purple-500 flex flex-col justify-center items-center text-center relative">
+                <div class="absolute top-8 left-4 md:-left-8 text-4xl text-purple-400 animate-point-left hidden md:block">
+                    ⬅️
+                </div>
+                <div class="mb-4">
+                    <span class="bg-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-lg">
+                        📄 TAREA EN HOJA SUELTA
+                    </span>
+                </div>
+                <h3 class="text-xl font-bold text-purple-300 mb-3">Entregable Físico</h3>
+                <p class="text-slate-300">
+                    <span class="md:hidden text-2xl animate-point-left inline-block rotate-90 md:rotate-0 mt-2 mb-2">⬆️</span><br>
+                    La investigación de la izquierda debe entregarse en una hoja tamaño block debidamente marcada la próxima clase. ¡Cuidado con la ortografía!
+                </p>
+            </div>
+        </section>
+
+        <section class="glass-panel rounded-3xl p-8 mb-10 border-t-4 border-t-emerald-500">
+            <h2 class="text-2xl font-bold mb-6 text-emerald-300 text-center">🧠 Micro-Quiz: ¿Entendiste la lógica?</h2>
+            <div id="quiz-container" class="max-w-2xl mx-auto space-y-6">
+                </div>
+            <div id="quiz-result" class="hidden text-center mt-6 text-2xl font-bold text-white bg-slate-800/80 p-4 rounded-xl border border-emerald-500">
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="bg-slate-950/80 border-t border-slate-800 mt-12 py-8 text-center backdrop-blur-md">
+        <p class="text-slate-400 text-sm tracking-widest font-light">
+            © 2026 | Prof. William Fdo Bernal - Área de Tecnología e Informática
+        </p>
+    </footer>
+
+    <script>
+        // --- 1. FUNCIÓN DE COPIAR ENLACE ---
+        function copiarEnlace(){
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const t = document.getElementById('toastCopiado');
+                if(t){
+                    t.classList.remove('hidden');
+                    setTimeout(()=> t.classList.add('hidden'), 2500);
+                } else {
+                    alert("Enlace copiado ✅");
+                }
+            }).catch(() => {
+                alert("No se pudo copiar automáticamente. Copia el enlace manualmente.");
+            });
+        }
+
+        // --- 2. LÓGICA DEL SIMULADOR & CHART.JS ---
+        const formatearCOP = (valor) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(valor);
+
+        const inputPrecio = document.getElementById('inputPrecio');
+        const inputDesc = document.getElementById('inputDesc');
+        const inputIva = document.getElementById('inputIva');
+
+        const ctx = document.getElementById('facturaChart').getContext('2d');
+        let chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Valor Base (Tras Descuento)', 'IVA'],
+                datasets: [{
+                    data: [0, 0],
+                    backgroundColor: ['#3b82f6', '#fbbf24'],
+                    borderColor: '#1e293b',
+                    borderWidth: 2,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#cbd5e1' } }
+                }
+            }
+        });
+
+        function actualizarSimulador() {
+            const precio = parseFloat(inputPrecio.value);
+            const desc = parseFloat(inputDesc.value);
+            const ivaPorc = parseFloat(inputIva.value);
+
+            // Cálculos
+            const valDescuento = precio * (desc / 100);
+            const baseGravable = precio - valDescuento;
+            const valIva = baseGravable * (ivaPorc / 100);
+            const total = baseGravable + valIva;
+
+            // Actualizar UI
+            document.getElementById('valPrecio').innerText = formatearCOP(precio);
+            document.getElementById('valDesc').innerText = desc + '%';
+            document.getElementById('valIva').innerText = ivaPorc + '%';
+
+            document.getElementById('outSub').innerText = formatearCOP(precio);
+            document.getElementById('outDesc').innerText = '- ' + formatearCOP(valDescuento);
+            document.getElementById('outBase').innerText = formatearCOP(baseGravable);
+            document.getElementById('outIva').innerText = '+ ' + formatearCOP(valIva);
+            document.getElementById('outTotal').innerText = formatearCOP(total);
+
+            // Actualizar Gráfica
+            chart.data.datasets[0].data = [baseGravable, valIva];
+            chart.update();
+        }
+
+        inputPrecio.addEventListener('input', actualizarSimulador);
+        inputDesc.addEventListener('input', actualizarSimulador);
+        inputIva.addEventListener('input', actualizarSimulador);
+        
+        // Init inicial
+        actualizarSimulador();
+
+        // --- 3. LÓGICA DEL QUIZ GAMIFICADO ---
+        const preguntas = [
+            {
+                q: "¿Sobre qué valor se calcula el IVA del 19% en una factura comercial?",
+                opciones: ["Sobre el Subtotal antes del descuento", "Sobre el Subtotal ya con el descuento aplicado", "Sobre el precio del producto más caro"],
+                correcta: 1
+            },
+            {
+                q: "En Excel, ¿qué fórmula calcula correctamente un descuento del 10% a un valor que está en F2?",
+                opciones: ["=F2 - 10", "=F2 * (1 - 0.10)", "=DESCUENTO(F2; 10%)"],
+                correcta: 1
+            },
+            {
+                q: "¿Qué formato es ideal para importar una tabla generada por IA hacia Excel sin que se dañen las columnas?",
+                opciones: ["TSV (Tabulaciones)", "PDF (Documento)", "JPG (Imagen)"],
+                correcta: 0
+            }
+        ];
+
+        let puntaje = 0;
+        let respondidas = 0;
+        const quizContainer = document.getElementById('quiz-container');
+
+        preguntas.forEach((pregunta, qIndex) => {
+            const pDiv = document.createElement('div');
+            pDiv.className = "bg-slate-800/60 p-5 rounded-xl border border-slate-600";
+            
+            const pText = document.createElement('p');
+            pText.className = "text-lg font-semibold mb-4 text-white";
+            pText.innerText = `${qIndex + 1}. ${pregunta.q}`;
+            pDiv.appendChild(pText);
+
+            const gridBtn = document.createElement('div');
+            gridBtn.className = "grid grid-cols-1 md:grid-cols-3 gap-3";
+
+            pregunta.opciones.forEach((opcion, oIndex) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left bg-slate-700 hover:bg-slate-600 text-slate-200 p-3 rounded-lg transition-colors text-sm border border-transparent";
+                btn.innerText = opcion;
+                
+                btn.onclick = () => {
+                    // Desactivar todos los botones de esta pregunta
+                    Array.from(gridBtn.children).forEach(b => {
+                        b.disabled = true;
+                        b.classList.remove('hover:bg-slate-600');
+                        b.classList.add('opacity-50');
+                    });
+
+                    // Validar
+                    if(oIndex === pregunta.correcta) {
+                        btn.classList.remove('bg-slate-700', 'opacity-50');
+                        btn.classList.add('bg-emerald-600', 'border-emerald-400', 'text-white', 'opacity-100');
+                        puntaje++;
+                    } else {
+                        btn.classList.remove('bg-slate-700', 'opacity-50');
+                        btn.classList.add('bg-red-600', 'border-red-400', 'text-white', 'opacity-100');
+                        // Resaltar correcta
+                        gridBtn.children[pregunta.correcta].classList.remove('bg-slate-700', 'opacity-50');
+                        gridBtn.children[pregunta.correcta].classList.add('bg-emerald-600/50', 'border-emerald-400', 'text-white', 'opacity-100');
+                    }
+
+                    respondidas++;
+                    if(respondidas === preguntas.length) {
+                        const resDiv = document.getElementById('quiz-result');
+                        resDiv.classList.remove('hidden');
+                        resDiv.innerHTML = `¡Completado! Acertaste <strong>${puntaje}</strong> de ${preguntas.length}. ${puntaje === 3 ? '🏆 ¡Excelente!' : 'Sigue practicando 💪'}`;
+                    }
+                };
+                gridBtn.appendChild(btn);
+            });
+
+            pDiv.appendChild(gridBtn);
+            quizContainer.appendChild(pDiv);
+        });
+
+    </script>
+</body>
+</html>
+
+```
