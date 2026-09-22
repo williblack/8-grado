@@ -1,1 +1,283 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 3: El árbol de levas y sus componentes | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 3,
+  tema: "Clase 3: El árbol de levas y sus componentes",
+  temaAnterior: "Máquinas Simples y Mecanismos",
+  video: "",
+  estilo: "robot",
+  emoji: "⚙️",
+  objetivo: "Reconocer las partes principales del árbol de levas y comprender cómo transforma el movimiento de rotación en traslación dentro de una máquina.",
+  competencia: "Identifico y analizo la función de los componentes de un árbol de levas en sistemas mecánicos y automatizados, aplicando herramientas digitales para la organización de información.",
+  preguntaGancho: "¿Cómo logra el motor de un automóvil abrir y cerrar docenas de válvulas por segundo con una precisión milimétrica sin confundirse?",
+  agenda: [
+    { min: 5, titulo: "Introducción y Gancho", texto: "Explicación del propósito de la clase y conexión con las máquinas simples vistas la semana anterior." },
+    { min: 15, titulo: "Explicación y Cuaderno", texto: "Análisis del concepto de leva, árbol de levas, sus 4 partes fundamentales y funcionamiento paso a paso." },
+    { min: 15, titulo: "Reto Práctico con IA y Excel", texto: "Generación de tabla con IA usando prompts estructurados y transferencia a Microsoft Excel con formato." },
+    { min: 10, titulo: "Evaluación y Cierre", texto: "Resolución del quiz interactivo, registro de reflexiones en la hoja de trabajo digital y asignación de tarea." }
+  ],
+  cuaderno: {
+    conexion: "En la semana anterior estudiamos cómo las máquinas simples (palancas, poleas y engranajes) modifican la magnitud o dirección de una fuerza. Hoy veremos cómo el árbol de levas combina estos principios para transformar un movimiento giratorio continuo en impulsos de subida y bajada alternados.",
+    bloques: [
+      {
+        icono: "🥚",
+        titulo: "1. Concepto de Leva y Árbol de Levas",
+        puntos: [
+          { icono: "🔹", termino: "Leva", texto: "Pieza mecánica con forma ovoide (de huevo) o disco descentrado que gira impulsada por un eje." },
+          { icono: "🔹", termino: "Función principal", texto: "Transformar el movimiento de rotación (giro) en un movimiento de traslación (rectilíneo de subida y bajada)." },
+          { icono: "🔹", termino: "Árbol de levas", texto: "Eje longitudinal que sostiene varias levas forjadas o unidas, permitiendo coordinar múltiples movimientos al tiempo." }
+        ],
+        ampliacion: "Imagínate la rueda de una bicicleta que no es completamente redonda, sino que tiene una protuberancia en un lado. Cada vez que la rueda gira, esa protuberancia golpea suavemente un pedal o palanca haciéndolo subir. Una leva funciona exactamente así: aprovecha su geometría irregular para empujar otro componente en un instante preciso. Cuando combinamos varias levas en un solo eje largo, creamos un **árbol de levas**, el cual actúa como el director de orquesta de una máquina, dictando el momento exacto en que cada pieza debe moverse de forma sincronizada."
+      },
+      {
+        icono: "🧩",
+        titulo: "2. Partes Principales del Mecanismo",
+        puntos: [
+          { icono: "⚙️", termino: "Eje", texto: "Barra central cilíndrica que recibe la fuerza motriz y hace girar todas las levas al tiempo." },
+          { icono: "🥚", termino: "Leva", texto: "Pieza de perfil curvo especial cuyo contorno genera el empuje al rotar." },
+          { icono: "📐", termino: "Seguidor (Empujador)", texto: "Pieza en contacto continuo con la leva que sube y baja siguiendo la forma del contorno." },
+          { icono: "🏗️", termino: "Soporte (Guía)", texto: "Estructura fija que restringe el movimiento del seguidor para que solo se mueva en línea recta." }
+        ],
+        ampliacion: "El mecanismo depende del trabajo en equipo de sus cuatro elementos. Si el **seguidor** no tuviera un soporte o guía, al ser empujado por la leva saldría disparado hacia los lados en lugar de subir verticalmente. En la industria del municipio de Buga, como en los ingenios azucareros o en los talleres automotrices, se calibran estos cuatro elementos con tolerancias de milímetros para evitar vibraciones o desgastes prematuros. La forma precisa del contorno de la leva determina la velocidad y la altura con la que sube el seguidor."
+      },
+      {
+        icono: "🔄",
+        titulo: "3. Funcionamiento Paso a Paso",
+        puntos: [
+          { icono: "1️⃣", termino: "Inicio de giro", texto: "El eje recibe energía de un motor o manivela y comienza a rotar a velocidad constante." },
+          { icono: "2️⃣", termino: "Empuje de la cresta", texto: "La parte más prominente de la leva (cresta) entra en contacto con la base del seguidor y lo eleva." },
+          { icono: "3️⃣", termino: "Retorno del seguidor", texto: "Al continuar la rotación, la parte más baja de la leva toca al seguidor, haciendo que descienda por gravedad o resorte." },
+          { icono: "4️⃣", termino: "Repetición cíclica", texto: "El proceso se repite en un ciclo continuo e ininterrumpido mientras el eje siga girando." }
+        ],
+        ampliacion: "El ciclo del árbol de levas es un ejemplo perfecto de movimiento periódico programado de forma mecánica. No requiere computadores ni sensores electrónicos para saber cuándo empujar: la **geometría física de la leva** es la que contiene la información de cuándo y cuánto debe elevarse el seguidor. Este principio permitió automatizar fábricas e imprentas siglos antes de que existiera la electricidad, demostrando que la forma de las piezas mecánicas puede almacenar instrucciones de funcionamiento."
+      },
+      {
+        icono: "🚗",
+        titulo: "4. Aplicaciones en la Vida Real",
+        puntos: [
+          { icono: "🏎️", termino: "Motores de combustión", texto: "Abre y cierra las válvulas de admisión y escape de aire en automóviles y motocicletas." },
+          { icono: "🧸", termino: "Juguetes y autómatas", texto: "Genera movimientos repetitivos y realistas en muñecos mecánicos y figuras articuladas." },
+          { icono: "🏭", termino: "Máquinas industriales", texto: "Se usa en estampadoras, cajas de música antiguas, máquinas de coser y líneas de ensamblaje." }
+        ],
+        ampliacion: "En un automóvil que transita por Buga a 60 kilómetros por hora, el árbol de levas puede estar girando a más de 1500 revoluciones por minuto. En cada segundo, abre y cierra las válvulas del motor con una sincronización impecable para dejar entrar combustible y expulsar gases de escape. Si la correa de distribución que mueve el árbol de levas se rompe, los pistones chocan contra las válvulas detenidas y destruyen el motor. Por eso, entender este mecanismo es fundamental tanto para la ingeniería automotriz como para la robótica."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Movimiento Alternativo", definicion: "Movimiento repetitivo de ida y vuelta en línea recta (subir y bajar o avanzar y retroceder)." },
+    { termino: "Cresta de la Leva", definicion: "Punto de mayor prominencia o altura en el perfil de una leva que genera la máxima elevación del seguidor." },
+    { termino: "Perfil de Leva", definicion: "Forma o contorno exterior curvo de la leva que determina el tipo de movimiento que realizará el seguidor." },
+    { termino: "Sincronización Mecánica", definicion: "Coordinación exacta en el tiempo de varios movimientos mecánicos accionados por un mismo eje." }
+  ],
+  sabiasQue: [
+    "Leonardo da Vinci diseñó en el siglo XV máquinas automatizadas para hilar y zurdir que utilizaban árboles de levas de madera para coordinar los movimientos.",
+    "En los motores modernos de alto rendimiento existen sistemas de levas variables (como VTEC o VVT) que cambian el perfil de la leva según la velocidad del carro para ahorrar combustible."
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Partes y Conceptos Clave del Árbol de Levas",
+      items: [
+        { icono: "🕹️", frente: "Leva", reverso: "Pieza curva u ovoide que transforma el giro en empuje directo." },
+        { icono: "🔩", frente: "Eje Central", reverso: "Barra sobre la que se fijan una o varias levas para girar juntas." },
+        { icono: "📍", frente: "Seguidor", reverso: "Varilla que se apoya sobre la leva y realiza el movimiento de subida y bajada." },
+        { icono: "🧱", frente: "Soporte / Guía", reverso: "Estructura fija que encausa el seguidor para que no se desvíe a los lados." },
+        { icono: "🚗", frente: "Válvulas de Motor", reverso: "Piezas que el árbol de levas empuja en un auto para dejar entrar aire y gasolina." },
+        { icono: "⚙️", frente: "Autómata Mecánico", reverso: "Juguete o figura articulada que se mueve gracias a levas ocultas en su base." }
+      ]
+    },
+    explorador: {
+      titulo: "Aplicaciones del Árbol de Levas en la Tecnología",
+      items: [
+        {
+          icono: "🚗",
+          nombre: "Motores de Combustión",
+          secciones: [
+            { titulo: "Función principal", items: ["Controlar el tiempo de apertura y cierre de válvulas de admisión y escape."] },
+            { titulo: "Ubicación", items: ["En la culata o parte superior del bloque del motor (sistemas OHC y DOHC)."] },
+            { titulo: "Importancia", items: ["Si se desincroniza respecto al cigüeñal, el motor pierde potencia o se destruye gravemente."] }
+          ]
+        },
+        {
+          icono: "🧸",
+          nombre: "Juguetes y Autómatas",
+          secciones: [
+            { titulo: "Función principal", items: ["Convertir el giro continuo de una manivela manual en gestos animados o movimientos repetitivos."] },
+            { titulo: "Ejemplos clásicos", items: ["Pájaros que aletean, bailarinas que suben y bajan, marineros remo a remo."] },
+            { titulo: "Materiales", items: ["Generalmente fabricados en madera, plástico denso o cartón en maquetas escolares."] }
+          ]
+        },
+        {
+          icono: "🏭",
+          nombre: "Maquinaria Industrial",
+          secciones: [
+            { titulo: "Función principal", items: ["Automatizar secuencias de estampado, corte y dosificación sin usar procesadores digitales."] },
+            { titulo: "Ejemplos históricos", items: ["Telares mecánicos, cajas de música mecánicas, máquinas de coser tradicionales."] },
+            { titulo: "Ventaja técnica", items: ["Alta fiabilidad, resistencia al desgaste extremo y bajo mantenimiento mecánico."] }
+          ]
+        }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasificación de Elementos Mecánicos",
+      categorias: ["Elementos de Rotación (Giran)", "Elementos de Traslación (Suben/Bajan)", "Estructuras de Apoyo"],
+      items: [
+        { texto: "Eje principal del mecanismo", categoria: 0 },
+        { texto: "Leva con contorno de gota", categoria: 0 },
+        { texto: "Seguidor o vástago de empuje", categoria: 1 },
+        { texto: "Válvula de admisión de aire", categoria: 1 },
+        { texto: "Guía cilíndrica del seguidor", categoria: 2 },
+        { texto: "Manivela acciona-eje", categoria: 0 },
+        { texto: "Brazo de autómata articulado", categoria: 1 },
+        { texto: "Carcasa fija del motor", categoria: 2 }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Reto en Sala: Estructura de Datos con IA y Microsoft Excel",
+    descripcion: "Generarás una tabla organizada sobre aplicaciones del árbol de levas utilizando Inteligencia Artificial (ChatGPT/Gemini) y la trasladarás a Microsoft Excel manteniendo la estructura exacta de filas y columnas.",
+    pasos: [
+      "Abre la plataforma de Inteligencia Artificial (ChatGPT o Gemini) en tu navegador.",
+      "Copia exactamente el prompt que se proporciona a continuación y pégalo en la IA.",
+      "Ejecuta la instrucción y verifica que la respuesta sea una tabla clara separada por filas y columnas.",
+      "Copia el texto completo generado por la IA utilizando Ctrl + C.",
+      "Abre Microsoft Excel, ubícate en la celda A1 y presiona Ctrl + V para pegar la información.",
+      "Aplica formato profesional: Encabezados en Negrita con fondo azul claro, marca «Todos los bordes» y ajusta el ancho de las columnas.",
+      "Guarda el archivo en tu equipo con el formato indicado: Árbol_de_Levas_Nombre_Apellido.xlsx."
+    ],
+    prompt: "Genera una tabla simple en formato de texto separado por tabulaciones sobre 5 máquinas o juguetes que utilizan árbol de levas. La tabla debe tener exactamente 4 columnas: 1. N° 2. Aplicación o Objeto 3. Función de la Leva 4. Tipo de Movimiento Generado. Asegúrate de que la salida sea únicamente el texto de la tabla, listo para copiar y pegar directamente en Excel sin perder las filas y columnas.",
+    herramientas: [
+      { nombre: "ChatGPT", url: "https://chatgpt.com" },
+      { nombre: "Google Gemini", url: "https://gemini.google.com" }
+    ],
+    requisitos: [
+      "Copiar el prompt exacto sin modificar la instrucción de tabulaciones.",
+      "Pegar los datos en Excel iniciando en la celda A1.",
+      "Encabezados de tabla en negrita y relleno azul claro.",
+      "Bordes visibles en todas las celdas de la tabla.",
+      "Columnas con ancho adecuado donde no se corte ningún texto.",
+      "Archivo guardado como Árbol_de_Levas_Nombre_Apellido.xlsx."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es la función principal de una leva dentro de un mecanismo?",
+      opciones: [
+        "Aumentar únicamente la velocidad de rotación de un motor.",
+        "Transformar un movimiento de rotación en un movimiento de traslación.",
+        "Frenar el movimiento giratorio de un eje en caso de emergencia.",
+        "Almacenar energía eléctrica para hacer funcionar un autómata."
+      ],
+      correcta: 1,
+      explicacion: "La leva cambia el giro del eje en un movimiento lineal de subida y bajada o ida y vuelta."
+    },
+    {
+      pregunta: "¿Qué diferencia a una leva individual de un árbol de levas?",
+      opciones: [
+        "La leva es de metal y el árbol de levas es de madera.",
+        "El árbol de levas contiene múltiples levas integradas sobre un mismo eje.",
+        "La leva solo sirve para juguetes y el árbol de levas para automóviles.",
+        "El árbol de levas no necesita seguidores para funcionar."
+      ],
+      correcta: 1,
+      explicacion: "Un árbol de levas integra varias levas a lo largo de una barra o eje para coordinar varios movimientos."
+    },
+    {
+      pregunta: "¿Cuál es la tarea del «seguidor» o «empujador» en el mecanismo?",
+      opciones: [
+        "Girar continuamente impulsado por el motor eléctrico.",
+        "Mantener firme el eje central para evitar que se desvíe.",
+        "Estar en contacto con la leva para subir y bajar según el perfil de esta.",
+        "Suministrar aceite lubricante a todas las piezas mecánicas."
+      ],
+      correcta: 2,
+      explicacion: "El seguidor o empujador toca directamente la leva y copia su contorno subiendo y bajando."
+    },
+    {
+      pregunta: "Si el soporte o guía del seguidor falla, ¿qué ocurre en el mecanismo?",
+      opciones: [
+        "El seguidor perdería la trayectoria rectilínea y no transmitiría bien el empuje.",
+        "La leva comenzaría a girar en sentido contrario inmediatamente.",
+        "El eje del motor aumentaría automáticamente su velocidad.",
+        "El mecanismo se convertiría en un sistema hidráulico."
+      ],
+      correcta: 0,
+      explicacion: "El soporte garantiza que el seguidor solo se mueva en línea recta sin tambalearse."
+    },
+    {
+      pregunta: "En los motores de carros, ¿cuál es la función directa que cumple el árbol de levas?",
+      opciones: [
+        "Mover las ruedas traseras para dar tracción al vehículo.",
+        "Abrir y cerrar las válvulas de entrada de aire y salida de gases.",
+        "Encender las luces principales mediante energía mecánica.",
+        "Filtrar la gasolina antes de que llegue a los pistones."
+      ],
+      correcta: 1,
+      explicacion: "El árbol de levas empuja las válvulas del motor en el momento exacto para permitir la combustión."
+    },
+    {
+      pregunta: "Al usar comandos de teclado para el ejercicio en Excel, ¿qué combinación pega el contenido copiado de la IA?",
+      opciones: [
+        "Ctrl + Z",
+        "Ctrl + C",
+        "Ctrl + V",
+        "Ctrl + P"
+      ],
+      correcta: 2,
+      explicacion: "Ctrl + V es la combinación estándar de teclado para pegar datos copiados previamente en la celda A1."
+    }
+  ],
+  investigacion: {
+    titulo: "Investigación Breve para el Cuaderno",
+    instruccion: "Responde en tu cuaderno de Tecnología e Informática las siguientes tres preguntas cortas:",
+    preguntas: [
+      "¿Qué sucede en un motor de auto si el árbol de levas se rompe o se desincroniza? (Responde en máximo 4 renglones).",
+      "¿De qué materiales suelen fabricarse los árboles de levas reales para resistir el desgaste constante?",
+      "¿Cuál es la diferencia entre una leva circular descentrada y una leva en forma de gota o corazón?"
+    ],
+    fuentes: [
+      "Manuales de mecánica automotriz básica e ingeniería de materiales.",
+      "Enciclopedias digitales de tecnología y mecanismos industriales."
+    ]
+  },
+  tarea: {
+    titulo: "Tarea Entregable: Diseño de Autómata con Árbol de Levas",
+    instruccion: "Diseña en una hoja de bloc o hoja suelta un autómata / juguete mecánico sencillo que funcione mediante un árbol de levas (por ejemplo: un pájaro que mueve las alas, un marinero que rema o un muñeco que salta).",
+    renglones: 5,
+    indicacion: "Escríbela en la hoja de la IZQUIERDA o entrega en hoja de bloc blanca con formato claro.",
+    criterios: [
+      "Boceto a color del juguete por fuera y con el mecanismo visible por dentro.",
+      "Identificación clara con flechas del eje, las levas y los seguidores.",
+      "Explicación escrita al respaldo (atrás) de 5 líneas describiendo el movimiento exterior al girar la manivela.",
+      "Limpieza, buena letra, excelente ortografía y presentación de la hoja."
+    ],
+    entrega: "Próxima clase de Tecnología e Informática."
+  },
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "Describe con tus propias palabras qué es una leva y en qué se diferencia de un árbol de levas completo.", lineas: 3 },
+      { id: "r2", texto: "Explica qué función cumple el seguidor o empujador y por qué requiere obligatoriamente de un soporte o guía.", lineas: 3 },
+      { id: "r3", texto: "¿Qué ventajas tuvo usar la Inteligencia Artificial para estructurar la tabla en lugar de digitarla manualmente celda por celda?", lineas: 3 },
+      { id: "r4", texto: "Menciona dos ejemplos de la vida cotidiana o industrial donde el árbol de levas sea indispensable y justifica por qué.", lineas: 3 },
+      { id: "r5", texto: "¿Qué aprendí hoy sobre la transformación de movimientos mecánicos y la organización de datos en Excel?", lineas: 3 }
+    ]
+  },
+  notasDocente: [
+    "Verificar que todos los estudiantes del grado 8 logren pegar los datos en Excel respetando la separación de columnas en la celda A1.",
+    "Llevar un modelo físico sencillo o maqueta de leva de madera/3D para mostrar el contacto en vivo entre leva y seguidor.",
+    "Asegurar que los estudiantes guarden el archivo de Excel con la nomenclatura exacta indicada antes de finalizar la sesión de 45 minutos."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
