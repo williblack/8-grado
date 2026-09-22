@@ -1,1 +1,267 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naturaleza y evolución de la tecnología | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 4,
+  tema: "Naturaleza y evolución de la tecnología",
+  temaAnterior: "No hay clase anterior",
+  video: "",
+  estilo: "medianoche",
+  emoji: "💡",
+  objetivo: "Comprender cómo la tecnología ha evolucionado para responder a las necesidades y problemas de las personas a lo largo de la historia.",
+  competencia: "Reconozco y explico la evolución de los artefactos tecnológicos, identificando cómo la ciencia y la técnica se combinan para resolver necesidades humanas concretas en el entorno cotidiano y local.",
+  preguntaGancho: "¿Cómo crees que hacían los estudiantes de Buga hace 100 años para investigar sus tareas sin internet ni impresoras?",
+  agenda: [
+    { min: 5, titulo: "Introducción y pregunta gancho", texto: "Presentación del propósito de la clase y reflexión inicial sobre inventos cotidianos." },
+    { min: 15, titulo: "Explicación conceptual y cuaderno", texto: "Registro de conceptos clave (Tecnología, Ciencia, Técnica) y mapa de necesidades humanas." },
+    { min: 15, titulo: "Práctica con IA y Excel en sala", texto: "Generación de tabla sobre evolución tecnológica con ChatGPT/Gemini y transferencia a Excel." },
+    { min: 10, titulo: "Cierre, hoja y tarea", texto: "Reflexión individual en la plataforma, registro de investigación y asignación de tarea." }
+  ],
+  cuaderno: {
+    conexion: "Al ser la primera semana de clase del periodo, iniciamos nuestro recorrido explorando el origen de las herramientas que transformaron al mundo antes de pasar a temas avanzados.",
+    bloques: [
+      {
+        icono: "🔍",
+        titulo: "1. Definición y concepto de tecnología",
+        puntos: [
+          { icono: "⚙️", termino: "Tecnología", texto: "Conjunto de conocimientos, habilidades y herramientas creadas para resolver problemas concretos." },
+          { icono: "🎯", termino: "Propósito", texto: "Satisfacer necesidades humanas y mejorar la calidad de vida individual y comunitaria." }
+        ],
+        ampliacion: "La tecnología no es solo computadores o teléfonos móviles modernos. Desde que el ser humano primitivo talló una piedra para cortar carne o creó el fuego para abrigarse, estaba haciendo tecnología. En nuestra ciudad de Buga, por ejemplo, el sistema de acueducto que lleva agua limpia a nuestras casas es una solución tecnológica indispensable que resuelve una necesidad biológica y de salud pública fundamental. **La tecnología siempre nace para resolver un problema humano real.**"
+      },
+      {
+        icono: "⚖️",
+        titulo: "2. Ciencia, Técnica y Tecnología",
+        puntos: [
+          { icono: "🔬", termino: "Ciencia", texto: "Explicación del 'porqué' de los fenómenos naturales mediante la investigación." },
+          { icono: "🛠️", termino: "Técnica", texto: "El 'saber hacer', comprende procedimientos, habilidades y recetas de trabajo." },
+          { icono: "💡", termino: "Tecnología", texto: "La aplicación práctica de la ciencia y la técnica para crear productos útiles." }
+        ],
+        ampliacion: "Para entender la diferencia, pensemos en una linterna LED. La **ciencia** investigó cómo se comportan los electrones al pasar por materiales semiconductores. La **técnica** consiste en los pasos manuales para soldar cables, ensamblar circuitos y pegar los componentes sin dañarlos. La **tecnología** es el producto final completo: la linterna que compras en la tienda y usas cuando se va la energía de noche. **La ciencia descubre, la técnica ejecuta y la tecnología transforma la sociedad.**"
+      },
+      {
+        icono: "🚀",
+        titulo: "3. Necesidades humanas que impulsan la evolución",
+        puntos: [
+          { icono: "🗣️", termino: "Comunicación", texto: "Abreviar distancias (de cartas en papel a mensajes instantáneos en WhatsApp)." },
+          { icono: "🚲", termino: "Transporte", texto: "Desplazamiento eficiente (de la tracción animal a vehículos eléctricos)." },
+          { icono: "🩺", termino: "Salud y Cuidado", texto: "Prevención y tratamiento (de remedios artesanales a tomografías computarizadas)." },
+          { icono: "🌾", termino: "Alimentación", texto: "Conservación de alimentos (de salazones a refrigeradores inteligentes)." }
+        ],
+        ampliacion: "Cada avance tecnológico responde a un deseo o necesidad de la humanidad. Hace años, enviar un mensaje desde Buga hasta Bogotá requería días mediante correo postal en carruaje. Hoy, gracias a las redes de fibra óptica y satélites, un mensaje tarda milisegundos. **Los avances tecnológicos no ocurren al azar, sino impulsados por la búsqueda constante de eficiencia y bienestar.**"
+      },
+      {
+        icono: "🔄",
+        titulo: "4. Transformación de la vida cotidiana",
+        puntos: [
+          { icono: "📜", termino: "Antes vs. Hoy", texto: "La sustitución gradual de herramientas mecánicas por soluciones digitales automatizadas." },
+          { icono: "📊", termino: "Impacto diario", texto: "Cambios en el estudio, trabajo, comercio y entretenimiento diario." }
+        ],
+        ampliacion: "Piensa en el trabajo que realizaremos hoy en la sala de sistemas. Antes, los contadores tenían que sumar miles de números a mano en libros de papel gigantescos. Hoy utilizamos hojas de cálculo como Microsoft Excel y herramientas de Inteligencia Artificial para procesar información en segundos. **Aprender a adaptar soluciones tecnológicas nos permite ahorrar tiempo valioso para la creatividad y la resolución de problemas.**"
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Artefacto", definicion: "Cualquier objeto fabricado por el ser humano para cumplir una función práctica determinada." },
+    { termino: "Evolución Tecnológica", definicion: "Proceso histórico de transformación, perfeccionamiento y cambio de las herramientas a lo largo del tiempo." },
+    { termino: "Automatización", definicion: "Uso de sistemas o máquinas para realizar tareas sin la intervención humana continua." },
+    { termino: "Saber hacer", definicion: "Destreza práctica y metódica empleada para ejecutar una tarea o elaboración técnica." }
+  ],
+  sabiasQue: [
+    "El primer teléfono móvil celular pesado pesaba casi 1 kilogramo y su batería tardaba 10 horas en cargarse para solo 30 minutos de conversación.",
+    "La imprenta de tipos móviles creada por Johannes Gutenberg en 1440 permitió multiplicar la producción de libros por más de 500 respecto a los manuscritos a mano.",
+    "Las primeras hojas de cálculo digitales como VisiCalc en 1979 convirtieron las computadoras personales de simples juguetes para aficionados en herramientas empresariales imprescindibles."
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Analogías: Ciencia, Técnica y Tecnología",
+      items: [
+        { icono: "🍞", frente: "El Pan de Bono en el Valle", reverso: "Ciencia: Química de la fermentación del almidón de yuca. Técnica: Amasar y controlar el tiempo de horneado. Tecnología: El horno industrial programable." },
+        { icono: "📱", frente: "La Fotografía", reverso: "Ciencia: Óptica y física de la luz sobre un sensor. Técnica: Encuadrar, enfocar y ajustar el brillo. Tecnología: La cámara digital de tu teléfono." },
+        { icono: "🚲", frente: "La Bicicleta", reverso: "Ciencia: Leyes de la física, palanca y fricción. Técnica: Saber armar los radios de la rueda y templar la cadena. Tecnología: La bicicleta moderna con cambios de carbono." },
+        { icono: "💉", frente: "La Medicina", reverso: "Ciencia: Biología humana y conocimiento de virus. Técnica: Aplicar una inyección sin lastimar al paciente. Tecnología: La jeringa esterilizada y la vacuna." }
+      ]
+    },
+    explorador: {
+      titulo: "Explorador de Necesidades Humanas y Artefactos",
+      items: [
+        { icono: "💬", nombre: "Comunicación", secciones: [ { titulo: "Evolución Histórica", items: ["Cartas en papel manuscrito", "Telégrafo por código Morse", "Teléfono de disco", "Smartphones y mensajería en la nube"] } ] },
+        { icono: "🕯️", nombre: "Iluminación", secciones: [ { titulo: "Evolución Histórica", items: ["Fogatas y antorchas", "Lámparas de aceite y velas", "Bombillo incandescente de filamento", "Lámparas y paneles LED ahorradores"] } ] },
+        { icono: "✍️", nombre: "Escritura", secciones: [ { titulo: "Evolución Histórica", items: ["Tablillas de arcilla talladas", "Pluma de ave y tinta", "Máquina de escribir mecánica", "Procesadores de texto en la nube"] } ] }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasifica los siguientes elementos",
+      categorias: ["Ciencia", "Técnica", "Tecnología"],
+      items: [
+        { texto: "Explicar la ley de la gravedad de Newton", categoria: 0 },
+        { texto: "Saber tejer una ruana a mano con agujas", categoria: 1 },
+        { texto: "Un teléfono celular inteligente", categoria: 2 },
+        { texto: "Estudiar la estructura del ADN celular", categoria: 0 },
+        { texto: "Procedimiento para cambiar la llanta de un carro", categoria: 1 },
+        { texto: "Una computadora portátil con procesador moderno", categoria: 2 },
+        { texto: "Descubrir cómo la luz se propaga en ondas", categoria: 0 },
+        { texto: "Aprender la receta exacta para hacer una torta", categoria: 1 }
+      ]
+    },
+    linea: {
+      titulo: "Hitos clave en la Historia de la Tecnología",
+      hitos: [
+        { anio: "3500 a.C.", titulo: "La Rueda", texto: "Revolucionó el transporte de carga y el trabajo agrícola en las antiguas civilizaciones." },
+        { anio: "1440", titulo: "La Imprenta de Gutenberg", texto: "Permitió la masificación de los libros y democratizó el acceso al conocimiento escrito." },
+        { anio: "1769", titulo: "Máquina de Vapor", texto: "Dio inicio a la Revolución Industrial transformando la producción manual en mecanizada." },
+        { anio: "1876", titulo: "El Teléfono", texto: "Alexander Graham Bell patenta el dispositivo para transmitir voz a través de cables eléctricos." },
+        { anio: "1946", titulo: "Computador ENIAC", texto: "Primera computadora digital electrónica de gran escala, ocupaba una habitación entera." },
+        { anio: "1991", titulo: "World Wide Web", texto: "Se publica la primera página web, abriendo la era de Internet masivo a nivel mundial." },
+        { anio: "2007", titulo: "Smartphone Moderno", texto: "Llegada de teléfonos inteligentes con pantallas táctiles capacitivas y tiendas de aplicaciones." }
+      ]
+    }
+  },
+  reto: {
+    titulo: "RETO EN SALA: Generación de Tabla con IA y Transferencia a Excel",
+    descripcion: "Aprenderás a interactuar con asistentes de IA (ChatGPT o Gemini) para solicitar datos estructurados sobre evolución tecnológica y pasarlos a una hoja de cálculo en Excel respetando sus columnas y filas.",
+    pasos: [
+      "Abre en tu navegador la herramienta de IA (ChatGPT o Gemini) recomendada por el docente.",
+      "Copia exactamente el prompt proporcionado a continuación y pégalo en el chat de la Inteligencia Artificial.",
+      "Una vez generada la respuesta, selecciona la tabla completa desde el navegador y presiona CTRL + C para copiarla.",
+      "Abre Microsoft Excel desde tu computador y haz clic izquierdo en la celda A1.",
+      "Presiona CTRL + V para pegar la información estructurada en la hoja de cálculo.",
+      "Aplica formato en Excel: pon los encabezados en negrita con relleno azul o verde, ajusta el ancho de las columnas haciendo doble clic en sus bordes superiores y aplica «Todos los bordes» a la tabla."
+    ],
+    prompt: "Actúa como un profesor de tecnología. Crea una tabla sencilla de 5 filas y 4 columnas sobre la evolución tecnológica. Las columnas deben ser: 'Artefacto', 'Necesidad que resuelve', 'Versión Antigua' y 'Versión Actual'. Usa un lenguaje claro para estudiantes de 8° grado. Muestra solo la tabla sin texto adicional.",
+    herramientas: [
+      { nombre: "ChatGPT", url: "https://chatgpt.com" },
+      { nombre: "Google Gemini", url: "https://gemini.google.com" }
+    ],
+    requisitos: [
+      "Generar la tabla mediante la herramienta de IA seleccionada usando el prompt exacto.",
+      "Pegar la tabla en Microsoft Excel a partir de la celda A1 manteniendo orden de filas y columnas.",
+      "Aplicar color de relleno y texto en negrita a la fila de encabezados.",
+      "Ajustar el ancho de las columnas A, B, C y D para que todo el texto sea perfectamente legible.",
+      "Demostrar el uso de bordes completos en toda la tabla construida."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es la diferencia principal entre la Ciencia y la Tecnología?",
+      opciones: [
+        "La ciencia crea objetos físicos y la tecnología solo escribe libros.",
+        "La ciencia busca entender el porqué de la naturaleza, mientras que la tecnología aplica ese saber para crear soluciones prácticas.",
+        "La ciencia utiliza herramientas eléctricas y la tecnología solo utiliza papel y lápiz.",
+        "No existe ninguna diferencia, ambas palabras significan exactamente lo mismo."
+      ],
+      correcta: 1,
+      explicacion: "La ciencia investiga los fenómenos naturales para comprenderlos, mientras que la tecnología utiliza dicho conocimiento para diseñar productos y soluciones a necesidades humanas."
+    },
+    {
+      pregunta: "¿Qué concepto define mejor a la 'Técnica'?",
+      opciones: [
+        "El conjunto de teorías matemáticas que explican el universo.",
+        "El saber hacer, es decir, el procedimiento, habilidad o pasos para realizar una tarea.",
+        "Cualquier dispositivo electrónico de última generación.",
+        "Un experimento científico realizado en un laboratorio especializado."
+      ],
+      correcta: 1,
+      explicacion: "La técnica hace referencia al 'saber hacer', combinando destreza manual, hábitos y procedimientos estructurados."
+    },
+    {
+      pregunta: "¿Cuál de las siguientes es la causa principal por la que surge la tecnología?",
+      opciones: [
+        "Por aburrimiento de los científicos en los laboratorios.",
+        "Para gastar energía eléctrica y recursos materiales.",
+        "Para resolver problemas y satisfacer necesidades humanas concretas.",
+        "Únicamente para fabricar videojuegos y pantallas."
+      ],
+      correcta: 2,
+      explicacion: "La tecnología nace como una respuesta creativa a problemas, incomodidades o necesidades cotidianas de la sociedad."
+    },
+    {
+      pregunta: "Un ejemplo de la evolución tecnológica en la comunicación es el paso de:",
+      opciones: [
+        "La bicicleta a la motocicleta de carreras.",
+        "Las cartas enviadas por correo postal a la mensajería instantánea por internet.",
+        "El uso de bombillos incandescentes a lámparas LED.",
+        "El cultivo a mano al uso de tractores agrícolas."
+      ],
+      correcta: 1,
+      explicacion: "Pasar de la carta física en papel a aplicaciones como WhatsApp demuestra la evolución para comunicar mensajes de forma inmediata."
+    },
+    {
+      pregunta: "Al copiar una tabla generada por Inteligencia Artificial y pegarla en Excel con CTRL + V:",
+      opciones: [
+        "El computador se apaga por incompatibilidad de formato.",
+        "La tabla pierde todo su texto y queda vacía.",
+        "Excel organiza automáticamente el contenido respetando la estructura de filas y columnas.",
+        "Debes volver a escribir la tabla letra por letra a mano."
+      ],
+      correcta: 2,
+      explicacion: "Microsoft Excel reconoce el formato tabular HTML copiado desde el navegador web y posiciona cada celda en su fila y columna correspondiente."
+    },
+    {
+      pregunta: "¿Por qué la imprenta de Gutenberg se considera una gran revolución tecnológica?",
+      opciones: [
+        "Porque funcionaba con energía solar e inteligencia artificial.",
+        "Porque permitió fabricar ropa sintética de forma rápida.",
+        "Porque automatizó la producción de libros, permitiendo reproducir miles de copias en poco tiempo.",
+        "Porque fue el primer computador digital inventado en Alemania."
+      ],
+      correcta: 2,
+      explicacion: "La imprenta reemplazó el lento copiado a mano de los libros, democratizando el acceso a la lectura y al conocimiento en el mundo."
+    }
+  ],
+  investigacion: {
+    titulo: "INVESTIGACIÓN EN EL CUADERNO: La Revolución de la Imprenta",
+    instruccion: "Investiga y escribe en tu cuaderno las siguientes tres preguntas cortas con buena letra y ortografía:",
+    preguntas: [
+      "Investiga: ¿Cuál fue la imprenta de Gutenberg y qué necesidad humana resolvió cuando se inventó en el siglo XV?",
+      "Reflexiona: ¿Qué ventaja tecnológica introdujo la imprenta comparada con el trabajo de los monjes copistas medievales?",
+      "Aplica: ¿Cuál es el equivalente moderno de la imprenta en la era digital actual?"
+    ],
+    fuentes: [
+      "Libros de texto de Historia y Tecnología de 8° grado",
+      "Enciclopedias digitales (Enciclopedia Británica, Wikipedia)",
+      "Artículos educativos sobre la historia de la imprenta de Gutenberg"
+    ]
+  },
+  tarea: {
+    titulo: "TAREA ENTREGABLE (En hoja suelta con nombre, fecha y grado)",
+    instruccion: "Selecciona un artefacto cotidiano (ejemplo: la bicicleta, el reloj, las gafas, el horno, la cámara fotográfica, etc.) y desarrolla en la hoja suelta los siguientes puntos:",
+    renglones: 5,
+    indicacion: "Escríbela en la hoja de la IZQUIERDA o en una hoja suelta de block para entregar la próxima clase.",
+    criterios: [
+      "Nombre del artefacto e identificación concreta de la necesidad que resuelve en las personas.",
+      "Descripción clara de cómo funcionaba en su versión antigua versus cómo funciona en la actualidad.",
+      "Mención justificada de al menos 3 ventajas claras de la versión moderna frente a la antigua.",
+      "Esquema gráfico: Dibujo dividido en dos partes (antigua a la izquierda, moderna a la derecha)."
+    ],
+    entrega: "Próxima clase de tecnología"
+  },
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "Explica con tus propias palabras cuál es la diferencia entre ciencia y tecnología dando un ejemplo de tu vida cotidiana en Buga.", lineas: 3 },
+      { id: "r2", texto: "¿Qué necesidad humana consideras que ha sido la más importante para impulsar el desarrollo de nuevos inventos tecnológicos?", lineas: 3 },
+      { id: "r3", texto: "En el reto con la IA y Excel, ¿qué ventajas descubriste al utilizar un asistente virtual para organizar datos en tablas?", lineas: 3 },
+      { id: "r4", texto: "¿Cómo cambiaría tu rutina diaria en el colegio si de repente no pudieras usar ningún artefacto tecnológico moderno durante una semana?", lineas: 3 },
+      { id: "r5", texto: "¿Qué aprendí hoy en la clase sobre la evolución de la tecnología y cómo me ayuda este conocimiento en mi vida?", lineas: 3 }
+    ]
+  },
+  notasDocente: [
+    "Verificar previamente la conectividad a Internet en los equipos del laboratorio de sistemas para el acceso a la herramienta de IA (ChatGPT / Gemini).",
+    "Asegurar que los estudiantes conozcan la combinación de teclas básicas (CTRL+C y CTRL+V) antes de ejecutar el reto práctico en Excel.",
+    "Monitorear la toma de apuntes en el cuaderno garantizando que identifiquen claramente los 3 conceptos fundamentales (Ciencia, Técnica, Tecnología).",
+    "Recordar recolectar las hojas sueltas de la tarea entregable al inicio de la siguiente sesión."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
