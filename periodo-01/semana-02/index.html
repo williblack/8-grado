@@ -1,1 +1,265 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máquinas Simples y Mecanismos | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 2,
+  tema: "Máquinas Simples y Mecanismos",
+  temaAnterior: "Naturaleza y evolución de la tecnología",
+  video: "",
+  estilo: "volcan",
+  emoji: "⚙️",
+  objetivo: "Identificar las máquinas simples fundamentales y comprender cómo se combinan articuladamente en mecanismos para facilitar las labores diarias del ser humano.",
+  competencia: "Reconozco los principios de funcionamiento de máquinas simples y compuestas en objetos cotidianos, aplicando herramientas digitales para clasificar su estructura y función.",
+  preguntaGancho: "¿Sabías que cuando cortas una hoja con tijeras o andas en bicicleta estás activando una combinación de inventos diseñados hace miles de años?",
+  agenda: [
+    { min: 5, titulo: "Conexión y Gancho", texto: "Relación de la evolución tecnológica con el origen de las máquinas básicas y análisis del entorno." },
+    { min: 15, titulo: "Explicación Teórica", texto: "Consignación en el cuaderno: las 6 máquinas simples, sus principios físicos y diferencia con mecanismos." },
+    { min: 15, titulo: "Reto Práctico con IA y Excel", texto: "Uso de prompts para generar una tabla estructurada sobre máquinas simples e importación limpia a Excel." },
+    { min: 10, titulo: "Evaluación y Registro", texto: "Cuestionario digital, resolución de preguntas de reflexión y verificación de compromisos." }
+  ],
+  cuaderno: {
+    conexion: "La semana pasada exploramos cómo la tecnología ha evolucionado a lo largo de la historia para satisfacer necesidades humanas. Hoy estudiaremos la base física de casi todas las herramientas creadas por la humanidad: las máquinas simples y los mecanismos.",
+    bloques: [
+      {
+        icono: "🛠️",
+        titulo: "1. Concepto de Máquina Simple",
+        puntos: [
+          { icono: "⚡", termino: "Máquina Simple", texto: "Dispositivo mecánico básico que cambia la dirección o la magnitud de una fuerza para facilitar un trabajo." },
+          { icono: "💪", termino: "Ventaja Mecánica", texto: "Permite mover cargas pesadas aplicando un menor esfuerzo humano a cambio de recorrer mayor distancia." }
+        ],
+        ampliacion: "Una **máquina simple** no crea energía por sí sola, sino que transforma la fuerza física que aplicamos. Al reducir la cantidad de fuerza humana directa requerida para levantar, cortar o desplazar objetos en nuestro entorno (como en las construcciones o labores agrícolas en Buga y el Valle del Cauca), estas herramientas sentaron las bases del desarrollo industrial."
+      },
+      {
+        icono: "⚙️",
+        titulo: "2. Las 6 Máquinas Simples Fundamentales",
+        puntos: [
+          { icono: "⚖️", termino: "Palanca", texto: "Barra rígida que gira sobre un punto fijo llamado fulcro para multiplicar la fuerza." },
+          { icono: "🔄", termino: "Polea", texto: "Rueda acanalada por la que pasa una cuerda para elevar objetos reduciendo la resistencia." },
+          { icono: "🛞", termino: "Rueda y Eje", texto: "Disco circular unido a un centro rígido que giran juntos para disminuir la fricción." },
+          { icono: "📐", termino: "Plano Inclinado", texto: "Superficie en diagonal que conecta dos niveles de diferente altura." },
+          { icono: "🔩", termino: "Tornillo", texto: "Plano inclinado enrollado en espiral alrededor de un cilindro para sujetar o penetrar." },
+          { icono: "🔪", termino: "Cuña", texto: "Pieza triangular con borde afilado utilizada para cortar, dividir o sujetar materiales." }
+        ],
+        ampliacion: "Cada una de las **seis máquinas simples** aprovecha principios físicos distintos. Por ejemplo, al subir una carga por un **plano inclinado** como una rampa de camión, recorres más distancia pero ejerces mucha menos fuerza vertical. De la misma manera, el **tornillo** transforma un movimiento de rotación en una potente fuerza de fijación."
+      },
+      {
+        icono: "🔀",
+        titulo: "3. Máquina Simple vs. Mecanismo",
+        puntos: [
+          { icono: "🧩", termino: "Máquina Simple", texto: "Utiliza un solo elemento rígido o un único punto de trabajo directo (ej. una rampa o un martillo)." },
+          { icono: "⚙️", termino: "Mecanismo (Compuesta)", texto: "Unión de dos o más máquinas simples que trabajan de forma articulada para realizar tareas complejas." }
+        ],
+        ampliacion: "En la vida cotidiana rara vez encontramos máquinas simples aisladas; casi siempre forman parte de **mecanismos o máquinas compuestas**. Una bicicleta, por ejemplo, combina la **rueda y el eje** en las llantas, **poleas y engranajes** en la cadena, y **palancas** en los pedales y manijas de freno para lograr una alta eficiencia de movimiento."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Fulcro", definicion: "Punto fijo de apoyo sobre el cual se articula o gira una palanca." },
+    { termino: "Ventaja Mecánica", definicion: "Relación entre la fuerza ejercida sobre la carga y la fuerza aplicada por el usuario." },
+    { termino: "Mecanismo", definicion: "Conjunto de elementos rígidos o móviles conectados entre sí para transmitir y transformar fuerzas y movimientos." },
+    { termino: "Resistencia (Carga)", definicion: "Fuerza u oposición ejercida por un objeto que se desea mover o deformar." },
+    { termino: "Fricción", definicion: "Fuerza de rozamiento entre dos superficies que se opone al movimiento relativo." }
+  ],
+  sabiasQue: [
+    "El célebre matemático griego Arquímedes dijo la famosa frase «Dame una palanca suficientemente larga y un punto de apoyo, y moveré el mundo» al descubrir las leyes físicas de la palanca.",
+    "La rueda es considerada una de las invenciones más revolucionarias de la historia humana, surgida en Mesopotamia hacia el año 3500 a.C., inicialmente utilizada para la alfarería antes del transporte."
+  ],
+  modulos: {
+    clasificador: {
+      titulo: "Clasificador: ¿Máquina Simple o Mecanismo?",
+      categorias: ["Máquina Simple", "Mecanismo (Máquina Compuesta)"],
+      items: [
+        { texto: "Rampa de acceso para sillas de ruedas", categoria: 0 },
+        { texto: "Tijeras de papel y tela", categoria: 1 },
+        { texto: "Cuchillo de cocina afilado", categoria: 0 },
+        { texto: "Bicicleta de montaña", categoria: 1 },
+        { texto: "Polea de pozo de agua", categoria: 0 },
+        { texto: "Carretilla de construcción", categoria: 1 },
+        { texto: "Tornillo de ensamble para madera", categoria: 0 },
+        { texto: "Cortaúñas metálico", categoria: 1 },
+        { texto: "Martillo para extraer clavos", categoria: 0 },
+        { texto: "Reloj mecánico de manecillas", categoria: 1 }
+      ]
+    },
+    tarjetas: {
+      titulo: "Analogías y Aplicaciones Cotidianas",
+      items: [
+        { icono: "⚖️", frente: "Palanca en el Parque", reverso: "El sube y baja es una palanca de primer género: el fulcro está en el centro, tú aplicas la fuerza en un extremo y tu amigo es la carga en el otro." },
+        { icono: "🥩", frente: "Cuña en la Cocina", reverso: "El filo del cuchillo es una doble cuña que concentra toda la fuerza de tu mano en un borde milimétrico para separar los alimentos." },
+        { icono: "🏔️", frente: "Plano Inclinado en Carreteras", reverso: "Las vías que suben la cordillera en el Valle del Cauca hacen curvas en zigzag para reducir el grado de inclinación y facilitar el ascenso de camiones." },
+        { icono: "🏗️", frente: "Poleas en Obras", reverso: "Las grúas en la construcción de edificios usan combinaciones de poleas (polipastos) para levantar toneladas de cemento con motores relativamente pequeños." },
+        { icono: "🚗", frente: "Rueda y Eje en el Auto", reverso: "El volante de un carro es una rueda conectada a un eje delgado; girar la rueda exterior grande requiere muy poco esfuerzo para mover la dirección." }
+      ]
+    },
+    explorador: {
+      titulo: "Máquinas y Mecanismos en el Entorno Regional",
+      items: [
+        {
+          icono: "🌾",
+          nombre: "Trapiches Cañeros",
+          secciones: [
+            { titulo: "Aplicación de Mecanismos", items: ["Uso de grandes rodillos metálicos (ejes) para exprimir la caña de azúcar.", "Combinación de motores con sistemas continuos de engranajes y cadenas."] }
+          ]
+        },
+        {
+          icono: "🏗️",
+          nombre: "Construcción Urbana",
+          secciones: [
+            { titulo: "Herramientas de Obra", items: ["Rampas (planos inclinados) para subir carretillas a pisos elevados.", "Poleas de elevación sujetas en andamios para subir ladrillos y mezcla."] }
+          ]
+        },
+        {
+          icono: "🚲",
+          nombre: "Movilidad Local",
+          secciones: [
+            { titulo: "Sistemas en la Bicicleta", items: ["Palancas en las manijas de frenos y pedales.", "Combinación de platos y piñones que funcionan como ruedas dentadas articuladas."] }
+          ]
+        }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Reto en Sala: Generar y Estructurar Tablas con IA e Importar a Excel",
+    descripcion: "Aprenderás a interactuar con una Inteligencia Artificial para solicitarle información tabulada sin errores y transferirla de forma limpia a Microsoft Excel respetando filas y columnas.",
+    pasos: [
+      "1. Abre una pestaña nueva en el navegador e ingresa a ChatGPT (chatgpt.com) o Google Gemini (gemini.google.com).",
+      "2. Copia exactamente el PROMPT del recuadro inferior y pégalo en el chat de la Inteligencia Artificial.",
+      "3. Presiona Enter y espera a que la IA devuelva la tabla limpia de 5 filas y 3 columnas.",
+      "4. Selecciona con el mouse toda la tabla generada desde el encabezado y presiona 'Ctrl + C' (Copiar).",
+      "5. Abre Microsoft Excel en tu computador, crea un libro en blanco y haz clic en la celda A1.",
+      "6. Presiona 'Ctrl + V' (Pegar) y verifica que los datos se distribuyan automáticamente en columnas y filas independientes.",
+      "7. Ajusta el ancho de las columnas A, B y C haciendo doble clic en el separador de las letras, aplica bordes a todas las celdas y dale un color de relleno al encabezado."
+    ],
+    prompt: "Actúa como un experto en tecnología. Genera una tabla limpia de 5 filas y 3 columnas sobre objetos cotidianos. Las columnas deben ser: 'Objeto del Entorno', 'Máquinas Simples que Contiene' y 'Función Principal'. Utiliza como objetos: Tijeras, Carretilla, Bicicleta, Cortaúñas y Sacapuntas manual. Entrega únicamente la tabla sin texto antes ni después.",
+    herramientas: [
+      { nombre: "ChatGPT", url: "https://chatgpt.com" },
+      { nombre: "Google Gemini", url: "https://gemini.google.com" },
+      { nombre: "Microsoft Excel", url: "https://www.office.com" }
+    ],
+    requisitos: [
+      "Tabla de 5 filas de datos más 1 fila de encabezados en Excel.",
+      "Información distribuida correctamente en 3 columnas independientes (A, B y C).",
+      "Ancho de columnas ajustado para leer el contenido sin texto cortado.",
+      "Formato estético aplicado: bordes visibles en todas las celdas y color de fondo en los encabezados."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es la función principal de una máquina simple?",
+      opciones: [
+        "Crear energía eléctrica ilimitada.",
+        "Reducir el esfuerzo necesario para realizar un trabajo modificando la fuerza o la distancia.",
+        "Aumentar el peso de los objetos para hacerlos estables.",
+        "Eliminar por completo la fuerza de gravedad en el planeta."
+      ],
+      correcta: 1,
+      explicacion: "Las máquinas simples transforman la fuerza aplicada, permitiéndonos realizar un trabajo aplicando menos esfuerzo a cambio de un mayor recorrido."
+    },
+    {
+      pregunta: "¿En qué se diferencia fundamentalmente una máquina simple de un mecanismo?",
+      opciones: [
+        "Una máquina simple no consume energía y un mecanismo sí.",
+        "Una máquina simple funciona con circuitos electrónicos y un mecanismo no.",
+        "Una máquina simple utiliza un solo elemento o movimiento, mientras que un mecanismo articula dos o más máquinas simples.",
+        "Los mecanismos solo existen dentro de grandes plantas industriales."
+      ],
+      correcta: 2,
+      explicacion: "Un mecanismo o máquina compuesta es el resultado de la unión articulada de varias máquinas simples trabajando juntas."
+    },
+    {
+      pregunta: "¿Qué máquina simple consiste en un plano inclinado enrollado en forma de espiral sobre un cilindro?",
+      opciones: [
+        "Cuña.",
+        "Polea.",
+        "Tornillo.",
+        "Palanca."
+      ],
+      correcta: 2,
+      explicacion: "El tornillo es físicamente un plano inclinado enrollado que convierte un movimiento giratorio en fuerza penetrante."
+    },
+    {
+      pregunta: "Unas tijeras se clasifican como un mecanismo porque combinan principalmente:",
+      opciones: [
+        "Dos palancas articuladas en un fulcro central y dos cuñas en sus filos.",
+        "Un plano inclinado largo con dos tornillos sin fin.",
+        "Tres poleas conectadas por una correa rígida.",
+        "Un conjunto de ruedas dentadas de rotación inversa."
+      ],
+      correcta: 0,
+      explicacion: "Las tijeras articulan dos palancas que se cruzan en un punto fijo (fulcro) y cuyo borde de corte actúa como cuña."
+    },
+    {
+      pregunta: "Si necesitas elevar un peso muy grande a varios metros de altura, ¿qué máquina o sistema reduce más el esfuerzo manual?",
+      opciones: [
+        "Una palanca corta apoyada en el suelo.",
+        "Un sistema de poleas compuestas (polipasto) con cable.",
+        "Una cuña de madera debajo de la carga.",
+        "Un tornillo sin rosca."
+      ],
+      correcta: 1,
+      explicacion: "El sistema de poleas compuestas o polipasto distribuye el peso total entre varios tramos de cuerda, reduciendo drásticamente la fuerza requerida."
+    },
+    {
+      pregunta: "En la palanca, ¿cómo se le conoce al punto fijo sobre el cual se apoya y gira la barra rígida?",
+      opciones: [
+        "Resistencia.",
+        "Potencia.",
+        "Fulcro.",
+        "Eje de tracción."
+      ],
+      correcta: 2,
+      explicacion: "El fulcro es el punto de apoyo mecánico indispensable para que la palanca ejerza su torque o giro."
+    }
+  ],
+  investigacion: {
+    titulo: "Los 3 Géneros de Palancas en el Cuerpo Humano",
+    instruccion: "Investiga y responde en media página de tu cuaderno:",
+    preguntas: [
+      "¿En qué se diferencian las palancas de 1.º, 2.º y 3.er género según la posición del punto de apoyo (fulcro), la fuerza (potencia) y la resistencia (carga)?",
+      "Realiza un dibujo esquemático de cada género identificando las posiciones del fulcro, la fuerza y la resistencia.",
+      "Escribe y explica un ejemplo del cuerpo humano para cada tipo de palanca (Ejemplo: la articulación del cuello, el pie/tobillo o el brazo/codo)."
+    ],
+    fuentes: ["Textos de Física y Biología de 8.º", "Portales educativos sobre Biomecánica y Máquinas Simples"]
+  },
+  tarea: {
+    titulo: "Taller Entregable: Análisis Práctico de Máquinas y Mecanismos",
+    instruccion: "Desarrolla los puntos en una HOJA SUELTA (de examen o carta) para entregar al profesor.",
+    criterios: [
+      "Presentación limpia en hoja suelta con encabezado completo (Nombre, Grado 8-__, Fecha).",
+      "Análisis de Objeto Complejo: dibujo en el centro de un objeto de casa (ej. cortador de pizza, carretilla, tijeras o sombrilla) señalando con flechas las máquinas simples que lo forman y dónde se aplica la fuerza.",
+      "Caso A: Explicación conceptual de por qué es más fácil subir una caja a un camión usando una rampa larga frente a una rampa corta y empinada usando el concepto de Plano Inclinado.",
+      "Caso B: Mención y explicación de la función de al menos 3 máquinas simples presentes en una bicicleta.",
+      "Reflexión escrita de mínimo 4 renglones analizando cómo sería la construcción y el transporte humano si nunca se hubieran inventado la rueda ni la palanca."
+    ],
+    entrega: "Próxima clase de Tecnología e Informática",
+    indicacion: "Escríbela en la hoja de la IZQUIERDA o en una hoja de examen suelta bien marcada.",
+    renglones: 5
+  },
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "Escribe con tus propias palabras qué es una máquina simple y por qué facilita el trabajo diario de las personas.", lineas: 2 },
+      { id: "r2", texto: "De las 6 máquinas simples estudiadas, ¿cuál consideras que tuvo el mayor impacto en el transporte y por qué?", lineas: 2 },
+      { id: "r3", texto: "Al ejecutar el reto con la IA y Excel, ¿por qué fue clave copiar la tabla completa y pegarla desde la celda A1?", lineas: 3 },
+      { id: "r4", texto: "Menciona dos objetos de tu salón de clases u hogar que sean MECANISMOS y detalla las máquinas simples que los integran.", lineas: 3 },
+      { id: "r5", texto: "¿Qué fue lo más interesante o nuevo que aprendiste durante la clase de hoy sobre máquinas simples y herramientas digitales?", lineas: 2 }
+    ]
+  },
+  notasDocente: [
+    "Monitorear la interacción en las computadoras para asegurar que los estudiantes seleccionen y peguen la tabla de IA en Excel desde la celda A1 sin desagrupar filas.",
+    "Reforzar la distinción entre máquina simple (dispositivo único) y mecanismo (unión articulada de varias máquinas simples).",
+    "Verificar que en los cuadernos queden claramente graficados los puntos de apoyo (fulcro) para la posterior actividad de investigación sobre palancas."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
