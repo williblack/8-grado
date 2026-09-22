@@ -1,1 +1,265 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformación del movimiento y de la energía | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 4,
+  tema: "Transformación del movimiento y de la energía",
+  temaAnterior: "El árbol de levas y sus componentes",
+  video: "",
+  estilo: "robot",
+  emoji: "⚙️",
+  objetivo: "Comprender los principios de transformación de movimiento rotacional a lineal alternativo mediante levas, y aplicar herramientas de Inteligencia Artificial para estructurar datos técnicos en Microsoft Excel.",
+  competencia: "Identifica y analiza mecanismos de transformación de movimiento en entornos industriales y cotidianos, integrando tecnologías digitales para el procesamiento de información técnica.",
+  preguntaGancho: "¿Cómo logra el motor de un vehículo o una máquina de coser convertir el giro continuo de un eje en un movimiento preciso de subida y bajada?",
+  agenda: [
+    { min: 5, titulo: "Introducción y Conexión", texto: "Repaso del árbol de levas y presentación del concepto de transformación de movimiento." },
+    { min: 10, titulo: "Fundamentación Teórica", texto: "Análisis de la conversión de movimiento circular a lineal y leyes de conservación de energía." },
+    { min: 15, titulo: "Reto Práctico con IA y Excel", texto: "Generación de prompt en ChatGPT/Gemini y trasplante estructurado de datos a Microsoft Excel." },
+    { min: 10, titulo: "Reflexión y Hoja Digital", texto: "Diligenciamiento de preguntas de comprensión y análisis técnico en la plataforma." },
+    { min: 5, titulo: "Cierre y Tarea", texto: "Asignación de investigación en cuaderno y taller práctico en hoja entregable." }
+  ],
+  cuaderno: {
+    conexion: "En la semana anterior estudiamos cómo el árbol de levas organiza el tiempo y la apertura de componentes mecánicos; hoy profundizaremos en la física subyacente: cómo la forma geométrica de una leva transforma el movimiento circular en lineal y modifica la energía del sistema.",
+    bloques: [
+      {
+        icono: "🔄",
+        titulo: "1. Transformación del Movimiento Circular a Lineal Alternativo",
+        puntos: [
+          { icono: "🛠️", termino: "Movimiento de Entrada", texto: "Generalmente es un movimiento rotacional continuo generado por un motor eléctrico o de combustión." },
+          { icono: "📐", termino: "Leva y Seguidor", texto: "La leva (elemento giratorio) empuja al seguidor (elemento guiado) convirtiendo la rotación en desplazamiento rectilíneo." },
+          { icono: "⏱️", termino: "Ciclo Mecánico", texto: "Por cada vuelta completa (360°) de la leva, el seguidor realiza una secuencia de subida, reposo y bajada." }
+        ],
+        ampliacion: "Piensa en un resalto o protuberancia en la rueda de una bicicleta. Cuando la rueda gira en un movimiento circular perfecto, la irregularidad en la superficie hace que un palito apoyado sobre ella suba y baje verticalmente. Este principio básico es la piedra angular del diseño de máquinas en industrias locales como los ingenios azucareros del Valle del Cauca o las embotelladoras en Buga. La leva permite programar mecánicamente **cuándo, cuánto y a qué velocidad** se moverá una pieza sin necesidad de usar sensores o computadores, utilizando únicamente geometría pura y física aplicada."
+      },
+      {
+        icono: "⚡",
+        titulo: "2. Transformación y Conservación de la Energía",
+        puntos: [
+          { icono: "🔋", termino: "Energía Cinética Rotacional", texto: "Energía contenida en la rotación del árbol o eje principal." },
+          { icono: "🎯", termino: "Energía Cinética Lineal", texto: "Energía transferida al seguidor durante el empuje directo del perfil." },
+          { icono: "🔥", termino: "Pérdidas por Fricción", texto: "Transformación no deseada de energía mecánica en calor en el punto de contacto." }
+        ],
+        ampliacion: "Durante el funcionamiento de cualquier mecanismo con levas, la energía no se crea ni se destruye, solo se transforma. El motor entrega energía eléctrica o química que se convierte en energía cinética de rotación. Al entrar en contacto la leva con el seguidor, parte de esa energía se transfiere como trabajo útil para levantar una válvula o presionar un pistón. Sin embargo, la fricción entre la leva y el seguidor transforma una parte apreciable de esa energía en **calor y desgaste material**. Por esta razón, el uso de lubricantes y rodamientos en los seguidores es fundamental para preservar la eficiencia energética del sistema mecánico."
+      },
+      {
+        icono: "✏️",
+        titulo: "3. Perfiles de Leva y Tipos de Mapeo Cinemático",
+        puntos: [
+          { icono: "💧", termino: "Perfil Ovoide / Gota", texto: "Genera un impulso rápido y brusco, ideal para aperturas breves y precisas." },
+          { icono: "⚪", termino: "Perfil Excéntrico", texto: "Proporciona un movimiento armónico suave y continuo de subida y bajada." },
+          { icono: "📊", termino: "Perfil de Disco Plano", texto: "Mantiene el seguidor sostenido durante una fracción determinada de tiempo." }
+        ],
+        ampliacion: "La forma exterior o contorno de la leva determina la aceleración y la fuerza transmitida. Si la curva es pronunciada como en una leva tipo gota, el movimiento será un golpe seco o una apertura vertiginosa. En cambio, si usamos un disco excéntrico (cuyo eje de giro está descentrado respecto al origen geométrico), el desplazamiento del seguidor imita una onda suave y progresiva. En talleres industriales de Buga, este tipo de perfiles se eligen según el material a manipular: **movimientos suaves** para productos frágiles y **movimientos de impacto** para troquelado o perforado."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Leva", definicion: "Elemento mecánico con un contorno no circular que transmite movimiento por contacto directo a otra pieza." },
+    { termino: "Seguidor", definicion: "Componente que está en contacto constante con el perfil de la leva y reproduce el movimiento guiado." },
+    { termino: "Movimiento Recíproco", definicion: "Movimiento alternativo de vaivén en línea recta o en un arco definido." },
+    { termino: "Excentricidad", definicion: "Distancia entre el centro geométrico de un cuerpo circular y su centro real de rotación." },
+    { termino: "Eficiencia Mecánica", definicion: "Relación entre la energía útil entregada por un mecanismo y la energía total consumida." }
+  ],
+  sabiasQue: [
+    "Las máquinas automáticas de coser inventadas en el siglo XIX utilizaban un conjunto de docenas de levas intercambiables para realizar diferentes tipos de bordados y puntadas complejas.",
+    "En los motores de alta competición de Fórmula 1, las levas giran a más de 9.000 revoluciones por minuto, abriendo y cerrando las válvulas en fracciones de milisegundo.",
+    "Hero de Alejandría, en el siglo I d.C., ya utilizaba sistemas primitivos de levas para automatizar puertas de templos y estatuas mecánicas mediante la fuerza del vapor y el agua."
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Analogías para Comprender la Leva",
+      items: [
+        { frente: "Un relieve en la carretera", reverso: "Cuando la llanta de un carro pasa sobre un bache, la rueda sube linealmente: el bache actúa como leva y la rueda como seguidor." },
+        { frente: "Un abrelatas manual", reverso: "Convertimos la fuerza giratoria de la llave manual en una fuerza de corte vertical constante sobre la lata." },
+        { frente: "Una llave en un cerrojo", reverso: "El relieve dentado de la llave empuja los pines verticales hacia arriba para alinear el mecanismo de apertura." },
+        { frente: "El pedal de la bicicleta", reverso: "El pie realiza un empuje hacia abajo en línea recta que las bielas convierten en rotación del plato principal." }
+      ]
+    },
+    explorador: {
+      titulo: "Tipos de Transformación de Movimiento",
+      items: [
+        {
+          icono: "🔄",
+          nombre: "Circular a Lineal Alternativo",
+          secciones: [
+            { titulo: "Mecanismo Clave", items: ["Sistema Leva-Seguidor", "Cigüeñal y Biela", "Excéntrica de disco"] },
+            { titulo: "Aplicación Real", items: ["Motores de combustión interna", "Bombas mecánicas de agua", "Máquinas de coser"] }
+          ]
+        },
+        {
+          icono: "📐",
+          nombre: "Circular a Lineal Continuo",
+          secciones: [
+            { titulo: "Mecanismo Clave", items: ["Piñón y Cremallera", "Tornillo sin fin y Tuerca", "Polea y Correa"] },
+            { titulo: "Aplicación Real", items: ["Dirección de vehículos", "Ascensores y grúas", "Puertas correderas automáticas"] }
+          ]
+        },
+        {
+          icono: "⚡",
+          nombre: "Transformación Energética",
+          secciones: [
+            { titulo: "Entrada", items: ["Energía Eléctrica", "Energía Química (Combustible)"] },
+            { titulo: "Salida", items: ["Energía Mecánica de impacto o desplazamiento", "Calor disipado por fricción"] }
+          ]
+        }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasificación de Perfiles de Leva",
+      categorias: ["Movimiento Suave (Progresivo)", "Movimiento de Impacto (Rápido)"],
+      items: [
+        { texto: "Leva Excéntrica de disco redondo", categoria: 0 },
+        { texto: "Leva tipo Gota / Ovoide pronunciada", categoria: 1 },
+        { texto: "Leva Senoidal de perfil curvo continuo", categoria: 0 },
+        { texto: "Leva de Martillo Industrial para troquelado", categoria: 1 },
+        { texto: "Leva Cilíndrica de ranura uniforme", categoria: 0 },
+        { texto: "Leva de Cierre de Válvula de alta velocidad", categoria: 1 },
+        { texto: "Leva Espiral de avance lento", categoria: 0 },
+        { texto: "Leva de Pestaña para activación de interruptor", categoria: 1 }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Generación de Tabla Técnica con IA y Migración a Excel",
+    descripcion: "Crear una tabla estructurada mediante Inteligencia Artificial (ChatGPT o Gemini) y trasplantarla a Microsoft Excel manteniendo la integridad de filas y columnas con formato profesional.",
+    pasos: [
+      "Abrir la herramienta de IA: Entra a ChatGPT o Gemini en tu navegador web.",
+      "Copia y envía exactamente el prompt estructurado que aparece a continuación.",
+      "Una vez generada la respuesta por la IA, selecciona y copia la tabla completa (Ctrl + C).",
+      "Abre un libro en blanco en Microsoft Excel y selecciona la celda A1.",
+      "Presiona Ctrl + V (o clic derecho > Pegar manteniendo formato original) para pegar los datos.",
+      "Formato en Excel: Aplica color de relleno oscuro a los encabezados (Fila 1) con texto en negrita y blanco.",
+      "Ajusta el ancho de las columnas haciendo doble clic en las divisiones y aplica Todos los bordes a la tabla."
+    ],
+    prompt: "Genera una tabla comparativa sobre 5 aplicaciones reales de las levas en la vida cotidiana o la industria. La tabla debe tener exactamente 4 columnas: 1) Objeto/Máquina, 2) Movimiento de Entrada, 3) Función de la Leva, 4) Movimiento de Salida. Asegúrate de presentar la respuesta en formato de tabla limpia para copiar y pegar directamente en Microsoft Excel.",
+    herramientas: [
+      { nombre: "ChatGPT", url: "https://chatgpt.com" },
+      { nombre: "Google Gemini", url: "https://gemini.google.com" },
+      { nombre: "Microsoft Excel Web", url: "https://www.office.com" }
+    ],
+    requisitos: [
+      "Tabla estructurada con 5 aplicaciones de levas copiada correctamente desde la IA.",
+      "Exactamente 4 columnas correspondientes a los parámetros solicitados.",
+      "Encabezado de la tabla en Excel con relleno oscuro, texto blanco y negrita.",
+      "Ajuste perfecto de ancho de columna para evitar textos ocultos.",
+      "Bordes completos activos ('Todos los bordes') en la cuadrícula de Excel."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es la función principal del mecanismo leva-seguidor en una máquina?",
+      opciones: [
+        "Convertir un movimiento lineal en otro movimiento lineal idéntico.",
+        "Transformar un movimiento rotacional de entrada en un movimiento rectilíneo alternativo de salida.",
+        "Aumentar la temperatura del sistema mecánico mediante fricción.",
+        "Detener por completo el movimiento del motor."
+      ],
+      correcta: 1,
+      explicacion: "La leva convierte la rotación continua en un vaivén lineal programado del seguidor."
+    },
+    {
+      pregunta: "¿Qué sucede con la energía mecánica cuando la leva entra en contacto con el seguidor?",
+      opciones: [
+        "Se destruye por completo sin dejar rastro.",
+        "Se convierte en energía eléctrica automáticamente.",
+        "Se transfiere como energía cinética lineal, aunque una parte se pierde como calor por fricción.",
+        "Aumenta la masa total del mecanismo."
+      ],
+      correcta: 2,
+      explicacion: "La energía rotacional se transfiere a cinética lineal del seguidor con pérdidas térmicas por rozamiento."
+    },
+    {
+      pregunta: "Si necesitamos que el movimiento de subida del seguidor sea progresivo y suave, ¿qué perfil de leva es más adecuado?",
+      opciones: [
+        "Leva tipo gota con punta afilada.",
+        "Leva excéntrica de disco circular.",
+        "Leva con forma cuadrada.",
+        "Leva de impacto brusco."
+      ],
+      correcta: 1,
+      explicacion: "La leva excéntrica ofrece un desplazamiento continuo y suave tipo onda sin golpes secos."
+    },
+    {
+      pregunta: "En el reto práctico con Inteligencia Artificial, ¿cuál es el objetivo principal de especificar las 4 columnas en el Prompt?",
+      opciones: [
+        "Hacer que la IA escriba un cuento largo sobre las levas.",
+        "Garantizar que los datos generados estén estructurados para pegarse limpiamente en filas y columnas de Excel.",
+        "Evitar que la herramienta de IA responda en español.",
+        "Cambiar automáticamente el color de las celdas de Excel."
+      ],
+      correcta: 1,
+      explicacion: "Estructurar la consulta en forma de tabla facilita la integración directa en celdas de hojas de cálculo."
+    },
+    {
+      pregunta: "¿Qué componente mecánico se apoya directamente sobre el contorno de la leva para recibir su movimiento?",
+      opciones: [
+        "El seguidor.",
+        "El pedal.",
+        "El fusible.",
+        "La correa de caucho."
+      ],
+      correcta: 0,
+      explicacion: "El seguidor es la pieza que palpa el contorno de la leva y transmite el movimiento resultante."
+    },
+    {
+      pregunta: "Al formatear la tabla en Excel según las instrucciones del reto, ¿qué estilo se debe aplicar a la fila de encabezados (Fila 1)?",
+      opciones: [
+        "Texto en amarillo con fondo transparente.",
+        "Sin bordes y con letra muy pequeña.",
+        "Relleno oscuro, texto en negrita y de color blanco.",
+        "Fondo rojo brillante con bordes punteados."
+      ],
+      correcta: 2,
+      explicacion: "El formato estándar para encabezados exige contraste visual claro con relleno oscuro y letra blanca en negrita."
+    }
+  ],
+  investigacion: {
+    titulo: "El árbol de levas en los motores de combustión",
+    instruccion: "Investiga brevemente y responde en un párrafo de máximo 6 renglones en tu cuaderno:",
+    preguntas: [
+      "¿Cuál es la función principal del árbol de levas dentro del motor de un carro o una motocicleta?",
+      "¿Qué componentes del motor abre y cierra el árbol de levas durante el ciclo de funcionamiento?"
+    ],
+    fuentes: ["Manuales de Mecánica Automotriz Básica", "Enciclopedias digitales de tecnología y motores"]
+  },
+  tarea: {
+    titulo: "Taller Práctico: Perfiles de Leva y Movimiento",
+    instruccion: "Estudiante: ________________________________________ Grado: 8-___ | Fecha: ___________ | Docente: William Fdo Bernal | Asignatura: Tecnología e Informática.\n\nDiseño Técnico: En esta hoja suelta, dibuja a mano con regla y compás (o mano alzada pulcra) los siguientes 2 perfiles de levas:\na) Leva de tipo gota / ovoide: (Diseñada para dar un impulso rápido en un punto del giro).\nb) Leva excéntrica: (Un disco circular cuyo eje de giro no está en el centro).\n\nAnálisis de funcionamiento: Al lado de cada gráfico, describe en 2 renglones cómo afectará la forma de esa leva al movimiento de subida y bajada del seguidor.",
+    renglones: 5,
+    indicacion: "Escríbela en la hoja suelta para entregar al profesor.",
+    criterios: [
+      "Trazo limpio y proporcionado de la leva de gota y la leva excéntrica.",
+      "Descripción clara de 2 renglones del efecto mecánico sobre el seguidor para cada dibujo.",
+      "Presentación impecable con encabezado completo incluyendo el nombre del docente William Fdo Bernal."
+    ],
+    entrega: "Próxima clase de Tecnología e Informática"
+  },
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "Explica con tus palabras cómo se transforma el movimiento circular en lineal dentro del sistema leva-seguidor.", lineas: 3 },
+      { id: "r2", texto: "¿Qué diferencia existe entre el movimiento producido por una leva tipo gota y una leva excéntrica?", lineas: 3 },
+      { id: "r3", texto: "¿Qué ventajas encuentras en generar tablas estructuradas mediante IA antes de llevarlas a Microsoft Excel?", lineas: 3 },
+      { id: "r4", texto: "Menciona 2 mecanismos que conozcas en Buga o tu entorno donde exista transformación de energía o movimiento.", lineas: 3 },
+      { id: "r5", texto: "¿Qué aprendí hoy sobre el diseño de levas y el manejo de formatos en hojas de cálculo?", lineas: 3 }
+    ]
+  },
+  notasDocente: [
+    "Asegurar que los estudiantes tengan acceso a ChatGPT o Google Gemini antes de iniciar la sesión práctica.",
+    "Verificar que los estudiantes realicen la combinación de teclas Ctrl+V en la celda A1 para preservar las columnas tabuladas.",
+    "Orientar el trazo manual de la leva excéntrica marcando claramente la diferencia entre el centro del círculo y el eje de rotación.",
+    "Enfatizar la importancia de la disipación de calor por fricción como un factor crítico en el rendimiento de los motores."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
