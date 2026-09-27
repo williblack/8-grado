@@ -1,1 +1,282 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introducción al Pensamiento Computacional | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 5,
+  tema: "Introducción al Pensamiento Computacional",
+  temaAnterior: "Transformación del movimiento y de la energía",
+  video: "",
+  estilo: "circuito",
+  emoji: "🧠💻",
+  objetivo: "Reconocer el pensamiento computacional como una estrategia sistemática para analizar, descomponer y solucionar problemas cotidianos y tecnológicos paso a paso.",
+  competencia: "Aplica los pilares del pensamiento computacional (descomposición, patrones, abstracción, algoritmos y depuración) en la resolución de problemas cotidianos y en la estructuración de datos con herramientas digitales e Inteligencia Artificial.",
+  preguntaGancho: "¿Cómo logra una computadora resolver millones de operaciones complejas sin equivocarse y cómo puedes usar esa misma estrategia lógica para simplificar tu vida diaria?",
+  agenda: [
+    { min: 5, titulo: "Conexión y Propósito", texto: "Introducción al pensamiento computacional y su relación con la transformación de procesos." },
+    { min: 15, titulo: "Conceptos en Cuaderno", texto: "Explicación teórica de los pilares del pensamiento computacional y actividad de descomposición cotidiana." },
+    { min: 15, titulo: "Reto en Sala con IA y Excel", texto: "Generación de tabla TSV mediante prompt de IA e importación formateada a Microsoft Excel." },
+    { min: 10, titulo: "Cierre y Evaluación", texto: "Verificación de la tabla en Excel, síntesis de la sesión y asignación de la tarea entregable." }
+  ],
+  cuaderno: {
+    conexion: "En las semanas anteriores analizamos cómo la energía y el movimiento se transforman de una forma a otra dentro de un sistema. De la misma manera, para procesar información y resolver problemas, un sistema computacional transforma una situación compleja en secuencias ordenadas de pasos simples mediante el Pensamiento Computacional.",
+    bloques: [
+      {
+        icono: "🤔",
+        titulo: "1. ¿Qué es el Pensamiento Computacional?",
+        puntos: [
+          { icono: "🛠️", termino: "Definición", texto: "Es un proceso de razonamiento estructurado que nos permite analizar y solucionar problemas dividiéndolos en partes más pequeñas." },
+          { icono: "💡", termino: "Enfoque Lógico", texto: "No consiste en pensar como un robot, sino en utilizar la lógica para encontrar soluciones claras que cualquier persona o computadora pueda ejecutar." }
+        ],
+        ampliacion: "El **pensamiento computacional** es una habilidad fundamental que va más allá de la informática. Cuando nos enfrentamos a un reto grande o complejo, la mente humana suele sentirse abrumada si intenta resolverlo todo de golpe. Al aplicar esta estrategia, convertimos el problema en mini-tareas sencillas, organizadas en un orden lógico para garantizar un resultado exitoso y sin fallos."
+      },
+      {
+        icono: "🧩",
+        titulo: "2. Los Pilares del Pensamiento Computacional (Parte 1)",
+        puntos: [
+          { icono: "✂️", termino: "Descomposición", texto: "Partir o dividir un problema complejo en sub-problemas más pequeños y fáciles de manejar." },
+          { icono: "🔍", termino: "Reconocimiento de Patrones", texto: "Identificar similitudes, tendencias o secuencias que se repiten en el proceso." }
+        ],
+        ampliacion: "La **descomposición** evita que perdamos el control ante proyectos extensos. Por ejemplo, al organizar un evento en el Colegio Santa Mariana de Jesús, no haces todo al mismo tiempo: separas tareas como sonido, decoración e invitaciones. Por su parte, el **reconocimiento de patrones** nos permite aprovechar experiencias previas; si notas que siempre olvidas el carné los lunes, identificas ese patrón para ajustar tu rutina desde el domingo."
+      },
+      {
+        icono: "⚙️",
+        titulo: "3. Los Pilares del Pensamiento Computacional (Parte 2)",
+        puntos: [
+          { icono: "📝", termino: "Secuencias (Algoritmos)", texto: "Diseñar una serie de instrucciones ordenadas paso a paso para ejecutar la solución." },
+          { icono: "📐", termino: "Diseño de Soluciones", texto: "Estructurar la estrategia global para resolver el problema de principio a fin." },
+          { icono: "🐛", termino: "Depuración (Debugging)", texto: "Encontrar, rastrear y corregir errores cuando algo no sale como se esperaba." }
+        ],
+        ampliacion: "Un **algoritmo** funciona igual que una receta de cocina: si cambias el orden de los pasos (como hornear la mezcla antes de batir los huevos), el resultado fallará. La **depuración** es la etapa crítica donde revisamos nuestro plan para detectar dónde estuvo la falla. En tecnología y en la vida diaria, cometer un error no es un fracaso, sino la pista perfecta para ajustar y perfeccionar el proceso."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Pensamiento Computacional", definicion: "Proceso mental para formular problemas y sus soluciones de modo que puedan ser ejecutados de manera sistemática." },
+    { termino: "Descomposición", definicion: "Técnica que consiste en fragmentar un problema complejo en partes sencillas e independientes." },
+    { termino: "Algoritmo", definicion: "Conjunto finito y ordenado de instrucciones o pasos lógicos para resolver un problema." },
+    { termino: "Depuración (Debugging)", definicion: "Proceso metodológico para identificar, aislar y corregir fallos o errores en un sistema o secuencia." },
+    { termino: "Formato TSV", definicion: "Valores separados por tabulaciones; formato de texto plano ideal para transferir tablas directamente a Excel." }
+  ],
+  sabiasQue: [
+    "El término «bug» (bicho) se popularizó en 1947 cuando la científica Grace Hopper encontró una polilla real atrapada en el relé de la computadora Harvard Mark II, la cual causaba fallos en el sistema.",
+    "El pensamiento computacional es 'desenchufado': no requiere obligatoriamente una computadora encendida, pues se puede entrenar con papel, juegos de mesa o rutinas cotidianas.",
+    "Las herramientas modernas de Inteligencia Artificial utilizan potentes algoritmos de descomposición para procesar tus preguntas en milisegundos."
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Analogías Cotidianas de los Pilares",
+      items: [
+        { icono: "🧩", frente: "Descomposición", reverso: "Como armar un rompecabezas de 1.000 piezas separando primero los bordes y luego los colores." },
+        { icono: "🔍", frente: "Reconocimiento de Patrones", reverso: "Como notar que el tráfico en Buga siempre aumenta a las 12:00 p.m. y salir 10 minutos antes." },
+        { icono: "📋", frente: "Secuencias (Algoritmos)", reverso: "Como seguir paso a paso el manual de instrucciones para ensamblar un escritorio de estudio." },
+        { icono: "🎯", frente: "Diseño de Soluciones", reverso: "Como la estrategia que plantea un director técnico antes de salir a jugar un partido decisivo." },
+        { icono: "🐛", frente: "Depuración (Debugging)", reverso: "Como revisar tu examen de matemáticas para encontrar en cuál operación te equivocaste con un signo." }
+      ]
+    },
+    explorador: {
+      titulo: "Campos de Aplicación del Pensamiento Computacional",
+      items: [
+        {
+          icono: "🏫",
+          nombre: "Gestión Escolar",
+          secciones: [
+            {
+              titulo: "Organización de la Jornada",
+              items: [
+                "Descomponer el horario semanal por asignaturas y entregas.",
+                "Identificar patrones de evaluaciones para programar repasos.",
+                "Crear una secuencia de alistamiento de materiales cada noche."
+              ]
+            }
+          ]
+        },
+        {
+          icono: "💻",
+          nombre: "Sistemas e Informática",
+          secciones: [
+            {
+              titulo: "Mantenimiento Preventivo",
+              items: [
+                "Descomponer el equipo en componentes de software y hardware.",
+                "Detectar patrones de lentitud al ejecutar aplicaciones pesadas.",
+                "Depurar el almacenamiento eliminando archivos temporales e innecesarios."
+              ]
+            }
+          ]
+        },
+        {
+          icono: "📊",
+          nombre: "Hojas de Cálculo y Datos",
+          secciones: [
+            {
+              titulo: "Estructuración en Excel",
+              items: [
+                "Dividir la información en columnas independientes y claras.",
+                "Establecer secuencias lógicas de ordenamiento de registros.",
+                "Corregir errores de formato o celdas con datos incoherentes."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasifica las Acciones según el Pilar Correspondiente",
+      categorias: ["Descomposición", "Secuencia / Algoritmo", "Depuración"],
+      items: [
+        { texto: "Dividir la organización de una feria escolar en logística, estantes y publicidad", categoria: 0 },
+        { texto: "Separar un taller de tecnología en 5 ejercicios independientes", categoria: 0 },
+        { texto: "Seguir la lista numerada del 1 al 6 para encender correctamente el computador", categoria: 1 },
+        { texto: "Instrucciones paso a paso para redactar y adjuntar un archivo en un correo", categoria: 1 },
+        { texto: "Encontrar que el cable del teclado estaba flojo al ver que no escribía", categoria: 2 },
+        { texto: "Corregir una fórmula en Excel que daba error #¡VALOR! por escribir mal una celda", categoria: 2 },
+        { texto: "Revisar por qué la impresora no saca papel y acomodar la bandeja", categoria: 2 },
+        { texto: "Listar los ingredientes antes de iniciar una receta de cocina", categoria: 0 }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Reto en Sala: Generación de Tablas Estructuradas con IA para Excel",
+    descripcion: "Escribirás un prompt especializado en una herramienta de Inteligencia Artificial para generar una tabla conceptual en texto plano (TSV), la cual copiarás e importarás directamente en Microsoft Excel aplicando formato profesional.",
+    pasos: [
+      "Ingresa a la herramienta de Inteligencia Artificial disponible en la sala de sistemas.",
+      "Copia y pega con exactitud el prompt proporcionado en el cuadro de chat de la IA.",
+      "Selecciona todo el texto plano de la tabla generada por la IA y presiona Ctrl + C (Copiar).",
+      "Abre una hoja en blanco en Microsoft Excel y haz clic en la celda A1.",
+      "Presiona Ctrl + V (Pegar) y verifica que los datos se distribuyan en columnas independientes.",
+      "Aplica formato a la tabla: encabezados en negrita con relleno azul claro, todos los bordes y ajuste automático de ancho de columna."
+    ],
+    prompt: "Actúa como un profesor de tecnología. Crea una tabla en formato TSV (valores separados por tabulaciones) con 4 columnas sobre la aplicación del Pensamiento Computacional en 4 procesos informáticos: «Encender el computador», «Organizar archivos», «Enviar un correo» y «Navegar en Internet». Las columnas deben ser: Proceso, Descomposición (Pasos), Posible Error y Depuración (Solución). Muestra únicamente la tabla en texto plano sin explicaciones adicionales para poder copiarla directamente a Excel.",
+    herramientas: [
+      { nombre: "Gemini / ChatGPT", url: "https://gemini.google.com" },
+      { nombre: "Microsoft Excel Web / Desktop", url: "https://www.office.com" }
+    ],
+    requisitos: [
+      "La tabla copiada desde la IA se separa automáticamente en 4 columnas al pegarla en Excel.",
+      "La fila de encabezados tiene texto en negrita y relleno de color azul claro.",
+      "Se aplicó la opción «Todos los bordes» a la cuadrícula de la tabla.",
+      "Se ajustó el ancho de cada columna para garantizar la visibilidad total del texto."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es el propósito principal de la Descomposición en el pensamiento computacional?",
+      opciones: [
+        "Eliminar todos los archivos de la memoria RAM del equipo.",
+        "Dividir un problema grande y complejo en partes más pequeñas y manejables.",
+        "Memorizar comandos de programación sin comprender su funcionamiento.",
+        "Cambiar los colores de las fuentes en una hoja de cálculo."
+      ],
+      correcta: 1,
+      explicacion: "La descomposición permite abordar problemas complejos dividiéndolos en sub-tareas sencillas e independientes."
+    },
+    {
+      pregunta: "¿Qué es un Algoritmo dentro del contexto informático?",
+      opciones: [
+        "Un virus que infecta las carpetas del sistema operativo.",
+        "Una secuencia ordenada y finita de pasos lógicos para resolver una tarea.",
+        "La marca de los componentes físicos de una computadora.",
+        "Un tipo de cable utilizado para conectar monitores."
+      ],
+      correcta: 1,
+      explicacion: "Un algoritmo establece el orden estricto paso a paso que se debe seguir para alcanzar la solución correcta."
+    },
+    {
+      pregunta: "¿A qué procedimiento se le conoce como Depuración o Debugging?",
+      opciones: [
+        "A formatear completamente el disco duro del computador.",
+        "Al proceso de identificar, rastrear y corregir errores en una secuencia o programa.",
+        "A crear una cuenta nueva en redes sociales.",
+        "A guardar un documento de texto en formato PDF."
+      ],
+      correcta: 1,
+      explicacion: "Depurar consiste en encontrar la falla en una secuencia de instrucciones y corregirla para que el sistema funcione."
+    },
+    {
+      pregunta: "¿Por qué es ventajoso solicitar una tabla en formato TSV a la Inteligencia Artificial?",
+      opciones: [
+        "Porque convierte automáticamente los textos en gráficos de barras.",
+        "Porque utiliza tabulaciones que Excel reconoce para organizar los datos en filas y columnas limpias.",
+        "Porque evita que otras personas puedan copiar la información.",
+        "Porque acelera la velocidad del procesador en el equipo."
+      ],
+      correcta: 1,
+      explicacion: "El formato TSV utiliza tabulaciones como separadores, lo que garantiza una alineación perfecta al pegar en Excel."
+    },
+    {
+      pregunta: "Si colocas la pan en la tostadora antes de conectar el electrodoméstico y no se tuesta, ¿qué pilar aplicas al corregir el orden?",
+      opciones: [
+        "Reconocimiento de patrones.",
+        "Depuración de la secuencia lógica.",
+        "Diseño de interfaz gráfica.",
+        "Importación de datos TSV."
+      ],
+      correcta: 1,
+      explicacion: "Ajustar el orden defectuoso de una secuencia para lograr el objetivo es un proceso de depuración."
+    },
+    {
+      pregunta: "Identificar que todas las mañanas preparas tu maleta siguiendo los mismos pasos corresponde al pilar de:",
+      opciones: [
+        "Reconocimiento de Patrones.",
+        "Depuración de hardware.",
+        "Generación de prompts.",
+        "Formateo condicional."
+      ],
+      correcta: 0,
+      explicacion: "El reconocimiento de patrones consiste en detectar regularidades o conductas repetitivas en un proceso."
+    }
+  ],
+  investigacion: {
+    titulo: "Investigación Corta (En el Cuaderno)",
+    instruccion: "Investiga y responde con tus palabras de forma concisa (máximo 5 renglones por respuesta) en tu cuaderno:",
+    preguntas: [
+      "¿De dónde viene la palabra «Depuración» o «Debugging» en tecnología? (Busca la historia del insecto o «bug» encontrado en la computadora Harvard Mark II por Grace Hopper en 1947).",
+      "¿Por qué los programadores y científicos afirman que los errores en el código son una oportunidad de aprendizaje y no un fracaso?"
+    ],
+    fuentes: [
+      "Biografía de Grace Hopper y la historia del Harvard Mark II (1947)",
+      "Fundamentos de Ingeniería de Software y Resolución de Problemas"
+    ]
+  },
+  tarea: {
+    titulo: "Taller Individual: Aplicación del Pensamiento Computacional",
+    instruccion: "En una HOJA SUELTA con el encabezado institucional completo, selecciona UNO de los tres casos reales propuestos y desarrolla cada punto solicitado con letra clara.",
+    renglones: 12,
+    indicacion: "Escríbela en la hoja suelta que entregarás al docente en la próxima clase.",
+    criterios: [
+      "Selección explícita de uno de los 3 casos (Salón de clase, Maleta escolar o Lavadora).",
+      "Descomposición detallada en mínimo 5 sub-tareas principales necesarias.",
+      "Identificación clara de un patrón repetitivo dentro del proceso.",
+      "Secuencia lógica (algoritmo) numerada estrictamente del 1 al 6.",
+      "Descripción de un error simulado coherente y la explicación paso a paso de su depuración."
+    ],
+    entrega: "Próxima clase de Tecnología e Informática"
+  },
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "¿Qué es el pensamiento computacional con tus propias palabras y por qué no es necesario tener un computador encendido para practicarlo?", lineas: 3 },
+      { id: "r2", texto: "¿De qué manera la estructura del formato TSV facilitó la transferencia de la información desde la IA hacia Microsoft Excel?", lineas: 3 },
+      { id: "r3", texto: "¿Por qué la descomposición facilita la solución de problemas complejos en lugar de intentar resolver la situación completa de un solo golpe?", lineas: 3 },
+      { id: "r4", texto: "Relaciona el concepto de depuración (debugging) con una situación donde cometiste un error en el colegio. ¿Cómo lo detectaste y cuál fue la solución?", lineas: 3 },
+      { id: "r5", texto: "¿Cómo puedes aplicar la secuencia lógica y la depuración de errores en asignaturas como Matemáticas o Ciencias Naturales?", lineas: 3 }
+    ]
+  },
+  notasDocente: [
+    "Asegurar que todos los estudiantes comprendan cómo seleccionar únicamente la tabla en texto plano sin incluir los comentarios ni introducciones generadas por la IA.",
+    "Monitorear la celda A1 en Excel durante el pegado; en caso de que todo quede en una sola columna, guiar el uso de la herramienta 'Texto en columnas' con separador de tabulación.",
+    "Verificar que las hojas sueltas para entregar incluyan nombre completo, grado y fecha antes de finalizar la sesión de clase."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
