@@ -1,1 +1,396 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primeros pasos en Scratch | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  // ========== ✏️ DATOS RÁPIDOS (lo único que podrías querer cambiar) ==========
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 7,
+  tema: "Primeros pasos en Scratch",
+  temaAnterior: "Algoritmos, programas y procesadores",
+  video: "",            // ← enlace de YouTube, Vimeo, Drive o Canva (opcional)
+  estilo: "atardecer",
+
+  // ========== 🤖 CONTENIDO GENERADO POR LA IA (no hace falta tocarlo) ==========
+  "emoji": "🧩🐱",
+  "objetivo": "Reconocer el entorno de Scratch y utilizar sus elementos básicos para entender la lógica de programación mediante bloques.",
+  "competencia": "Identifica y clasifica los elementos de una interfaz de programación gráfica, integrando herramientas de IA y hojas de cálculo para la organización de la información.",
+  "preguntaGancho": "Si un computador solo entiende impulsos eléctricos (ceros y unos), ¿cómo es posible que moviendo simples 'fichas de colores' en la pantalla podamos crear un videojuego completo?",
+  "agenda": [
+    {
+      "min": 5,
+      "titulo": "Activación y gancho",
+      "texto": "Pregunta sobre cómo nos comunicamos con la máquina."
+    },
+    {
+      "min": 15,
+      "titulo": "Conceptos en el cuaderno",
+      "texto": "Definición de Scratch y sus elementos de interfaz."
+    },
+    {
+      "min": 15,
+      "titulo": "Reto IA + Excel",
+      "texto": "Generación de tabla con IA y formateo en Microsoft Excel."
+    },
+    {
+      "min": 10,
+      "titulo": "Cierre y Evaluación",
+      "texto": "Investigación, quiz interactivo y hoja de respuestas."
+    }
+  ],
+  "cuaderno": {
+    "conexion": "La semana pasada vimos que un procesador sigue «algoritmos» secuenciales. Hoy usaremos Scratch, una herramienta que nos permite darle esos algoritmos al procesador, pero en lugar de escribir código complejo, lo haremos uniendo bloques visuales.",
+    "bloques": [
+      {
+        "icono": "💻",
+        "titulo": "1. ¿Qué es Scratch?",
+        "puntos": [
+          {
+            "icono": "🧩",
+            "termino": "Definición",
+            "texto": "Es un lenguaje de programación visual basado en bloques."
+          },
+          {
+            "icono": "🎮",
+            "termino": "Utilidad",
+            "texto": "Permite crear historias interactivas, juegos y animaciones uniendo piezas de código."
+          }
+        ],
+        "ampliacion": "A diferencia del código profesional donde debes escribir líneas de texto en inglés (Python o C++), Scratch usa un sistema que evita errores de escritura (sintaxis). La idea principal en **Scratch** es enfocarse en la lógica del algoritmo: si sabes armar las piezas, sabes programar."
+      },
+      {
+        "icono": "🖼️",
+        "titulo": "2. Elementos Visuales",
+        "puntos": [
+          {
+            "icono": "🎭",
+            "termino": "Escenario",
+            "texto": "Es la pantalla (zona blanca) donde ocurre toda la acción."
+          },
+          {
+            "icono": "🐱",
+            "termino": "Objetos (Sprites)",
+            "texto": "Personajes o elementos gráficos que realizan las acciones."
+          },
+          {
+            "icono": "👕",
+            "termino": "Disfraces (Costumes)",
+            "texto": "Diferentes apariencias que puede tener un mismo objeto para simular animación."
+          }
+        ],
+        "ampliacion": "Imagina que el **Escenario** es la tarima del Teatro Municipal de Buga. Los **Objetos** son los actores principales y los **Disfraces** son la ropa que se cambian rápidamente detrás del telón para aparentar que están caminando o interactuando."
+      },
+      {
+        "icono": "⚙️",
+        "titulo": "3. Área de Lógica y Control",
+        "puntos": [
+          {
+            "icono": "🧱",
+            "termino": "Bloques de código",
+            "texto": "Instrucciones de colores que le indican al objeto qué hacer."
+          },
+          {
+            "icono": "🛠️",
+            "termino": "Zona de programación",
+            "texto": "Espacio central donde se arrastran y encajan los bloques."
+          },
+          {
+            "icono": "🚦",
+            "termino": "Bandera y Detener",
+            "texto": "La bandera verde inicia el programa; el botón rojo lo detiene por completo."
+          }
+        ],
+        "ampliacion": "La **Zona de programación** es como tu cuaderno de apuntes o libreto: ahí le dices al computador paso a paso lo que debe pasar. Si no unes bien los **Bloques** a un evento (como la bandera verde), el programa simplemente ignorará tus instrucciones."
+      }
+    ]
+  },
+  "glosario": [
+    {
+      "termino": "Sprite",
+      "definicion": "Término en inglés para los objetos, personajes o elementos gráficos interactivos dentro de un proyecto."
+    },
+    {
+      "termino": "Interfaz",
+      "definicion": "Conjunto de elementos visuales (botones, ventanas, menús) que permiten a un usuario interactuar con un programa."
+    },
+    {
+      "termino": "Coordenadas X, Y",
+      "definicion": "Sistema matemático de planos que le dice a Scratch la posición exacta de un objeto en el escenario."
+    }
+  ],
+  "sabiasQue": [
+    "Scratch fue desarrollado por el MIT (Instituto Tecnológico de Massachusetts) y su primera versión fue lanzada hace casi dos décadas.",
+    "El nombre 'Scratch' proviene de la técnica de los DJs de hip-hop para mezclar y rayar discos, ya que en el programa mezclas pedazos de código e imágenes."
+  ],
+  "modulos": {
+    "tarjetas": {
+      "titulo": "El Teatro de Scratch (Analogías)",
+      "items": [
+        {
+          "icono": "🎭",
+          "frente": "Escenario",
+          "reverso": "Es la tarima principal donde el público ve la obra terminada."
+        },
+        {
+          "icono": "🐱",
+          "frente": "Sprite (Objeto)",
+          "reverso": "Es el actor de la obra, el que se mueve y dice los diálogos."
+        },
+        {
+          "icono": "👕",
+          "frente": "Disfraz",
+          "reverso": "Es el vestuario del actor. Si cambia de ropa rápido, parece que se estuviera moviendo."
+        },
+        {
+          "icono": "📜",
+          "frente": "Zona de Código",
+          "reverso": "Es el libreto de la obra, donde se escribe en qué momento entra cada actor."
+        },
+        {
+          "icono": "🎬",
+          "frente": "Bandera Verde",
+          "reverso": "Es la claqueta o el grito de '¡Cámara, Acción!' del director."
+        }
+      ]
+    },
+    "explorador": {
+      "titulo": "Categorías de Bloques",
+      "items": [
+        {
+          "icono": "🔵",
+          "nombre": "Movimiento",
+          "secciones": [
+            {
+              "titulo": "Color Azul",
+              "items": [
+                "Controla los pasos.",
+                "Permite girar grados.",
+                "Mueve al objeto a coordenadas X, Y específicas."
+              ]
+            }
+          ]
+        },
+        {
+          "icono": "🟣",
+          "nombre": "Apariencia",
+          "secciones": [
+            {
+              "titulo": "Color Morado",
+              "items": [
+                "Cambia los disfraces.",
+                "Muestra globos de texto (hablar).",
+                "Cambia el tamaño y color del objeto."
+              ]
+            }
+          ]
+        },
+        {
+          "icono": "🟡",
+          "nombre": "Eventos",
+          "secciones": [
+            {
+              "titulo": "Color Amarillo",
+              "items": [
+                "Al presionar bandera verde.",
+                "Al presionar una tecla (ej: espacio).",
+                "Son los gatillos que inician un algoritmo."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "clasificador": {
+      "titulo": "Clasifica los Elementos",
+      "categorias": [
+        "Elementos Gráficos",
+        "Lógica de Control"
+      ],
+      "items": [
+        {
+          "texto": "Escenario principal",
+          "categoria": 0
+        },
+        {
+          "texto": "Disfraces del gato",
+          "categoria": 0
+        },
+        {
+          "texto": "Objetos (Sprites)",
+          "categoria": 0
+        },
+        {
+          "texto": "Bandera Verde",
+          "categoria": 1
+        },
+        {
+          "texto": "Bloque 'Mover 10 pasos'",
+          "categoria": 1
+        },
+        {
+          "texto": "Zona de ensamblaje de código",
+          "categoria": 1
+        },
+        {
+          "texto": "Botón Rojo de detener",
+          "categoria": 1
+        }
+      ]
+    }
+  },
+  "reto": {
+    "titulo": "Formatos de Datos: De la IA a Excel",
+    "descripcion": "Vamos a utilizar la IA para generar una tabla estructurada sobre los elementos de Scratch y luego le daremos formato profesional en Microsoft Excel.",
+    "pasos": [
+      "Abre la herramienta de Inteligencia Artificial de tu preferencia (ChatGPT, Gemini o Copilot).",
+      "Copia el texto que está en el recuadro gris (prompt) y pégalo en la IA. Presiona Enter.",
+      "La IA te dará un texto estructurado. Cópialo por completo.",
+      "Abre Microsoft Excel, crea un libro en blanco y pega la información empezando en la celda A1.",
+      "Selecciona la fila 1 (los encabezados). Ponles texto en negrita, fondo color azul oscuro y letra color blanco.",
+      "Selecciona las columnas A y B y ponles alineación centrada. Luego selecciona toda la tabla, aplícale 'Ajustar texto' y ponle todos los bordes.",
+      "Guarda el archivo en tu carpeta de clase con el nombre exacto: Scratch_Conceptos_Grado8.xlsx."
+    ],
+    "prompt": "Genera una tabla con 6 elementos principales de la interfaz de Scratch, la categoría/color de bloque que le corresponde si aplica, y su función principal. Entrega la información formateada exclusivamente como texto separado por tabulaciones para pegar directo en Microsoft Excel.",
+    "herramientas": [
+      {
+        "nombre": "Gemini",
+        "url": "https://gemini.google.com"
+      },
+      {
+        "nombre": "ChatGPT",
+        "url": "https://chatgpt.com"
+      }
+    ],
+    "requisitos": [
+      "La tabla debe estar importada correctamente en celdas separadas (no todo en una celda).",
+      "Los encabezados tienen fondo azul oscuro y fuente blanca.",
+      "Las columnas A y B están centradas y el texto se ajusta al tamaño de la celda.",
+      "El archivo está guardado como Scratch_Conceptos_Grado8.xlsx."
+    ]
+  },
+  "quiz": [
+    {
+      "pregunta": "¿Qué es principalmente Scratch?",
+      "opciones": [
+        "Un lenguaje de programación visual basado en bloques.",
+        "Un procesador de texto avanzado para hacer informes.",
+        "Un programa para crear hojas de cálculo financieras.",
+        "Un sistema operativo como Windows o Linux."
+      ],
+      "correcta": 0,
+      "explicacion": "Scratch usa piezas que se encajan para programar sin tener que escribir código de texto."
+    },
+    {
+      "pregunta": "¿Qué sucede al presionar la Bandera Verde?",
+      "opciones": [
+        "Se apaga el computador automáticamente.",
+        "El objeto cambia de color a verde.",
+        "Se inician los algoritmos que empiezan con ese evento.",
+        "Se borra todo el código que hemos creado."
+      ],
+      "correcta": 2,
+      "explicacion": "La bandera verde actúa como el botón de inicio o 'play' para probar nuestro proyecto."
+    },
+    {
+      "pregunta": "Si deseas simular que un personaje está caminando, ¿qué elemento debes modificar repetidamente?",
+      "opciones": [
+        "El escenario.",
+        "Los disfraces.",
+        "La zona de código.",
+        "El botón rojo."
+      ],
+      "correcta": 1,
+      "explicacion": "Intercambiar rápidamente entre diferentes disfraces crea la ilusión óptica de movimiento."
+    },
+    {
+      "pregunta": "¿De qué color son los bloques que permiten el desplazamiento y giro del personaje?",
+      "opciones": [
+        "Azul (Movimiento)",
+        "Morado (Apariencia)",
+        "Amarillo (Eventos)",
+        "Naranja (Variables)"
+      ],
+      "correcta": 0,
+      "explicacion": "Los bloques azules controlan la posición y dirección (coordenadas) de los objetos."
+    },
+    {
+      "pregunta": "¿Cuál es el nombre técnico que se le da a los elementos gráficos interactivos (como el gato) en Scratch?",
+      "opciones": [
+        "Bloques",
+        "Eventos",
+        "Variables",
+        "Sprites (Objetos)"
+      ],
+      "correcta": 3,
+      "explicacion": "En el mundo de la programación y los videojuegos 2D, estos personajes se conocen como Sprites."
+    },
+    {
+      "pregunta": "¿Para qué sirve el espacio conocido como 'Zona de Programación'?",
+      "opciones": [
+        "Para dibujar nuevos escenarios desde cero.",
+        "Es el área principal para arrastrar y ensamblar los bloques lógicos.",
+        "Para ver el resultado final a pantalla completa.",
+        "Para buscar información en Internet."
+      ],
+      "correcta": 1,
+      "explicacion": "Es tu mesa de trabajo; ahí es donde construyes el algoritmo armando las piezas."
+    }
+  ],
+  "investigacion": {
+    "titulo": "Conociendo a fondo Scratch",
+    "instruccion": "Investiga en internet y responde en tu cuaderno las siguientes tres preguntas:",
+    "preguntas": [
+      "1. ¿Qué institución o universidad creó Scratch y en qué año fue lanzado por primera vez?",
+      "2. ¿Cuál es la principal diferencia entre programar por bloques (como en Scratch) y programar por código escrito (como en Python o JavaScript)?",
+      "3. ¿Qué son las coordenadas X e Y en el escenario de Scratch y cuál es el punto central (0, 0)?"
+    ],
+    "fuentes": [
+      "https://es.wikipedia.org/wiki/Scratch_(lenguaje_de_programaci%C3%B3n)"
+    ]
+  },
+  "hoja": {
+    "preguntas": [
+      {
+        "id": "r1",
+        "texto": "Explica con tus propias palabras: ¿Por qué Scratch es una buena herramienta para empezar a aprender programación en grado 8?",
+        "lineas": 3
+      },
+      {
+        "id": "r2",
+        "texto": "Imagina que pones varios bloques azules de movimiento, pero olvidas poner el evento 'Al presionar bandera verde' arriba del todo. ¿Qué crees que pasará al presionar la bandera?",
+        "lineas": 3
+      },
+      {
+        "id": "r3",
+        "texto": "Describe brevemente la diferencia entre un 'Objeto' (Sprite) y su 'Disfraz'.",
+        "lineas": 2
+      },
+      {
+        "id": "r4",
+        "texto": "En la actividad de Excel de hoy, ¿por qué fue importante pedirle a la IA que el texto estuviera separado por 'tabulaciones'?",
+        "lineas": 3
+      },
+      {
+        "id": "r5",
+        "texto": "¿Qué idea de videojuego o animación corta te gustaría intentar crear en Scratch durante las próximas semanas?",
+        "lineas": 3
+      }
+    ]
+  },
+  "notasDocente": [
+    "Revisar que al pegar los datos de la IA en Excel, la información se distribuya en columnas y no quede todo apilado en la celda A1.",
+    "Recordar constantemente a los estudiantes la analogía del teatro (escenario, actores, guion) ya que facilita mucho el paso a la abstracción.",
+    "Supervisar el uso de la IA; advertir a los alumnos que si la IA arroja un formato de 'código' o Markdown extraño, deben usar el botón de copiar texto sin formato."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
