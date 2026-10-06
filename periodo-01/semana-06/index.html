@@ -1,1 +1,410 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algoritmos, programas y procesadores | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  // ========== ✏️ DATOS RÁPIDOS (lo único que podrías querer cambiar) ==========
+  grado: 8,
+  edad: 13,
+  periodo: 1,
+  semana: 6,
+  tema: "Algoritmos, programas y procesadores",
+  temaAnterior: "Introducción al Pensamiento Computacional",
+  video: "",            // ← enlace de YouTube, Vimeo, Drive o Canva (opcional)
+  estilo: "selva",
+
+  // ========== 🤖 CONTENIDO GENERADO POR LA IA (no hace falta tocarlo) ==========
+  "emoji": "⚙️💻",
+  "objetivo": "Comprender la relación directa entre el algoritmo, el programa, el programador y el procesador mediante la lógica y el orden.",
+  "competencia": "Identifica y diferencia los roles fundamentales en el desarrollo de software y la ejecución de instrucciones computacionales.",
+  "preguntaGancho": "Si un computador es tan 'inteligente', ¿por qué no puede prepararte un sándwich si no le dices exactamente cómo abrir el pan?",
+  "agenda": [
+    {
+      "min": 10,
+      "titulo": "El cerebro tecnológico",
+      "texto": "Explicación de conceptos y apunte en el cuaderno."
+    },
+    {
+      "min": 15,
+      "titulo": "Reto IA y Excel",
+      "texto": "Creación de tabla comparativa con IA y exportación a Excel."
+    },
+    {
+      "min": 10,
+      "titulo": "Exploración",
+      "texto": "Módulos interactivos y Quiz de comprobación."
+    },
+    {
+      "min": 10,
+      "titulo": "Investigación",
+      "texto": "Preguntas de reflexión para la hoja interactiva y cierre."
+    }
+  ],
+  "cuaderno": {
+    "conexion": "En la clase anterior vimos que el pensamiento computacional es la habilidad de dividir un problema grande en partes pequeñas. Hoy veremos cómo esas 'partes pequeñas' se convierten en órdenes reales que la máquina obedece ciegamente.",
+    "bloques": [
+      {
+        "icono": "🧠",
+        "titulo": "1. ¿Qué es un Algoritmo?",
+        "puntos": [
+          {
+            "icono": "📝",
+            "termino": "Definición",
+            "texto": "Conjunto de pasos ordenados para resolver un problema."
+          },
+          {
+            "icono": "🎯",
+            "termino": "Características",
+            "texto": "Debe ser preciso (sin confusiones), definido (siempre da el mismo resultado) y finito (tiene un inicio y un fin)."
+          }
+        ],
+        "ampliacion": "Imagina que le das a un turista instrucciones para llegar a la Basílica de Buga. Si le dices «camina por ahí y luego voltea», se perderá (no es preciso). Un algoritmo requiere pasos exactos: «Camina 3 cuadras al occidente, gira a la derecha 90 grados y avanza 50 metros». La precisión lo es todo."
+      },
+      {
+        "icono": "⚙️",
+        "titulo": "2. El equipo tecnológico",
+        "puntos": [
+          {
+            "icono": "👤",
+            "termino": "Programador",
+            "texto": "Persona que piensa la solución y diseña los pasos lógicos."
+          },
+          {
+            "icono": "💻",
+            "termino": "Programa",
+            "texto": "Es el algoritmo traducido a un lenguaje de programación para que la máquina lo entienda."
+          },
+          {
+            "icono": "⚡",
+            "termino": "Procesador",
+            "texto": "Es el cerebro de la máquina que ejecuta las instrucciones."
+          }
+        ],
+        "ampliacion": "El procesador es súper rápido pero no piensa. Es como un chef experto que cocina con los ojos vendados: corta rápido y perfecto, pero si la receta (el programa) dice «échale sal al jugo de lulo», él lo hará sin dudarlo. El programador es quien debe evitar esos errores lógicos."
+      },
+      {
+        "icono": "🔍",
+        "titulo": "3. La importancia del Orden",
+        "puntos": [
+          {
+            "icono": "🔢",
+            "termino": "Secuencia",
+            "texto": "El orden exacto en el que deben cumplirse los pasos."
+          },
+          {
+            "icono": "🛠️",
+            "termino": "Depuración",
+            "texto": "Proceso de buscar, encontrar y corregir errores (bugs) en las instrucciones."
+          }
+        ],
+        "ampliacion": "Si te pones los zapatos antes que las medias, hay un error de secuencia. En programación, si le pides la contraseña al usuario antes de mostrarle la pantalla de inicio, la aplicación se bloqueará. A esto se le llama **Bug**, y corregirlo es la tarea principal de la depuración."
+      }
+    ]
+  },
+  "glosario": [
+    {
+      "termino": "Algoritmo",
+      "definicion": "Secuencia lógica, finita y detallada de instrucciones para resolver un problema."
+    },
+    {
+      "termino": "Programa",
+      "definicion": "Un algoritmo escrito en un idioma que la computadora comprende (código)."
+    },
+    {
+      "termino": "Programador",
+      "definicion": "Ser humano que usa la lógica para escribir programas e instruir a las máquinas."
+    },
+    {
+      "termino": "Procesador",
+      "definicion": "Chip (hardware) que ejecuta velozmente las instrucciones de un programa, sin pensar por sí mismo."
+    },
+    {
+      "termino": "Instrucción",
+      "definicion": "Cada una de las órdenes individuales que componen un algoritmo."
+    },
+    {
+      "termino": "Depuración (Debugging)",
+      "definicion": "El arte de cazar errores lógicos o de escritura en un programa para que funcione bien."
+    }
+  ],
+  "sabiasQue": [
+    "El primer programador de la historia fue una mujer, Ada Lovelace, quien en 1843 escribió un algoritmo para la máquina de Charles Babbage, 100 años antes de los computadores modernos.",
+    "Un procesador actual promedio puede ejecutar más de 3 mil millones de instrucciones por segundo (3 GHz). ¡Es como leer una biblioteca entera en un parpadeo!"
+  ],
+  "modulos": {
+    "tarjetas": {
+      "titulo": "Analogías: El Restaurante Tecnológico",
+      "items": [
+        {
+          "icono": "👨‍🍳",
+          "frente": "El Programador",
+          "reverso": "Es el Chef Creador. Inventa la receta, decide los ingredientes y prueba que sepa bien."
+        },
+        {
+          "icono": "📜",
+          "frente": "El Algoritmo",
+          "reverso": "Es la receta escrita en español humano: 'Paso 1: picar cebolla. Paso 2: freír'."
+        },
+        {
+          "icono": "🤖",
+          "frente": "El Programa",
+          "reverso": "Es la receta traducida al idioma de los robots de cocina para que la entiendan."
+        },
+        {
+          "icono": "🔪",
+          "frente": "El Procesador",
+          "reverso": "Es el robot de cocina. Corta a la velocidad de la luz, pero solo hace exactamente lo que el programa le indica."
+        }
+      ]
+    },
+    "explorador": {
+      "titulo": "El Viaje de una Instrucción",
+      "items": [
+        {
+          "icono": "💡",
+          "nombre": "1. La Idea",
+          "secciones": [
+            {
+              "titulo": "Problema",
+              "items": [
+                "El usuario quiere sumar dos números en su celular."
+              ]
+            },
+            {
+              "titulo": "Solución Mental",
+              "items": [
+                "El programador piensa: 'Debo pedir el número 1, luego el número 2, sumarlos y mostrar el resultado'."
+              ]
+            }
+          ]
+        },
+        {
+          "icono": "⌨️",
+          "nombre": "2. El Código",
+          "secciones": [
+            {
+              "titulo": "Algoritmo -> Programa",
+              "items": [
+                "El programador escribe la solución usando código (ej. Python o JavaScript).",
+                "Digita las instrucciones exactas, usando variables y operadores matemáticos."
+              ]
+            }
+          ]
+        },
+        {
+          "icono": "⚡",
+          "nombre": "3. La Ejecución",
+          "secciones": [
+            {
+              "titulo": "El Trabajo del Procesador",
+              "items": [
+                "El código se traduce a unos y ceros (lenguaje de máquina).",
+                "El procesador recibe los ceros y unos, hace el cálculo electrónico en milisegundos y enciende los píxeles de la pantalla."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "clasificador": {
+      "titulo": "Clasifica los Elementos",
+      "categorias": [
+        "Humano / Idea Abstracta",
+        "Hardware (Pieza Física)",
+        "Software (Código/Digital)"
+      ],
+      "items": [
+        {
+          "texto": "Programador",
+          "categoria": 0
+        },
+        {
+          "texto": "Algoritmo pensado en pasos",
+          "categoria": 0
+        },
+        {
+          "texto": "Procesador (CPU)",
+          "categoria": 1
+        },
+        {
+          "texto": "Memoria RAM",
+          "categoria": 1
+        },
+        {
+          "texto": "Programa (App instalada)",
+          "categoria": 2
+        },
+        {
+          "texto": "Sistema Operativo Windows",
+          "categoria": 2
+        },
+        {
+          "texto": "Código fuente de un juego",
+          "categoria": 2
+        },
+        {
+          "texto": "Resolución de un problema matemático",
+          "categoria": 0
+        }
+      ]
+    }
+  },
+  "reto": {
+    "titulo": "De la IA a la Hoja de Cálculo",
+    "descripcion": "Objetivo: Utilizar un modelo de Inteligencia Artificial para generar una tabla comparativa estructurada y trasladarla a Microsoft Excel manteniendo filas y columnas perfectamente alineadas.",
+    "pasos": [
+      "Abre tu herramienta de IA favorita (ChatGPT o Gemini).",
+      "Copia el prompt exacto que está en la caja inferior y pégalo en el chat de la IA.",
+      "Selecciona la tabla que generó la IA, desde el encabezado hasta la última celda, y cópiala (Ctrl + C).",
+      "Abre un libro en blanco en Microsoft Excel, haz clic sobre la celda A1 y pega el contenido (Ctrl + V).",
+      "Ajuste automático: Selecciona las columnas de la A a la D y haz doble clic en la línea que las separa arriba en las letras para autoajustar el ancho.",
+      "Aplica un estilo visual: Ve a la opción 'Dar formato como tabla', ponle bordes y destaca los encabezados con color."
+    ],
+    "prompt": "Actúa como un profesor de tecnología. Crea una tabla comparativa en formato de texto tabulado sobre los conceptos: Algoritmo, Programa, Programador y Procesador. La tabla debe tener exactamente 4 columnas: Concepto, Función Principal, Ejemplo del Mundo Real y ¿Qué pasa si falla? No uses código Markdown complejo, usa formato claro de tabla.",
+    "herramientas": [
+      {
+        "nombre": "Gemini",
+        "url": "https://gemini.google.com/"
+      },
+      {
+        "nombre": "ChatGPT",
+        "url": "https://chatgpt.com/"
+      },
+      {
+        "nombre": "Microsoft Excel (Office 365)",
+        "url": "https://www.office.com"
+      }
+    ],
+    "requisitos": [
+      "Usaste el prompt exacto sin modificarlo.",
+      "La tabla tiene exactamente 4 columnas con los nombres indicados.",
+      "La tabla se pegó en Excel iniciando en la celda A1.",
+      "Los textos de las columnas se leen completos (ancho ajustado).",
+      "La tabla tiene un estilo aplicado con bordes y colores en Excel."
+    ]
+  },
+  "quiz": [
+    {
+      "pregunta": "¿Qué es exactamente un algoritmo?",
+      "opciones": [
+        "Un componente físico del computador que piensa velozmente.",
+        "Una secuencia de pasos ordenados, finitos y claros para resolver un problema.",
+        "Un error de código que hace que la pantalla se ponga azul o se bloquee.",
+        "Una inteligencia artificial que crea aplicaciones por sí sola."
+      ],
+      "correcta": 1,
+      "explicacion": "El algoritmo es la base lógica, la 'receta' mental paso a paso para solucionar algo."
+    },
+    {
+      "pregunta": "Si el computador fuera la cocina de un gran restaurante, ¿quién tendría el rol del procesador?",
+      "opciones": [
+        "El chef creativo que inventa los platos de la carta.",
+        "El mesero que anota y lleva los pedidos de la mesa.",
+        "El ayudante que corta los ingredientes a la velocidad de la luz sin hacer preguntas.",
+        "El menú de plástico impreso que está en la entrada."
+      ],
+      "correcta": 2,
+      "explicacion": "El procesador ejecuta rápido las instrucciones pero no inventa ni piensa por sí mismo."
+    },
+    {
+      "pregunta": "Para que un algoritmo funcione y no cause problemas en el computador, debe ser...",
+      "opciones": [
+        "Rápido, bonito y muy moderno.",
+        "Digital, electrónico y de hardware físico.",
+        "Preciso, definido y finito.",
+        "Largo, complejo y escrito en inglés."
+      ],
+      "correcta": 2,
+      "explicacion": "Debe ser Preciso (sin ambigüedad), Definido (siempre da el mismo resultado) y Finito (tiene fin)."
+    },
+    {
+      "pregunta": "En programación, ¿a qué se le conoce como 'Depuración' o 'Debugging'?",
+      "opciones": [
+        "A destapar y limpiar el polvo del procesador de la CPU.",
+        "A instalar un programa antivirus en el computador.",
+        "Al proceso de buscar, encontrar y corregir errores lógicos en las instrucciones de un programa.",
+        "A eliminar las imágenes viejas y archivos pesados del disco duro."
+      ],
+      "correcta": 2,
+      "explicacion": "Depurar es el arte de cazar 'bichos' (bugs), es decir, arreglar los errores del código que programamos."
+    },
+    {
+      "pregunta": "¿Qué ocurre si un programador equivoca la secuencia lógica y da una instrucción en el orden incorrecto?",
+      "opciones": [
+        "El procesador se da cuenta y la corrige automáticamente porque es muy inteligente.",
+        "El programa genera un error (bug), se bloquea o arroja un resultado absurdo.",
+        "El algoritmo simplemente se vuelve más rápido.",
+        "El computador explota o se quema la pantalla."
+      ],
+      "correcta": 1,
+      "explicacion": "El procesador obedece a ciegas; si el orden dado es incorrecto, el resultado estará mal ejecutado."
+    },
+    {
+      "pregunta": "¿Cuál es la diferencia o relación principal entre 'Algoritmo' y 'Programa'?",
+      "opciones": [
+        "El algoritmo es la idea en pasos humanos lógicos, y el programa es esa idea traducida al idioma que la máquina entiende.",
+        "Son exactamente lo mismo y ambas palabras se usan para hablar de los cables.",
+        "El algoritmo limpia los virus y el programa los crea.",
+        "El algoritmo es una parte de metal (hardware) y el programa es el programador humano."
+      ],
+      "correcta": 0,
+      "explicacion": "Primero se diseña la lógica en nuestra cabeza o en papel (algoritmo) y luego se codifica (programa)."
+    }
+  ],
+  "investigacion": {
+    "titulo": "Orígenes Tecnológicos",
+    "instruccion": "Investiga en internet y responde las siguientes tres preguntas cortas en tu cuaderno para socializar en la próxima clase:",
+    "preguntas": [
+      "1. ¿De dónde proviene la palabra «Algoritmo»? (Indaga cuál es su origen histórico y quién fue el matemático que la inspiró).",
+      "2. ¿Por qué a los errores informáticos se les llama «Bug» (Bicho)? (Busca la curiosa historia de la científica Grace Hopper y la polilla de 1947).",
+      "3. ¿Cuál es la velocidad aproximada a la que trabaja un procesador de un computador moderno en la actualidad? (Averigua qué son los Gigahertz o GHz)."
+    ],
+    "fuentes": [
+      "Buscador de Google",
+      "Wikipedia"
+    ]
+  },
+  "hoja": {
+    "preguntas": [
+      {
+        "id": "r1",
+        "texto": "Menciona una actividad que haces todos los días en tu casa que requiera un 'algoritmo' de pasos exactos para que salga bien. (Ej: preparar un cholado, amarrarte los zapatos).",
+        "lineas": 2
+      },
+      {
+        "id": "r2",
+        "texto": "¿Qué fue lo más difícil de trasladar la tabla de texto de la Inteligencia Artificial hacia Microsoft Excel manteniendo el orden?",
+        "lineas": 2
+      },
+      {
+        "id": "r3",
+        "texto": "Imagina que el procesador de tu PC pudiera hablar, ¿qué crees que le diría o le reclamaría al programador cuando el código tiene un 'bug' (error)?",
+        "lineas": 2
+      },
+      {
+        "id": "r4",
+        "texto": "¿Por qué crees que es importante que un procesador SOLO siga instrucciones al pie de la letra y no intente 'tomar decisiones por su cuenta' en los programas?",
+        "lineas": 3
+      },
+      {
+        "id": "r5",
+        "texto": "En una oración corta, ¿qué aprendiste hoy sobre quién tiene la verdadera inteligencia al crear programas?",
+        "lineas": 2
+      }
+    ]
+  },
+  "notasDocente": [
+    "Asegurarse de que los estudiantes de grado 8° no confundan 'Hardware' (Procesador) con 'Software' (Programa). Usar siempre la analogía del chef y la receta.",
+    "Durante el reto en Excel, es común que peguen todo en una sola celda. Recordarles que si Excel no separa las columnas automáticamente, pueden usar la herramienta 'Texto en columnas' o un pegado especial.",
+    "Verificar que entiendan la diferencia entre simplemente buscar información con la IA y usar un PROMPT para estructurar formatos específicos para ofimática."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
