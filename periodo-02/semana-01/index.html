@@ -1,1 +1,229 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máquinas simples y mecanismos de transmisión | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 12,
+  periodo: 2,
+  semana: 1,
+  tema: "Máquinas simples y mecanismos de transmisión",
+  temaAnterior: "Primeros pasos en Scratch",
+  video: "",
+  estilo: "robot",
+  emoji: "⚙️",
+  objetivo: "Comprender el funcionamiento de las máquinas simples y los mecanismos de transmisión de movimiento, e identificar sus aplicaciones en la vida cotidiana y en proyectos tecnológicos.",
+  competencia: "Identifico y analizo los principios físicos básicos que permiten el funcionamiento de máquinas y herramientas cotidianas, valorando su impacto en la reducción del esfuerzo humano.",
+  preguntaGancho: "¿Alguna vez te has preguntado cómo hace una bicicleta para que, con un pequeño giro de tus piernas, la rueda trasera avance tan rápido?",
+  agenda: [
+    { min: 10, titulo: "Introducción y Teoría", texto: "Lectura del cuaderno sobre máquinas simples y transmisión." },
+    { min: 15, titulo: "Análisis y Exploración", texto: "Revisión de los módulos interactivos y debate sobre mecanismos." },
+    { min: 10, titulo: "Reto Práctico", texto: "Identificación de mecanismos en el aula o colegio." },
+    { min: 10, titulo: "Evaluación", texto: "Realización del Quiz y reflexión en la hoja de apuntes." }
+  ],
+  cuaderno: {
+    conexion: "En el periodo anterior, le dimos instrucciones a la computadora creando programas en Scratch. Ahora, pasaremos del mundo digital al mundo físico: vamos a entender cómo los seres humanos creamos mecanismos físicos (máquinas) que también siguen nuestras 'instrucciones' mecánicas para realizar tareas pesadas.",
+    bloques: [
+      {
+        icono: "⚙️",
+        titulo: "1. ¿Qué son las Máquinas Simples?",
+        puntos: [
+          { icono: "🛠️", termino: "Definición", texto: "Son dispositivos mecánicos básicos que cambian la dirección o la magnitud de una fuerza." },
+          { icono: "💪", termino: "Función principal", texto: "Facilitar el trabajo humano al requerir menos esfuerzo físico para mover un objeto." },
+          { icono: "🔩", termino: "Tipos principales", texto: "Palanca, polea, plano inclinado, rueda y eje, cuña y tornillo." }
+        ],
+        ampliacion: "Las **máquinas simples** son los 'bloques de construcción' de cualquier máquina compleja que usamos hoy. Funcionan bajo el principio de conservación de la energía: lo que se gana en fuerza, se pierde en distancia. Por ejemplo, al subir un barril a un camión usando una rampa (plano inclinado), usas menos fuerza que si lo levantas directamente, pero debes recorrer una distancia mayor sobre la rampa."
+      },
+      {
+        icono: "🔗",
+        titulo: "2. Mecanismos de Transmisión del Movimiento",
+        puntos: [
+          { icono: "🔄", termino: "Concepto", texto: "Sistemas que transmiten y/o transforman el movimiento y la fuerza desde un elemento motriz a uno conducido." },
+          { icono: "⚙️", termino: "Engranajes", texto: "Ruedas dentadas que encajan entre sí para transmitir movimiento circular." },
+          { icono: "⛓️", termino: "Cadenas y Correas", texto: "Elementos flexibles que conectan dos ruedas (poleas o piñones) alejadas." }
+        ],
+        ampliacion: "A diferencia de las máquinas simples que operan en un solo punto, los **mecanismos de transmisión** llevan el movimiento de un lado a otro. Pueden mantener la velocidad, aumentarla o reducirla. Si una rueda grande (motriz) mueve a una pequeña (conducida), la pequeña girará más rápido. Esto es vital en motores, relojes y vehículos."
+      },
+      {
+        icono: "🚴",
+        titulo: "3. Aplicaciones Cotidianas",
+        puntos: [
+          { icono: "✂️", termino: "Palancas", texto: "Tijeras, carretillas, pinzas, balancines de parque." },
+          { icono: "🏗️", termino: "Poleas", texto: "Grúas de construcción, ascensores, pozos de agua, gimnasios." },
+          { icono: "🚲", termino: "Transmisión", texto: "Bicicletas (plato, cadena, piñón), batidoras manuales, taladros." }
+        ],
+        ampliacion: "Vivimos rodeados de estos principios. La bicicleta es un ejemplo perfecto: los pedales son palancas que giran una rueda dentada (plato), esta mueve una cadena (transmisión) que hace girar otra rueda dentada menor (piñón) en la rueda trasera. Es un sistema complejo formado por varias **máquinas simples conectadas**."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Fuerza Motriz", definicion: "Fuerza de entrada que se aplica a una máquina para hacerla funcionar." },
+    { termino: "Engranaje Motriz", definicion: "La rueda dentada que inicia el movimiento en un sistema de transmisión." },
+    { termino: "Ventaja Mecánica", definicion: "Es la medida de cuánto multiplica una máquina la fuerza que se le aplica." }
+  ],
+  sabiasQue: [
+    "Arquímedes, un antiguo sabio griego, dijo sobre la palanca: 'Dadme un punto de apoyo y moveré el mundo'. Entendía que con una palanca suficientemente larga, la fuerza se multiplica inmensamente.",
+    "El mecanismo de Anticitera, descubierto en un naufragio y datado en el año 100 a.C., es considerado la primera 'computadora analógica'. ¡Usaba complejos trenes de engranajes de bronce para predecir eclipses!"
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Relaciona la Máquina Simple",
+      items: [
+        { icono: "⛏️", frente: "Hacha para cortar leña", reverso: "Es una CUÑA (dos planos inclinados unidos)." },
+        { icono: "🛝", frente: "Resbalador del parque", reverso: "Es un PLANO INCLINADO." },
+        { icono: "🚪", frente: "Pomo de una puerta", reverso: "Es una RUEDA Y EJE." },
+        { icono: "🥄", frente: "Cuchara para destapar un tarro", reverso: "Actúa como una PALANCA." }
+      ]
+    },
+    explorador: {
+      titulo: "Tipos de Palancas",
+      items: [
+        {
+          icono: "🥇",
+          nombre: "Primer Grado",
+          secciones: [
+            { titulo: "Estructura", items: ["El punto de apoyo (fulcro) está ENTRE la fuerza aplicada y la carga (resistencia)."] },
+            { titulo: "Ejemplos", items: ["Balancín (subibaja)", "Tijeras", "Alicates"] }
+          ]
+        },
+        {
+          icono: "🥈",
+          nombre: "Segundo Grado",
+          secciones: [
+            { titulo: "Estructura", items: ["La carga (resistencia) está ENTRE el punto de apoyo y la fuerza aplicada."] },
+            { titulo: "Ejemplos", items: ["Carretilla", "Cascanueces", "Destapador de botellas"] }
+          ]
+        },
+        {
+          icono: "🥉",
+          nombre: "Tercer Grado",
+          secciones: [
+            { titulo: "Estructura", items: ["La fuerza aplicada está ENTRE el punto de apoyo y la carga (resistencia)."] },
+            { titulo: "Ejemplos", items: ["Pinzas de depilar", "Caña de pescar", "Escoba (al barrer)"] }
+          ]
+        }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasifica el Mecanismo",
+      categorias: ["Máquina Simple", "Mecanismo de Transmisión"],
+      items: [
+        { texto: "Rampa para silla de ruedas", categoria: 0 },
+        { texto: "Cadena de bicicleta", categoria: 1 },
+        { texto: "Polea de pozo", categoria: 0 },
+        { texto: "Engranajes de un reloj", categoria: 1 },
+        { texto: "Tornillo de banco", categoria: 0 },
+        { texto: "Correa del motor de un carro", categoria: 1 }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Cazadores de Mecanismos",
+    descripcion: "No usaremos IA hoy. El reto es de observación física. Recorre mentalmente tu casa o, si el profesor lo permite, la sala de sistemas y los pasillos del colegio, para identificar mecanismos reales.",
+    pasos: [
+      "1. Toma tu cuaderno y un lápiz.",
+      "2. Observa tu entorno (ventanas, puertas, sillas, herramientas del profesor).",
+      "3. Encuentra al menos TRES objetos que usen alguna máquina simple o mecanismo de transmisión.",
+      "4. Dibuja un boceto rápido de cada uno.",
+      "5. Señala con flechas: ¿Dónde se aplica la fuerza? ¿Cuál es el mecanismo? ¿Qué se mueve al final?"
+    ],
+    prompt: "",
+    herramientas: [],
+    requisitos: [
+      "Encontrar 3 objetos distintos.",
+      "Dibujar el boceto de cada uno.",
+      "Identificar el tipo de máquina simple o transmisión.",
+      "Señalar la entrada y salida de fuerza."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es el propósito principal de una máquina simple?",
+      opciones: [
+        "Aumentar la energía total de un sistema.",
+        "Cambiar la dirección o magnitud de una fuerza para facilitar un trabajo.",
+        "Generar electricidad sin usar combustible.",
+        "Complicar una tarea para hacerla más duradera."
+      ],
+      correcta: 1,
+      explicacion: "Las máquinas simples no crean energía, pero cambian cómo aplicamos la fuerza (como usar una palanca) para que el trabajo humano sea más fácil."
+    },
+    {
+      pregunta: "Si usas un cuchillo para cortar una manzana, ¿qué máquina simple estás utilizando?",
+      opciones: [
+        "Una polea.",
+        "Una rueda y eje.",
+        "Una cuña.",
+        "Un tornillo."
+      ],
+      correcta: 2,
+      explicacion: "El cuchillo es una cuña, que son básicamente dos planos inclinados unidos en un borde afilado para separar materiales."
+    },
+    {
+      pregunta: "En una bicicleta, la cadena conecta los pedales (plato) con la rueda trasera (piñón). ¿Qué tipo de sistema es este?",
+      opciones: [
+        "Palanca de primer grado.",
+        "Mecanismo de transmisión de movimiento.",
+        "Plano inclinado móvil.",
+        "Polea fija."
+      ],
+      correcta: 1,
+      explicacion: "Es un mecanismo de transmisión (por cadena) porque traslada el movimiento circular de un eje (pedales) a otro eje alejado (rueda trasera)."
+    },
+    {
+      pregunta: "Si engranamos una rueda dentada muy GRANDE (motriz) con una rueda dentada muy PEQUEÑA (conducida), ¿qué sucederá con la pequeña?",
+      opciones: [
+        "Girará más lento que la grande.",
+        "Girará a la misma velocidad.",
+        "Girará más rápido que la grande.",
+        "No girará."
+      ],
+      correcta: 2,
+      explicacion: "Al ser más pequeña, tiene que dar varias vueltas completas por cada vuelta que da la rueda grande, por lo que aumenta la velocidad."
+    },
+    {
+      pregunta: "Una carretilla, donde llevas arena y la levantas por los mangos mientras la rueda está adelante, es un ejemplo de:",
+      opciones: [
+        "Palanca de primer grado.",
+        "Palanca de segundo grado.",
+        "Palanca de tercer grado.",
+        "Polea móvil."
+      ],
+      correcta: 1,
+      explicacion: "Es de segundo grado porque la carga (la arena) está en el medio, entre el punto de apoyo (la rueda) y la fuerza aplicada (tus manos en los mangos)."
+    },
+    {
+      pregunta: "¿Por qué las carreteras en las montañas tienen muchas curvas zigzagueantes en lugar de subir en línea recta?",
+      opciones: [
+        "Para gastar más asfalto.",
+        "Porque aplican el principio del plano inclinado, alargando la distancia para subir con menos esfuerzo del motor.",
+        "Para que los carros vayan más rápido.",
+        "Porque las montañas no permiten líneas rectas."
+      ],
+      correcta: 1,
+      explicacion: "Subir en zigzag es un plano inclinado menos empinado: recorres más distancia, pero el motor hace mucho menos esfuerzo que si subiera verticalmente."
+    }
+  ],
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "¿Cuál fue el mecanismo o máquina simple más interesante que encontraste en el Reto Práctico? ¿Por qué?", lineas: 3 },
+      { id: "r2", texto: "Imagina un mundo donde no existiera el plano inclinado (ni rampas, ni escaleras). ¿Cómo subirías a un segundo piso?", lineas: 2 },
+      { id: "r3", texto: "Escribe una diferencia clave entre una 'máquina simple' y un 'mecanismo de transmisión'.", lineas: 3 },
+      { id: "r4", texto: "¿Qué aprendiste hoy que no sabías sobre cómo funcionan las cosas a tu alrededor?", lineas: 2 }
+    ]
+  },
+  notasDocente: [
+    "Fomentar la observación: En el reto práctico, anime a los estudiantes a mirar detalles en sus propios pupitres (tornillos), mochilas (cremalleras/cuñas) o puertas (bisagras/ejes).",
+    "Explicación visual: Si es posible, lleve al aula un ejemplo físico, como un par de engranajes de un juguete viejo, un cascanueces o una bicicleta.",
+    "Para la pregunta del zigzag en el quiz, dibuje en el tablero la diferencia entre una pendiente muy inclinada y una más suave pero larga, para reforzar el concepto."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
