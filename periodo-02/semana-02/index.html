@@ -1,1 +1,255 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algoritmos y diagramas de flujo | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 2,
+  semana: 2,
+  tema: "Algoritmos y diagramas de flujo",
+  temaAnterior: "Máquinas simples y mecanismos de transmisión",
+  video: "",
+  estilo: "circuito",
+  emoji: "🔀",
+  objetivo: "Formular algoritmos para resolver situaciones cotidianas y representarlos mediante diagramas de flujo.",
+  competencia: "Diseña secuencias lógicas de instrucciones (algoritmos) y las estructura gráficamente mediante símbolos estandarizados para solucionar problemas cotidianos y computacionales.",
+  preguntaGancho: "Si tuvieras que darle instrucciones exactas a un robot de cocina para preparar un sándwich sin que cometa ni un solo error, ¿qué pasaría si olvidas decirle que abra la bolsa del pan primero?",
+  agenda: [
+    { min: 5, titulo: "Conexión y Pregunta Gancho", texto: "Repaso de secuencias mecánicas y reto mental de instrucciones exactas." },
+    { min: 15, titulo: "Explicación y Cuaderno", texto: "Concepto de algoritmo, propiedades clave y simbología básica de diagramas de flujo." },
+    { min: 10, titulo: "Práctica Rápida en Cuaderno", texto: "Redacción del algoritmo de 6 pasos para cargar un teléfono celular." },
+    { min: 15, titulo: "Reto en Sala: IA + Excel", texto: "Generación de tabla comparativa de símbolos con IA y formateo técnico en hoja de cálculo." }
+  ],
+  cuaderno: {
+    conexion: "La semana pasada estudiamos cómo las máquinas simples y los mecanismos de transmisión (como poleas y engranajes) siguen una secuencia física exacta para transmitir movimiento. En informática, esa misma lógica ordenada de causa y efecto se transforma en instrucciones mentales y digitales llamadas algoritmos.",
+    bloques: [
+      {
+        icono: "💡",
+        titulo: "1. ¿Qué es un Algoritmo?",
+        puntos: [
+          { icono: "🔢", termino: "Definición", texto: "Secuencia ordenada, lógica y finita de pasos que seguimos para resolver un problema o realizar una tarea." },
+          { icono: "📋", termino: "Ordenada", texto: "Los pasos deben ir uno tras otro en el orden correcto; alterar el orden cambia o daña el resultado." },
+          { icono: "🧠", termino: "Lógica", texto: "Cada paso debe tener sentido claro y conducir directamente hacia la solución esperada." },
+          { icono: "🏁", termino: "Finita", texto: "Todo algoritmo debe tener un punto de Inicio claro y un punto de Fin definido." }
+        ],
+        ampliacion: "Un algoritmo no es exclusivo de los computadores; lo usamos todo el día sin darnos cuenta. Por ejemplo, preparar un sándwich exige seis pasos precisos: 1. Inicio, 2. Tomar dos rebanadas de pan, 3. Untar mantequilla o salsa en una cara de cada pan, 4. Colocar jamón y queso sobre un pan, 5. Cubrir con la otra rebanada y 6. Fin. **La clave de un buen algoritmo es que no deja nada a la suposición**: si le das las mismas instrucciones a dos personas distintas en Buga, ambas obtendrán exactamente el mismo resultado."
+      },
+      {
+        icono: "🔷",
+        titulo: "2. ¿Qué es un Diagrama de Flujo?",
+        puntos: [
+          { icono: "🗺️", termino: "Concepto gráfico", texto: "Es el dibujo o representación visual de un algoritmo mediante figuras geométricas estandarizadas." },
+          { icono: "➡️", termino: "Flujo de dirección", texto: "Utiliza flechas para unir cada figura y mostrar el camino exacto desde el inicio hasta el final." },
+          { icono: "🌍", termino: "Lenguaje universal", texto: "Cualquier programador o ingeniero en el mundo puede leer un diagrama de flujo sin importar su idioma." }
+        ],
+        ampliacion: "Cuando un problema tiene muchas alternativas, leer una lista larga de texto se vuelve confuso. El diagrama de flujo funciona como un mapa de carreteras: te permite ver de un solo vistazo dónde arranca el proceso, qué acciones se ejecutan y en qué momento el camino se divide. **Transformar texto en figuras geométricas evita errores de lógica** antes de escribir una sola línea de código en programas como Scratch o Python."
+      },
+      {
+        icono: "📐",
+        titulo: "3. Símbolos Básicos de los Diagramas de Flujo",
+        puntos: [
+          { icono: "⬭", termino: "Óvalo (Inicio / Fin)", texto: "Indica el punto exacto donde empieza y donde termina todo el proceso." },
+          { icono: "▭", termino: "Rectángulo (Proceso / Acción)", texto: "Representa una actividad, cálculo, instrucción o tarea concreta que se realiza." },
+          { icono: "◇", termino: "Rombo (Decisión)", texto: "Plantea una pregunta cerrada que solo se responde con SÍ o NO, dividiendo el camino en dos rutas." },
+          { icono: "▱", termino: "Paralelogramo (Entrada / Salida)", texto: "Muestra el momento en que ingresamos datos al sistema o mostramos un resultado en pantalla." },
+          { icono: "➔", termino: "Flechas (Líneas de flujo)", texto: "Conectan los símbolos entre sí e indican la dirección obligatoria del siguiente paso." }
+        ],
+        ampliacion: "Cada figura geométrica tiene una función única que no se debe mezclar. Si vas a cruzar una calle en el centro de Buga, la acción «Mirar a ambos lados» va dentro de un rectángulo, mientras que la pregunta «¿Vienen carros?» va obligatoriamente dentro de un rombo porque genera dos caminos: si la respuesta es SÍ, esperas; si es NO, cruzas. **Respetar la forma de cada símbolo garantiza que cualquier persona entienda qué es una acción y qué es una pregunta**."
+      },
+      {
+        icono: "✍️",
+        titulo: "4. Actividad Rápida en Clase (10 minutos)",
+        puntos: [
+          { icono: "🔋", termino: "Reto cotidiano", texto: "Escribe en tu cuaderno un algoritmo numerado de máximo 6 pasos para cargar un celular descargado." },
+          { icono: "✅", termino: "Regla obligatoria", texto: "El paso 1 debe ser la palabra Inicio y el último paso debe ser la palabra Fin." }
+        ],
+        ampliacion: "Para resolver este ejercicio en tu cuaderno, piensa en cada acción física mínima: tomar el cargador, conectarlo al tomacorriente, conectar el cable al puerto del celular y verificar que aparezca el ícono de carga en la pantalla. **Recuerda que un algoritmo bien diseñado jamás se salta pasos obvios**, porque para una máquina nada es obvio hasta que se le ordena."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Algoritmo", definicion: "Conjunto ordenado, lógico y finito de pasos que permiten solucionar un problema o completar una tarea." },
+    { termino: "Diagrama de flujo", definicion: "Representación gráfica de un algoritmo que emplea figuras geométricas conectadas por flechas." },
+    { termino: "Rombo de decisión", definicion: "Símbolo en forma de diamante que evalúa una condición lógica con dos únicas salidas posibles: SÍ o NO." },
+    { termino: "Finito", definicion: "Característica de todo algoritmo que asegura que tiene un número determinado de pasos y siempre llega a un final." },
+    { termino: "Línea de flujo", definicion: "Flecha que establece la secuencia y dirección en la que deben ejecutarse las instrucciones." }
+  ],
+  sabiasQue: [
+    "La palabra «algoritmo» proviene del apellido del matemático persa Al-Juarismi (siglo IX), quien escribió los primeros tratados sistemáticos sobre cómo resolver ecuaciones paso a paso.",
+    "Los diagramas de flujo comenzaron a usarse de forma estándar en ingeniería industrial en 1921 gracias a Frank y Lillian Gilbreth, mucho antes de que existieran los computadores modernos.",
+    "Los semáforos inteligentes de las ciudades funcionan con algoritmos de decisión (rombos) que evalúan cada segundo si hay vehículos esperando para cambiar de rojo a verde."
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Analogías para dominar los símbolos",
+      items: [
+        { icono: "🚦", frente: "Óvalo (Inicio / Fin)", reverso: "Es como la línea de partida y la meta en una carrera de atletismo: marca exactamente dónde arranca y dónde termina el recorrido." },
+        { icono: "⚙️", frente: "Rectángulo (Proceso)", reverso: "Es como un obrero trabajando en una fábrica: representa una acción concreta que transforma algo, como sumar dos números o untar mantequilla." },
+        { icono: "🔀", frente: "Rombo (Decisión)", reverso: "Es como un cruce de carreteras con un letrero de SÍ o NO: te obliga a responder una pregunta para saber qué camino tomar." },
+        { icono: "⌨️", frente: "Paralelogramo (Entrada / Salida)", reverso: "Es como la ventanilla de un banco: por ahí entran los datos que tú entregas y por ahí salen los resultados hacia afuera." },
+        { icono: "🧭", frente: "Flechas (Líneas de flujo)", reverso: "Son como las señales de tránsito de una sola vía: evitan que te pierdas o te devuelvas en sentido contrario." }
+      ]
+    },
+    explorador: {
+      titulo: "Anatomía de un Algoritmo Cotidiano",
+      items: [
+        {
+          icono: "🥪",
+          nombre: "1. Algoritmo Secuencial",
+          secciones: [
+            { titulo: "¿Cómo funciona?", items: ["Los pasos se ejecutan uno detrás del otro sin desviaciones ni preguntas.", "Ejemplo: Preparar un sándwich de jamón y queso en 6 pasos."] },
+            { titulo: "Símbolos que usa", items: ["Óvalo para Inicio y Fin.", "Rectángulos para cada acción de preparación.", "Flechas apuntando siempre hacia abajo."] }
+          ]
+        },
+        {
+          icono: "☔",
+          nombre: "2. Algoritmo con Decisión",
+          secciones: [
+            { titulo: "¿Cómo funciona?", items: ["Incluye una condición que divide el camino en dos opciones.", "Ejemplo: Antes de salir de casa en Buga, mirar el cielo y preguntar: ¿Está lloviendo?"] },
+            { titulo: "Rutas del Rombo", items: ["Camino SÍ: Tomar una sombrilla antes de abrir la puerta.", "Camino NO: Salir directamente sin sombrilla."] }
+          ]
+        },
+        {
+          icono: "📱",
+          nombre: "3. Entrada y Salida de Datos",
+          secciones: [
+            { titulo: "¿Cómo funciona?", items: ["Todo sistema recibe información del usuario (Entrada) y entrega una respuesta (Salida).", "Ejemplo: Cajero automático o calculadora."] },
+            { titulo: "Ejemplo práctico", items: ["Entrada (Paralelogramo): Digitar la clave de 4 números.", "Proceso (Rectángulo): Verificar si la clave coincide.", "Salida (Paralelogramo): Mostrar mensaje «Clave correcta»."] }
+          ]
+        }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasifica cada instrucción en su símbolo correcto",
+      categorias: ["Óvalo (Inicio / Fin)", "Rectángulo (Proceso)", "Rombo (Decisión)"],
+      items: [
+        { texto: "Inicio del programa", categoria: 0 },
+        { texto: "Untar mantequilla en el pan", categoria: 1 },
+        { texto: "¿La batería está al 100%?", categoria: 2 },
+        { texto: "Fin del proceso", categoria: 0 },
+        { texto: "Conectar el cargador al celular", categoria: 1 },
+        { texto: "¿El semáforo está en verde?", categoria: 2 },
+        { texto: "Sumar nota 1 + nota 2", categoria: 1 },
+        { texto: "¿La nota final es mayor o igual a 3.0?", categoria: 2 },
+        { texto: "Cerrar la aplicación", categoria: 0 }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Reto en Sala: Tabla de Simbología con IA y Excel",
+    descripcion: "Usarás una Inteligencia Artificial para estructurar los 5 símbolos de los diagramas de flujo en formato de tabla Markdown y luego la trasladarás a Microsoft Excel respetando filas, columnas y formato técnico.",
+    pasos: [
+      "Abre una herramienta de Inteligencia Artificial (Gemini, ChatGPT o Copilot) en tu navegador.",
+      "Copia el prompt exacto de abajo y pégalo en el chat de la IA para generar la tabla comparativa.",
+      "Selecciona y copia únicamente las 6 filas de la tabla generada por la IA (encabezado + 5 símbolos).",
+      "Abre Microsoft Excel, haz clic en la celda A1 y pega los datos usando «Coincidir con el formato de destino» (o Ctrl + Shift + V).",
+      "Verifica que la tabla ocupe exactamente 4 columnas (A hasta D) y 6 filas (1 hasta 6), aplica bordes a toda la tabla, pon en negrita y color de relleno los encabezados y ajusta el ancho de las columnas.",
+      "Guarda el archivo en tu carpeta de trabajo con el nombre: Algoritmos_Grado8_TuNombre.xlsx."
+    ],
+    prompt: "Actúa como un experto en lógica de programación. Crea una tabla comparativa en formato Markdown sobre los 5 símbolos principales de los diagramas de flujo (Óvalo, Rectángulo, Rombo, Paralelogramo y Flechas). La tabla debe tener exactamente 4 columnas llamadas: Nombre del Símbolo, Forma Geométrica, Función Principal y Ejemplo Cotidiano. No agregues texto extra antes ni después de la tabla.",
+    herramientas: [
+      { nombre: "Google Gemini", url: "https://gemini.google.com" },
+      { nombre: "Microsoft Copilot", url: "https://copilot.microsoft.com" },
+      { nombre: "ChatGPT", url: "https://chatgpt.com" }
+    ],
+    requisitos: [
+      "La tabla en Excel ocupa exactamente de la columna A a la D y de la fila 1 a la 6.",
+      "No hay texto suelto fuera de la tabla ni celdas combinadas por error.",
+      "Los encabezados tienen negrita, color de relleno y texto centrado.",
+      "Todas las celdas tienen bordes visibles y el ancho de columna permite leer todo el contenido sin recortes.",
+      "El archivo está guardado como Algoritmos_Grado8_TuNombre.xlsx."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuáles son las tres características fundamentales que debe cumplir todo algoritmo?",
+      opciones: [
+        "Ser largo, tener dibujos y usar internet",
+        "Ser ordenado, lógico y finito",
+        "Tener muchos rombos, ser infinito y usar Excel",
+        "Ser rápido, escrito en inglés y sin final"
+      ],
+      correcta: 1,
+      explicacion: "Todo algoritmo debe seguir una secuencia ordenada, tener sentido lógico y contar con un inicio y un fin definidos (ser finito)."
+    },
+    {
+      pregunta: "En un diagrama de flujo, ¿qué símbolo se utiliza para marcar tanto el Inicio como el Fin?",
+      opciones: [
+        "Un rectángulo",
+        "Un rombo",
+        "Un óvalo",
+        "Una flecha doble"
+      ],
+      correcta: 2,
+      explicacion: "El óvalo es el símbolo estándar que indica el punto de partida (Inicio) y de cierre (Fin) de cualquier diagrama de flujo."
+    },
+    {
+      pregunta: "Si necesitas representar la pregunta «¿Está lloviendo en Buga?» dentro de un diagrama de flujo, ¿qué figura debes dibujar?",
+      opciones: [
+        "Rombo (Decisión)",
+        "Paralelogramo (Entrada/Salida)",
+        "Rectángulo (Proceso)",
+        "Óvalo (Inicio/Fin)"
+      ],
+      correcta: 0,
+      explicacion: "El rombo representa una decisión lógica que evalúa una pregunta y divide el camino en dos rutas posibles: SÍ o NO."
+    },
+    {
+      pregunta: "¿Qué función cumple el rectángulo dentro de un diagrama de flujo?",
+      opciones: [
+        "Indicar que el programa se detuvo por un error",
+        "Representar una acción, operación o proceso concreto",
+        "Hacer una pregunta de verdadero o falso",
+        "Conectar dos páginas diferentes del cuaderno"
+      ],
+      correcta: 1,
+      explicacion: "El rectángulo simboliza cada instrucción, actividad o proceso que transforma información o ejecuta una tarea."
+    },
+    {
+      pregunta: "¿Por qué es importante que un algoritmo sea «finito»?",
+      opciones: [
+        "Porque debe caber en una sola hoja de cuaderno",
+        "Porque debe tener un número determinado de pasos y llegar a un final",
+        "Porque solo sirve para problemas de matemáticas",
+        "Porque no puede usar más de dos flechas"
+      ],
+      correcta: 1,
+      explicacion: "Si un algoritmo no fuera finito, se quedaría repitiendo pasos eternamente (bucle infinito) sin resolver el problema."
+    },
+    {
+      pregunta: "Al pegar una tabla generada por IA en Microsoft Excel, ¿qué opción debes usar para que respete las columnas y filas sin traer estilos raros de la web?",
+      opciones: [
+        "Pegar como imagen",
+        "Coincidir con el formato de destino (Ctrl + Shift + V)",
+        "Combinar y centrar todas las celdas",
+        "Insertar salto de página"
+      ],
+      correcta: 1,
+      explicacion: "Pegar coincidiendo con el formato de destino distribuye cada celda Markdown en su fila y columna exacta de Excel sin arrastrar fuentes ni fondos externos."
+    }
+  ],
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "1. Explica con tus propias palabras qué es un algoritmo y menciona un ejemplo de tu vida diaria en Buga.", lineas: 3 },
+      { id: "r2", texto: "2. ¿Qué diferencia existe entre un Rectángulo y un Rombo dentro de un diagrama de flujo?", lineas: 3 },
+      { id: "r3", texto: "3. Durante el reto en sala con IA y Excel, ¿cómo lograste que la tabla quedara ordenada en 4 columnas y 6 filas?", lineas: 3 },
+      { id: "r4", texto: "4. ¿Qué ocurriría si en el algoritmo de preparar un sándwich invertimos el paso de «cubrir con la otra rebanada» antes de «colocar jamón y queso»?", lineas: 2 },
+      { id: "r5", texto: "5. ¿Qué aprendí hoy en clase que antes no sabía sobre cómo piensan los computadores?", lineas: 3 }
+    ]
+  },
+  notasDocente: [
+    "En la explicación inicial (15 min), dramatizar el ejemplo del sándwich pidiendo a un estudiante que dé instrucciones literales ayuda a que comprendan por qué los computadores necesitan pasos exactos sin ambigüedades.",
+    "Supervisar que en el cuaderno los estudiantes dibujen el rombo con sus dos salidas etiquetadas explícitamente como SÍ y NO; es el error más común en grado 8°.",
+    "En la sala de sistemas, recordarles seleccionar desde el primer carácter de la tabla Markdown hasta el último antes de copiar, para evitar que Excel pegue todo el texto en la columna A."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
