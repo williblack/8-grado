@@ -1,1 +1,264 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bucles, condiciones y variables de entrada | Grado 8°</title>
+</head>
+<body>
+<script>
+const CLASE = {
+  grado: 8,
+  edad: 13,
+  periodo: 2,
+  semana: 3,
+  tema: "Bucles, condiciones y variables de entrada",
+  temaAnterior: "Algoritmos y diagramas de flujo",
+  video: "",
+  estilo: "circuito",
+  emoji: "🔄",
+  objetivo: "Comprender el funcionamiento de bucles y condiciones, y utilizar variables de entrada para resolver problemas lógicos y de análisis de datos.",
+  competencia: "Diseña algoritmos estructurados mediante diagramas de flujo y aplica funciones condicionales en hojas de cálculo para procesar variables de entrada con precisión.",
+  preguntaGancho: "¿Cómo logra un cajero automático en Buga saber cuánto dinero entregarte y cuándo dejar de contar billetes sin equivocarse jamás?",
+  agenda: [
+    { min: 10, titulo: "Exploración y conexión", texto: "Activación de saberes previos sobre diagramas de flujo y análisis de situaciones cotidianas con decisiones y repeticiones." },
+    { min: 15, titulo: "Consignación conceptual", texto: "Registro ordenado en el cuaderno sobre variables de entrada, condiciones lógicas y bucles con ejemplos cercanos." },
+    { min: 15, titulo: "Construcción de diagramas", texto: "Diseño paso a paso en el cuaderno de dos diagramas de flujo: uno de decisión con notas y otro de conteo repetitivo." },
+    { min: 5, titulo: "Verificación y cierre", texto: "Revisión rápida de lógica en videojuegos y preparación para el reto práctico con datos de robótica." }
+  ],
+  cuaderno: {
+    conexion: "La semana pasada aprendimos a representar algoritmos paso a paso mediante diagramas de flujo; hoy daremos inteligencia a esos diagramas incorporando memoria (variables), decisiones (condiciones) y repeticiones automáticas (bucles).",
+    bloques: [
+      {
+        icono: "📦",
+        titulo: "1. Variables de entrada: la memoria del programa",
+        puntos: [
+          { icono: "🏷️", termino: "Variable de entrada", texto: "Es un espacio en la memoria del computador (como una caja etiquetada) donde guardamos un dato que el usuario entrega." },
+          { icono: "🎮", termino: "Ejemplo práctico", texto: "Cuando un videojuego pide tu apodo (Nombre_Jugador = «Carlos») o una app de transporte en Buga solicita tu destino." },
+          { icono: "📊", termino: "Variables en datos", texto: "En una tabla de competencias, los puntos obtenidos o los segundos de recorrido funcionan como variables numéricas cambiantes." }
+        ],
+        ampliacion: "Imagina que tienes una caja de cartón marcada con un marcador que dice «Puntaje». Al iniciar un partido está vacía o en cero, pero cada vez que anotas un gol cambias el papel de adentro por el nuevo número. En programación y en Excel ocurre exactamente lo mismo: **una variable de entrada permite que el programa reciba información externa y la conserve mientras realiza cálculos**. Sin variables, cada programa serviría únicamente para un solo caso fijo y no podría adaptarse a distintos usuarios o equipos."
+      },
+      {
+        icono: "🔀",
+        titulo: "2. Condiciones: toma de decisiones lógicas",
+        puntos: [
+          { icono: "❓", termino: "Condición", texto: "Es una pregunta lógica que solo admite dos respuestas posibles: Verdadero (Sí) o Falso (No)." },
+          { icono: "🛣️", termino: "Bifurcación de caminos", texto: "Según el resultado de la pregunta, el algoritmo ejecuta una acción diferente e ignora la otra ruta." },
+          { icono: "🌦️", termino: "Ejemplo cotidiano", texto: "Si está lloviendo en el Valle del Cauca, llevo sombrilla; de lo contrario (si no), salgo sin ella." }
+        ],
+        ampliacion: "Los computadores no adivinan ni intuyen; toman decisiones evaluando reglas matemáticas exactas como mayor que, menor que o igual a. Cuando usas una condición, obligas al sistema a comparar una variable contra un criterio establecido. **Si la comparación resulta verdadera, se activa el bloque de instrucciones del camino SÍ; si resulta falsa, se toma el camino NO**. Este mismo principio es el que usan las hojas de cálculo cuando les pedimos contar únicamente los equipos que pertenecen a una categoría específica."
+      },
+      {
+        icono: "🔁",
+        titulo: "3. Bucles: el poder de la repetición controlada",
+        puntos: [
+          { icono: "🔄", termino: "Bucle o ciclo", texto: "Instrucción que repite un grupo de acciones varias veces sin tener que escribirlas una por una." },
+          { icono: "🛑", termino: "Condición de parada", texto: "Todo buen bucle necesita una regla que indique cuándo detenerse para evitar quedarse repitiendo por siempre." },
+          { icono: "🏃", termino: "Ejemplo cotidiano", texto: "Dar vueltas a la pista atlética hasta completar 5 giros, o cepillarse los dientes mientras quede espuma." }
+        ],
+        ampliacion: "Imagina tener que escribir cien veces seguidas la misma orden en un programa: sería agotador y muy propenso a errores humanos. Los bucles resuelven este problema automatizando tareas repetitivas mediante un contador interno que aumenta en cada vuelta. **Un bucle combina repetición con una condición de salida que verifica en cada ciclo si ya se cumplió la meta**. Así, una máquina puede revisar miles de filas de datos o contar repeticiones físicas en fracciones de segundo sin cansarse."
+      },
+      {
+        icono: "📐",
+        titulo: "4. Aplicación en diagramas de flujo",
+        puntos: [
+          { icono: "💎", termino: "El rombo es clave", texto: "En los diagramas de flujo, tanto las condiciones como el control de los bucles se dibujan dentro de un rombo." },
+          { icono: "⬇️", termino: "Diagrama de decisión", texto: "Lee la variable Nota; si es mayor o igual a 3.0 muestra «Aprobaste», de lo contrario muestra «Debes recuperar»." },
+          { icono: "⤴️", termino: "Diagrama de bucle", texto: "Inicia Abdominales = 0; mientras sea menor que 3, suma 1 y regresa con una flecha antes del rombo." }
+        ],
+        ampliacion: "Para diferenciar visualmente una decisión simple de un bucle en tu cuaderno, observa siempre hacia dónde apuntan las flechas que salen del rombo. **En una condición simple las flechas avanzan hacia abajo buscando el final, mientras que en un bucle una flecha regresa hacia arriba para repetir el proceso**. Dominar este trazo en papel te permitirá programar bloques en Scratch y construir fórmulas lógicas en Excel con total seguridad."
+      }
+    ]
+  },
+  glosario: [
+    { termino: "Variable de entrada", definicion: "Dato suministrado por el usuario o una fuente externa que se almacena en memoria para ser procesado." },
+    { termino: "Condición lógica", definicion: "Expresión de comparación cuyo resultado únicamente puede ser verdadero o falso." },
+    { termino: "Bucle", definicion: "Estructura de control que ejecuta repetidamente un bloque de instrucciones mientras se cumpla una condición." },
+    { termino: "Contador", definicion: "Variable numérica que aumenta o disminuye en un valor fijo cada vez que se repite un ciclo." },
+    { termino: "Dato categórico", definicion: "Variable que clasifica elementos según cualidades o grupos, como «Novato» o «Avanzado»." }
+  ],
+  sabiasQue: [
+    "Un bucle que nunca cumple su condición de parada se conoce como «bucle infinito» y es una de las causas más comunes por las que una aplicación o videojuego se congela.",
+    "La palabra «algoritmo» proviene del nombre del matemático persa Al-Juarismi, quien en el siglo IX describió reglas paso a paso para resolver ecuaciones.",
+    "En la robótica educativa y industrial, los sensores leen variables de entrada cientos de veces por segundo usando un bucle principal llamado «loop»."
+  ],
+  modulos: {
+    tarjetas: {
+      titulo: "Analogías para dominar la lógica",
+      items: [
+        { icono: "📦", frente: "Variable de entrada", reverso: "Es como un vaso marcado con tu nombre: el contenido puede cambiar de agua a jugo, pero el recipiente sigue siendo el mismo." },
+        { icono: "🚦", frente: "Condición (Si / Si no)", reverso: "Es como llegar a un semáforo: si está en verde avanzas; si está en rojo te detienes. Nunca haces ambas cosas a la vez." },
+        { icono: "🎡", frente: "Bucle controlado", reverso: "Es como subir a una rueda de la fortuna con un tiquete de 4 vueltas: giras y giras hasta que el contador llega a 4." },
+        { icono: "🔢", frente: "Variable contadora", reverso: "Es como hacer rayitas en una pared para llevar la cuenta de cuántos goles ha marcado tu equipo en el recreo." },
+        { icono: "🔍", frente: "Función CONTAR.SI en Excel", reverso: "Es como pedirle a un ayudante que revise una fila de estudiantes y cuente solo a los que tienen chaqueta azul." }
+      ]
+    },
+    explorador: {
+      titulo: "Del cuaderno a la hoja de cálculo",
+      items: [
+        {
+          icono: "💎",
+          nombre: "Simbología en Diagramas",
+          secciones: [
+            { titulo: "Figuras esenciales", items: ["Óvalo: marca el Inicio y el Fin del algoritmo.", "Paralelogramo: representa entrada de variables o salida de mensajes.", "Rectángulo: indica procesos matemáticos o asignación de valores.", "Rombo: evalúa preguntas lógicas con salidas Sí y No."] }
+          ]
+        },
+        {
+          icono: "📊",
+          nombre: "Variables en el Torneo",
+          secciones: [
+            { titulo: "Tipos de datos", items: ["Variables numéricas: Puntos_Obtenidos y Tiempo_Final_seg permiten calcular máximos y mínimos.", "Variables de texto o categoría: Nombre_Equipo y Categoria clasifican a los participantes.", "Datos limpios: los números no llevan letras ni unidades dentro de la celda para poder operarlos."] }
+          ]
+        },
+        {
+          icono: "⚙️",
+          nombre: "Fórmulas Lógicas",
+          secciones: [
+            { titulo: "Funciones de análisis", items: ["=MAX(rango): recorre todas las celdas y devuelve el número más alto.", "=MIN(rango): identifica el valor numérico más pequeño de la lista.", "=CONTAR.SI(rango; criterio): aplica una condición y cuenta solo las celdas que la cumplen."] }
+          ]
+        }
+      ]
+    },
+    clasificador: {
+      titulo: "Clasifica cada situación según su estructura lógica",
+      categorias: ["Variable de entrada", "Condición (Decisión)", "Bucle (Repetición)"],
+      items: [
+        { texto: "Escribir tu contraseña antes de iniciar sesión", categoria: 0 },
+        { texto: "Digitar la nota definitiva de un estudiante", categoria: 0 },
+        { texto: "Registrar los segundos que tardó un robot en llegar a la meta", categoria: 0 },
+        { texto: "Verificar si la edad es mayor o igual a 18 años para votar", categoria: 1 },
+        { texto: "Decidir si un equipo pertenece a la categoría Avanzado", categoria: 1 },
+        { texto: "Mostrar «Aprobado» si el puntaje supera 3.0", categoria: 1 },
+        { texto: "Contar abdominales uno por uno hasta llegar a 3", categoria: 2 },
+        { texto: "Revisar fila por fila los 10 equipos de una tabla", categoria: 2 },
+        { texto: "Repetir una alarma cada 5 minutos hasta que la apagues", categoria: 2 }
+      ]
+    }
+  },
+  reto: {
+    titulo: "Analizando variables del Torneo de Robótica",
+    descripcion: "Genera una base de datos simulada de un torneo escolar con Inteligencia Artificial, estructúrala en Excel y aplica funciones condicionales y de límites numéricos para evaluar el desempeño de los equipos.",
+    pasos: [
+      "Copia el prompt de abajo, pégalo en tu herramienta de IA y verifica que entregue 1 fila de encabezados y exactamente 10 filas de datos en formato TSV.",
+      "Pega el resultado en la celda A1 de Excel y confirma que los datos ocupen exactamente el rango A1:D11 sin quedar amontonados en una sola columna.",
+      "Selecciona los encabezados (A1:D1), aplica negrita, relleno azul claro, alineación centrada, bordes completos a A1:D11 y ajusta el ancho de columnas.",
+      "Verifica que los valores de Puntos_Obtenidos y Tiempo_Final_seg sean solo números enteros sin unidades de texto.",
+      "Escribe en B13 la fórmula =MAX(B2:B11) para el puntaje más alto, en B14 =MIN(B2:B11) para el más bajo y en C13 =CONTAR.SI(C2:C11; \"Avanzado\").",
+      "Cumple el reto avanzado escribiendo en D13 la fórmula =CONTAR(B2:B11) para comprobar el total de equipos registrados.",
+      "Guarda el libro en tu carpeta de Tecnología con el nombre 8_torneo_robotica_231126_tunombre.xlsx (sin espacios, tildes ni ñ)."
+    ],
+    prompt: "Genera una tabla sobre un Torneo de Robótica Escolar con las columnas exactas: Nombre_Equipo, Puntos_Obtenidos, Categoria, Tiempo_Final_seg. Entrega SOLO la tabla en formato TSV (separada por tabulaciones), con 1 fila de encabezados y exactamente 10 filas de datos, sin explicaciones, sin markdown y sin comillas.",
+    herramientas: [
+      { nombre: "ChatGPT", url: "https://chatgpt.com" },
+      { nombre: "Google Gemini", url: "https://gemini.google.com" },
+      { nombre: "Microsoft Copilot", url: "https://copilot.microsoft.com" }
+    ],
+    requisitos: [
+      "Tabla pegada limpiamente desde A1 hasta D11 con 4 columnas separadas.",
+      "Encabezados A1:D1 con negrita, relleno azul claro, centrados y bordes en toda la tabla.",
+      "Fórmulas =MAX(B2:B11) en B13 y =MIN(B2:B11) en B14 funcionando sin errores.",
+      "Fórmula condicional =CONTAR.SI(C2:C11; \"Avanzado\") en C13 y =CONTAR(B2:B11) en D13.",
+      "Archivo guardado con extensión .xlsx respetando la nomenclatura indicada."
+    ]
+  },
+  quiz: [
+    {
+      pregunta: "¿Cuál es la función principal de una variable de entrada en un algoritmo o programa?",
+      opciones: [
+        "Decorar el diagrama de flujo con figuras geométricas",
+        "Guardar en memoria un dato entregado por el usuario para procesarlo",
+        "Repetir una instrucción infinitas veces sin detenerse",
+        "Apagar el computador automáticamente al terminar la tarea"
+      ],
+      correcta: 1,
+      explicacion: "Una variable de entrada almacena información externa que el programa necesita para realizar cálculos o tomar decisiones."
+    },
+    {
+      pregunta: "En un diagrama de flujo, ¿qué figura geométrica se utiliza para representar una condición o pregunta lógica?",
+      opciones: [
+        "Un óvalo",
+        "Un rectángulo",
+        "Un rombo",
+        "Un círculo pequeño"
+      ],
+      correcta: 2,
+      explicacion: "El rombo representa decisiones lógicas con dos posibles caminos de salida: Verdadero (Sí) o Falso (No)."
+    },
+    {
+      pregunta: "¿Qué diferencia visual permite reconocer un bucle dentro de un diagrama de flujo?",
+      opciones: [
+        "Tiene una flecha que regresa hacia arriba para repetir una acción",
+        "No utiliza flechas de conexión entre sus figuras",
+        "Termina inmediatamente después de leer la primera variable",
+        "Usa únicamente óvalos en todos los pasos del proceso"
+      ],
+      correcta: 0,
+      explicacion: "La flecha de retorno indica que el flujo vuelve a evaluar la condición para repetir el bloque de instrucciones."
+    },
+    {
+      pregunta: "En la actividad de Excel del Torneo de Robótica, ¿para qué sirve la fórmula =CONTAR.SI(C2:C11; \"Avanzado\")?",
+      opciones: [
+        "Para sumar todos los puntos obtenidos por los equipos",
+        "Para ordenar alfabéticamente los nombres de los robots",
+        "Para contar únicamente cuántas celdas cumplen la condición de decir Avanzado",
+        "Para calcular el promedio de tiempo en segundos"
+      ],
+      correcta: 2,
+      explicacion: "CONTAR.SI evalúa una condición sobre un rango de celdas y cuenta solo aquellas que coinciden con el criterio indicado."
+    },
+    {
+      pregunta: "Si en Excel aparece el error #¿NOMBRE? al escribir una fórmula condicional, ¿cuál es la causa más probable?",
+      opciones: [
+        "El archivo tiene demasiadas filas de datos",
+        "El nombre de la función está mal escrito o en otro idioma distinto al de Excel",
+        "Los encabezados no tienen color de relleno azul claro",
+        "La pantalla del computador tiene poco brillo"
+      ],
+      correcta: 1,
+      explicacion: "El error #¿NOMBRE? ocurre cuando Excel no reconoce el texto de la función, por ejemplo al escribir COUNTIF en lugar de CONTAR.SI."
+    },
+    {
+      pregunta: "En un videojuego donde el personaje pierde una vida al chocar y el juego termina cuando las vidas llegan a cero, ¿qué representa la cantidad de vidas?",
+      opciones: [
+        "Una variable que cambia durante la partida",
+        "Un archivo de formato TSV",
+        "El título del diagrama de flujo",
+        "Una celda sin bordes en Excel"
+      ],
+      correcta: 0,
+      explicacion: "La cantidad de vidas es una variable numérica cuyo valor disminuye cada vez que ocurre una colisión."
+    }
+  ],
+  tarea: {
+    titulo: "Análisis de condiciones y variables",
+    html: true,
+    instruccion: "<h4>Punto 1: Representación de fórmula condicional</h4><ul><li>Dibuja un recuadro grande que represente una celda de Excel.</li><li>Escribe dentro la fórmula exacta para contar cuántos equipos están en la categoría <b>Avanzado</b> dentro del rango <b>C2:C11</b> (recuerda usar el separador <b>;</b> y comillas dobles).</li></ul><h4>Punto 2: Interpretación de variables numéricas</h4><ul><li>Explica con tus propias palabras: ¿para qué sirve la función <b>=MIN()</b> cuando analizamos una columna de <b>Tiempo_Final_seg</b> en una competencia de robótica?</li></ul>",
+    renglones: 0,
+    indicacion: "Desarrolla esta tarea en una hoja suelta usando lápiz, con presentación limpia, nombre completo, grado y fecha.",
+    criterios: [
+      "Fórmula =CONTAR.SI escrita correctamente con rango C2:C11, separador punto y coma y comillas.",
+      "Explicación clara y coherente sobre cómo el valor mínimo en segundos identifica al robot más rápido.",
+      "Presentación ordenada en hoja suelta con nombre completo, grado 8° y fecha."
+    ],
+    entrega: "Próxima clase, en hoja suelta marcada."
+  },
+  hoja: {
+    preguntas: [
+      { id: "r1", texto: "1. Explica con un ejemplo de tu vida diaria en Buga cómo funciona una condición (Si / Si no).", lineas: 3 },
+      { id: "r2", texto: "2. ¿Por qué un bucle necesita obligatoriamente una condición de parada o límite?", lineas: 3 },
+      { id: "r3", texto: "3. En el reto de Excel, ¿por qué los datos de Puntos_Obtenidos y Tiempo_Final_seg debían escribirse solo como números enteros sin letras?", lineas: 3 },
+      { id: "r4", texto: "4. En una carrera de velocidad o robótica, ¿quién gana el primer lugar: el equipo con el =MAX() o con el =MIN() en la columna Tiempo_Final_seg? Justifica tu respuesta.", lineas: 3 },
+      { id: "r5", texto: "5. ¿Qué aprendí hoy sobre la relación entre los diagramas de flujo del cuaderno y las fórmulas de Excel?", lineas: 3 }
+    ]
+  },
+  notasDocente: [
+    "Enfatizar durante la explicación en el tablero la diferencia visual entre la flecha de decisión (baja) y la flecha de bucle (sube), ya que es la base para la próxima clase en Scratch.",
+    "Recordar a los estudiantes verificar la configuración regional de Excel en la sala de sistemas para asegurar el uso de punto y coma (;) dentro de CONTAR.SI.",
+    "Al revisar el ejercicio con IA, insistir en que lean el resultado TSV antes de pegarlo para comprobar que no incluya comillas ni texto adicional."
+  ]
+};
+</script>
+<script src="../../motor-bernal-v5.js"></script>
+</body>
+</html>
